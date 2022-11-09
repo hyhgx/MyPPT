@@ -110,12 +110,15 @@ public class MyFrame extends JFrame {
         //设置中间
         Panel centerPanel = new Panel();
         //设置右侧
-        Panel rightPanel = new Panel();
+        RightPanel rightPanel1 = new RightPanel("文字");
+        Panel rightPanel = rightPanel1.returnPanel();
+
 
         panel.add(centerPanel,BorderLayout.CENTER);
         panel.add(rightPanel,BorderLayout.EAST);
         panel.add(jScrollPane,BorderLayout.WEST);
         panel.add(jToolBar, BorderLayout.NORTH);
+        //rightPanel.setSize(100,800);
         this.add(panel);
         this.setVisible(true);
     }
