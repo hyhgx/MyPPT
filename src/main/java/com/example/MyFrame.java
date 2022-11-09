@@ -1,11 +1,9 @@
-package org.example;
+package com.example;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MyFrame extends JFrame {
     private static final int DEFAULT_WIDTH=1200;
@@ -52,7 +50,7 @@ public class MyFrame extends JFrame {
         JButton button4 = new JButton("椭圆");
         JButton button5 = new JButton("直线");
 
-        JToolBar jToolBar = new JToolBar();
+        final JToolBar jToolBar = new JToolBar();
         jToolBar.setFloatable(false);
         jToolBar.add(button);
         jToolBar.add(button1);

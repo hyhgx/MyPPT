@@ -1,7 +1,4 @@
-package org.example;
-
-import javax.swing.*;
-import java.awt.*;
+package com.example;
 
 public class MyWindow {
 
