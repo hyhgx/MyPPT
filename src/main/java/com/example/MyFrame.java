@@ -52,7 +52,7 @@ public class MyFrame extends JFrame {
         JButton button4 = new JButton("椭圆");
         JButton button5 = new JButton("直线");
 
-        JToolBar jToolBar = new JToolBar();
+        final JToolBar jToolBar = new JToolBar();
         jToolBar.setFloatable(false);
         jToolBar.add(button);
         jToolBar.add(button1);
@@ -96,7 +96,7 @@ public class MyFrame extends JFrame {
 
 
         //设置左侧列表
-        for(int i=0;i<100;++i){
+        for(int i=0;i<3;++i){
             model.addElement(String.valueOf(i));
         }
         JList<String> jlist=new JList<>(model);
