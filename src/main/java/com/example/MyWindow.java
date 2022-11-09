@@ -1,7 +1,6 @@
-package org.example;
+package com.example;
 
-import javax.swing.*;
-import java.awt.*;
+import com.example.MyFrame;
 
 public class MyWindow {
     public static void main(String[] args) {
