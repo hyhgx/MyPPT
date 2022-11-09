@@ -16,8 +16,13 @@ public class MyJList extends JList<String> {
     private int pageCount = 3;
     private int currentPage = 0;//从0开始
     private List<BufferedImage> images = new ArrayList<>();
+    private CanvasPanels panels = null;
 
-    public MyJList() {
+    private final MyFrame frame;
+
+    public MyJList(CanvasPanels p, MyFrame f) {
+        this.setPanels(p);
+        this.frame = f;
         init();
     }
 
@@ -32,6 +37,7 @@ public class MyJList extends JList<String> {
             graphics.drawRect(0, 0, 200, 200);
             graphics.drawLine(0, 0, 200, 200);
             images.add(bufferedImage);
+            panels.addPanel();
         }
         this.setModel(model);
 
@@ -80,11 +86,11 @@ public class MyJList extends JList<String> {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 3) {//右键
-
                     MyJList.this.setSelectedIndex(MyJList.this.locationToIndex(e.getPoint()));//设置右键也能选中元素
                     jPopupMenu.show(MyJList.this, e.getX(), e.getY());
                 } else if (e.getButton() == 1) {//左键
                     currentPage = MyJList.this.getSelectedIndex();
+                    MyJList.this.frame.changeCenterPanel();
                 }
             }
         });
@@ -103,17 +109,27 @@ public class MyJList extends JList<String> {
         });
     }
 
-    private void addPage(){
+    private void addPage() {
         model.addElement(String.valueOf(++pageCount));
         images.add(new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB));
+        panels.addPanel();
     }
 
-    private void deletePage(int selectedIndex){
+    private void deletePage(int selectedIndex) {
         for (int i = selectedIndex + 1; i < model.size(); ++i) {
             model.setElementAt(String.valueOf(i), i);//重新设置编号
         }
         model.remove(selectedIndex);
         images.remove(selectedIndex);
+        panels.deletePanel(selectedIndex);
         pageCount--;
+    }
+
+    public void setPanels(CanvasPanels p) {
+        panels = p;
+    }
+
+    public CanvasPanel getCurrentPanel() {
+        return panels.getPanel(currentPage);
     }
 }

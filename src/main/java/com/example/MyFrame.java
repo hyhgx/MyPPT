@@ -4,13 +4,17 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class MyFrame extends JFrame {
 
     private Boolean toolBarVisible = false;
 
-    private MyJList jlist=new MyJList();
+    private CanvasPanels panels=new CanvasPanels();
+    private MyJList jlist=new MyJList(panels,this);
+
+    private CanvasPanel centerPanel = jlist.getCurrentPanel();
+
+
     public MyFrame() {
         init();
     }
@@ -108,8 +112,7 @@ public class MyFrame extends JFrame {
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        //设置中间
-        Panel centerPanel = new Panel();
+
         //设置右侧
         Panel rightPanel = new Panel();
 
@@ -122,4 +125,10 @@ public class MyFrame extends JFrame {
         this.setVisible(true);
 
     }
+
+    public void changeCenterPanel(){
+        centerPanel=jlist.getCurrentPanel();
+        centerPanel.repaint();
+    }
+
 }
