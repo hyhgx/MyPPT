@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class RightPanel {
     private String panelType;
@@ -48,6 +50,7 @@ public class RightPanel {
         lineType.setBounds(100,160,50,20);
         String[] listLine = new String[]{"实线","虚线"};
         JComboBox<String> line= new JComboBox<>(listLine);
+        line.setEditable(true);
         line.setBounds(180,160,50,20);
         line.setSelectedIndex(0);
         rightPanel.add(lineType);
@@ -58,6 +61,7 @@ public class RightPanel {
         lineType.setBounds(100,200,50,20);
         String[] listLine = new String[]{"粗线","细线"};
         JComboBox<String> line= new JComboBox<>(listLine);
+        line.setEditable(true);
         line.setBounds(180,200,50,20);
         line.setSelectedIndex(0);
         rightPanel.add(lineType);
@@ -67,7 +71,17 @@ public class RightPanel {
         JLabel fontType = new JLabel("字体类型");
         fontType.setBounds(100,120,50,20);
         String[] listType = new String[]{"宋体","黑体"};
-        JComboBox<String> font= new JComboBox<>(listType);
+        final JComboBox<String> font= new JComboBox<>(listType);
+        font.setEditable(true);
+        font.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    int index=font.getSelectedIndex();
+                    Object selectedItem = font.getSelectedItem();
+                }
+            }
+        });
         font.setBounds(180,120,50,20);
         font.setSelectedIndex(0);
         rightPanel.add(fontType);
@@ -78,6 +92,7 @@ public class RightPanel {
         fontSize.setBounds(100,160,50,20);
         String[] listFont = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12"};
         JComboBox<String> font= new JComboBox<>(listFont);
+        font.setEditable(true);
         font.setBounds(180,160,50,20);
         font.setSelectedIndex(5);
         rightPanel.add(fontSize);
