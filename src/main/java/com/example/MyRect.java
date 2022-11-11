@@ -2,8 +2,6 @@ package com.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -28,16 +26,6 @@ public class MyRect extends JComponent {
         this.setLayout(null);
         this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.out.println("点击");
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                System.out.println("释放");
-            }
-            @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 MyRect.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
@@ -58,19 +46,19 @@ public class MyRect extends JComponent {
                 minY+=e.getY()-initY;
                 maxX+=e.getX()-initX;
                 maxY+=e.getY()-initY;
-                MyRect.this.setBounds(minX,minY,maxX-minX+10,maxY-minY+10);
+                MyRect.this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
                 MyRect.this.repaint();
             }
         });
     }
-    public void setX2Y2(int x,int y){
+    private void setX2Y2(int x,int y){
         this.x2=x;
         this.y2=y;
         minX=Math.min(x1,x2);
         minY=Math.min(y1,y2);
         maxX=Math.max(x1,x2);
         maxY=Math.max(y1,y2);
-        this.setBounds(minX,minY,Math.abs(x2-x1)+10,Math.abs(y2-y1)+10);
+        this.setBounds(minX-5,minY-5,Math.abs(x2-x1)+10,Math.abs(y2-y1)+10);
         this.repaint();
     }
 
@@ -82,9 +70,7 @@ public class MyRect extends JComponent {
     }
     public void getFocus(){
         if(myPoints.size()==0){
-            System.out.println("ll");
             MyPoint lT = new MyPoint(5, 5);
-
             lT.setType(MyPoint.Type.leftTop);
             MyPoint T = new MyPoint(5 + (maxX - minX) / 2, 5);
             T.setType(MyPoint.Type.top);
@@ -116,20 +102,89 @@ public class MyRect extends JComponent {
             this.add(b);
             this.add(lB);
             this.add(l);
+            //绑定点的移动事件
+            for(int i=0;i<myPoints.size();++i){
+                myPoints.get(i).addMyPointActionlistener(new MyPoint.MyPointActionlistener() {
+                    @Override
+                    public void myPointChangedPosition(MyPoint.Type t, int dx, int dy) {
+                        switch (t){
+                            case top:{
+                                changeMaxMin(0,dy,0,0);
+                                break;
+                            }
+                            case bottom:{
+                                changeMaxMin(0,0,0,dy);
+                                break;
+                            }
+                            case left:{
+                                changeMaxMin(dx,0,0,0);
+                                break;
+                            }
+                            case right:{
+                                changeMaxMin(0,0,dx,0);
+                                break;
+                            }
+                            case leftTop:{
+                                changeMaxMin(dx,dy,0,0);
+                                break;
+                            }
+                            case rightTop:{
+                                changeMaxMin(0,dy,dx,0);
+                                break;
+                            }
+                            case rightBottom:{
+                                changeMaxMin(0,0,dx,dy);
+                                break;
+                            }
+                            case leftBottom:{
+                                changeMaxMin(dx,0,0,dy);
+                                break;
+                            }
+                        }
+                        setPoints();
+                        repaint();
+                    }
+                });
+            }
+
+
+
+
         }
         repaint();
     }
-    public void setPoints(){
-        myPoints.get(0).setXY(5,5);
-        myPoints.get(1).setXY(5 + (maxX - minX) / 2, 5);
-        myPoints.get(2).setXY(5 + (maxX - minX), 5);
-        myPoints.get(3).setXY(5, 5+(maxY-minY)/2);
-        myPoints.get(4).setXY(5, 5+(maxY-minY));
-        myPoints.get(5).setXY(5+ (maxX - minX) / 2, 5+(maxY-minY));
-        myPoints.get(6).setXY(5+ (maxX - minX) ,5+(maxY-minY));
-        myPoints.get(7).setXY(5+ (maxX - minX),5+(maxY-minY)/2);
-        repaint();
+    private void setPoints(){
+        myPoints.get(0).setPoint(5,5,MyPoint.Type.leftTop);
+        myPoints.get(1).setPoint(5 + (maxX - minX) / 2, 5,MyPoint.Type.top);
+        myPoints.get(2).setPoint(5 + (maxX - minX), 5,MyPoint.Type.rightTop);
+        myPoints.get(3).setPoint(5+(maxX - minX),5+(maxY-minY)/2,MyPoint.Type.right);
+        myPoints.get(4).setPoint(5+(maxX - minX),5+(maxY-minY),MyPoint.Type.rightBottom);
+        myPoints.get(5).setPoint(5+(maxX - minX)/2,5+(maxY-minY), MyPoint.Type.bottom);
+        myPoints.get(6).setPoint(5,5+(maxY-minY), MyPoint.Type.leftBottom);
+        myPoints.get(7).setPoint(5,5+(maxY-minY)/2, MyPoint.Type.left);
     }
+
+
+    private void changeMaxMin(int dMinX,int dMinY,int dMaxX,int dMaxY){
+        minX+=dMinX;
+        minY+=dMinY;
+        maxX+=dMaxX;
+        maxY+=dMaxY;
+        updateMinMax();
+        this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
+    }
+
+    private void updateMinMax(){
+        int t1=minX;
+        int t2=maxX;
+        int t3=minY;
+        int t4=maxY;
+        minX=Math.min(t1,t2);
+        maxX=Math.max(t1,t2);
+        minY=Math.min(t3,t4);
+        maxY=Math.max(t3,t4);
+    }
+
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);
@@ -142,7 +197,6 @@ public class MyRect extends JComponent {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                System.out.println(000);
                 MyRect myRect= new MyRect(e.getX(),e.getY());
                 panel.add(myRect);
             }
@@ -159,7 +213,6 @@ public class MyRect extends JComponent {
                 myRect.setX2Y2(e.getX(),e.getY());
             }
         });
-
 
         jFrame.add(panel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

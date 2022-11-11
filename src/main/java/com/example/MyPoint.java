@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 public class MyPoint extends JComponent{
     private int x;
     private int y;
-    private static int r=5;
+    private static final int r=5;
     public enum Type{
         left,right,top,bottom,leftTop,rightTop,leftBottom,rightBottom,normal
     };
@@ -75,7 +75,7 @@ public class MyPoint extends JComponent{
                 MyPoint.this.setBounds(MyPoint.this.x,MyPoint.this.y,2*r,2*r);
                 MyPoint.this.repaint();
                 if(myPointActionlistener!=null){
-                    myPointActionlistener.myPointChangedPosition();
+                    myPointActionlistener.myPointChangedPosition(MyPoint.this.type,e.getX(),e.getY());
                 }
             }
         });
@@ -87,6 +87,12 @@ public class MyPoint extends JComponent{
     public void setXY(int x, int y){
         this.x=x;
         this.y=y;
+        this.setBounds(this.x-r,this.y-r,2*r,2*r);
+    }
+
+    public void setPoint(int x,int y,MyPoint.Type t){
+        setXY(x,y);
+        setType(t);
     }
 
     @Override
@@ -98,10 +104,10 @@ public class MyPoint extends JComponent{
     MyPointActionlistener myPointActionlistener=null;
 
     public interface MyPointActionlistener {
-        void myPointChangedPosition();
+        void myPointChangedPosition(MyPoint.Type t,int dx,int dy);//种类,x变的值,y变的值
     }
 
-    public void setMyPointActionlistener(MyPointActionlistener m){
+    public void addMyPointActionlistener(MyPointActionlistener m){
         this.myPointActionlistener=m;
 
     }
