@@ -74,6 +74,9 @@ public class MyPoint extends JComponent{
                 }
                 MyPoint.this.setBounds(MyPoint.this.x,MyPoint.this.y,2*r,2*r);
                 MyPoint.this.repaint();
+                if(myPointActionlistener!=null){
+                    myPointActionlistener.myPointChangedPosition();
+                }
             }
         });
     }
@@ -81,13 +84,26 @@ public class MyPoint extends JComponent{
     public void setType(MyPoint.Type t){
         this.type=t;
     }
-
+    public void setXY(int x, int y){
+        this.x=x;
+        this.y=y;
+    }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
         g.setColor(new Color(255,1,255));
         g.fillOval(0,0,2*r,2*r);//相对于整个组件
+    }
+    MyPointActionlistener myPointActionlistener=null;
+
+    public interface MyPointActionlistener {
+        void myPointChangedPosition();
+    }
+
+    public void setMyPointActionlistener(MyPointActionlistener m){
+        this.myPointActionlistener=m;
+
     }
 
     public static void main(String[] args) {
