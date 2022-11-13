@@ -27,4 +27,9 @@ public class MyComponent extends JComponent {
             }
         }
     }
+
+    public void getFocus(){
+
+    }
+    protected void updatePoints(){}
 }

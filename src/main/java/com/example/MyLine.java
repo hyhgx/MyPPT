@@ -14,7 +14,7 @@ public class MyLine extends MyComponent1D{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(new Color(200,200,200));
-        g.drawLine(x1-(Math.min(x1,x2)-5),y1-(Math.min(y1,y2)-5),x2-(Math.min(x1,x2)-5),y2-(Math.min(y1,y2)-5));
+        g.drawLine(getX1RelativePosition(),getY1RelativePosition(),getX2RelativePosition(),getY2RelativePosition());
     }
 
     public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class MyLine extends MyComponent1D{
                 super.mousePressed(e);
                 MyLine myLine=new MyLine(e.getX(),e.getY());
                 panel.add(myLine);
-               // panel.focusChanged();
+                panel.focusChanged();
             }
         });
         panel.addMouseMotionListener(new MouseAdapter() {

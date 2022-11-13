@@ -43,6 +43,7 @@ public class MyComponent2D extends MyComponent {
         });
     }
 
+    @Override
     protected void setX2Y2(int x,int y){
         this.x2=x;
         this.y2=y;
@@ -53,6 +54,7 @@ public class MyComponent2D extends MyComponent {
         this.setBounds(minX-5,minY-5,Math.abs(x2-x1)+10,Math.abs(y2-y1)+10);
         this.repaint();
     }
+    @Override
     public void getFocus(){
         CanvasPanel parent = (CanvasPanel)this.getParent();
         parent.focusChanged();
@@ -128,7 +130,7 @@ public class MyComponent2D extends MyComponent {
                                 break;
                             }
                         }
-                        setPoints();
+                        updatePoints();
                         repaint();
                     }
                 });
@@ -140,7 +142,8 @@ public class MyComponent2D extends MyComponent {
         }
         repaint();
     }
-    protected void setPoints(){
+    @Override
+    protected void updatePoints(){
         myPoints.get(0).setPoint(5,5,MyPoint.Type.leftTop);
         myPoints.get(1).setPoint(5 + (maxX - minX) / 2, 5,MyPoint.Type.top);
         myPoints.get(2).setPoint(5 + (maxX - minX), 5,MyPoint.Type.rightTop);
