@@ -1,23 +1,14 @@
 package com.example;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-public class MyComponent2D extends JComponent {
-    protected int x1;
-    protected int x2;
-    protected int y1;
-    protected int y2;
+public class MyComponent2D extends MyComponent {
     protected int minX;
     protected int minY;
     protected int maxX;
     protected int maxY;
-    protected int initX;
-    protected int initY;
-    protected ArrayList<MyPoint> myPoints=new ArrayList<>();
     public MyComponent2D(int x,int y){
         this.x1=x;
         this.x2=x;
@@ -51,6 +42,8 @@ public class MyComponent2D extends JComponent {
             }
         });
     }
+
+    @Override
     protected void setX2Y2(int x,int y){
         this.x2=x;
         this.y2=y;
@@ -61,11 +54,7 @@ public class MyComponent2D extends JComponent {
         this.setBounds(minX-5,minY-5,Math.abs(x2-x1)+10,Math.abs(y2-y1)+10);
         this.repaint();
     }
-
     @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-    }
     public void getFocus(){
         CanvasPanel parent = (CanvasPanel)this.getParent();
         parent.focusChanged();
@@ -103,45 +92,45 @@ public class MyComponent2D extends JComponent {
             this.add(lB);
             this.add(l);
             //绑定点的移动事件
-            for(int i=0;i<myPoints.size();++i){
-                myPoints.get(i).addMyPointActionlistener(new MyPoint.MyPointActionlistener() {
+            for (MyPoint myPoint : myPoints) {
+                myPoint.addMyPointActionlistener(new MyPoint.MyPointActionlistener() {
                     @Override
                     public void myPointChangedPosition(MyPoint.Type t, int dx, int dy) {
-                        switch (t){
-                            case top:{
-                                changeMaxMin(0,dy,0,0);
+                        switch (t) {
+                            case top: {
+                                changeMaxMin(0, dy, 0, 0);
                                 break;
                             }
-                            case bottom:{
-                                changeMaxMin(0,0,0,dy);
+                            case bottom: {
+                                changeMaxMin(0, 0, 0, dy);
                                 break;
                             }
-                            case left:{
-                                changeMaxMin(dx,0,0,0);
+                            case left: {
+                                changeMaxMin(dx, 0, 0, 0);
                                 break;
                             }
-                            case right:{
-                                changeMaxMin(0,0,dx,0);
+                            case right: {
+                                changeMaxMin(0, 0, dx, 0);
                                 break;
                             }
-                            case leftTop:{
-                                changeMaxMin(dx,dy,0,0);
+                            case leftTop: {
+                                changeMaxMin(dx, dy, 0, 0);
                                 break;
                             }
-                            case rightTop:{
-                                changeMaxMin(0,dy,dx,0);
+                            case rightTop: {
+                                changeMaxMin(0, dy, dx, 0);
                                 break;
                             }
-                            case rightBottom:{
-                                changeMaxMin(0,0,dx,dy);
+                            case rightBottom: {
+                                changeMaxMin(0, 0, dx, dy);
                                 break;
                             }
-                            case leftBottom:{
-                                changeMaxMin(dx,0,0,dy);
+                            case leftBottom: {
+                                changeMaxMin(dx, 0, 0, dy);
                                 break;
                             }
                         }
-                        setPoints();
+                        updatePoints();
                         repaint();
                     }
                 });
@@ -153,16 +142,8 @@ public class MyComponent2D extends JComponent {
         }
         repaint();
     }
-
-    protected void lostFocus(){
-        if(myPoints.size()!=0){
-            for(MyPoint p:myPoints){
-                p.setVisible(false);
-            }
-
-        }
-    }
-    protected void setPoints(){
+    @Override
+    protected void updatePoints(){
         myPoints.get(0).setPoint(5,5,MyPoint.Type.leftTop);
         myPoints.get(1).setPoint(5 + (maxX - minX) / 2, 5,MyPoint.Type.top);
         myPoints.get(2).setPoint(5 + (maxX - minX), 5,MyPoint.Type.rightTop);
@@ -172,6 +153,7 @@ public class MyComponent2D extends JComponent {
         myPoints.get(6).setPoint(5,5+(maxY-minY), MyPoint.Type.leftBottom);
         myPoints.get(7).setPoint(5,5+(maxY-minY)/2, MyPoint.Type.left);
     }
+
     protected void changeMaxMin(int dMinX,int dMinY,int dMaxX,int dMaxY){
         minX+=dMinX;
         minY+=dMinY;
@@ -190,4 +172,5 @@ public class MyComponent2D extends JComponent {
         minY=Math.min(t3,t4);
         maxY=Math.max(t3,t4);
     }
+
 }
