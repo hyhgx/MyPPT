@@ -5,16 +5,19 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MyRect extends MyComponent2D {
-    public MyRect(int x,int y){
+public class MyArrowHead extends MyComponent2D{
+    public MyArrowHead(int x,int y){
         super(x,y);
-        this.setName("直角矩形");
+        this.setName("箭头");
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(new Color(200,200,200));//后期进行设置
-        g.drawRect(5,5,maxX-minX,maxY-minY);
+        g.drawRect(5,5+(maxY-minY)/4,(maxX-minX)/2,(maxY-minY)/2);
+        int [] xpoint={5+(maxX-minX)/2,5+(maxX-minX)/2,5+(maxX-minX)};
+        int [] ypoint={5,5+(maxY-minY),5+(maxY-minY)/2};
+        g.drawPolygon(xpoint,ypoint,3);
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
@@ -28,8 +31,8 @@ public class MyRect extends MyComponent2D {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                MyRect myRect= new MyRect(e.getX(),e.getY());
-                panel.add(myRect);
+                MyArrowHead myArrowHead= new MyArrowHead(e.getX(),e.getY());
+                panel.add(myArrowHead);
                 panel.focusChanged();
             }
         });
@@ -41,8 +44,8 @@ public class MyRect extends MyComponent2D {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                MyRect myRect = (MyRect)panel.getComponent(panel.getComponentCount() - 1);
-                myRect.setX2Y2(e.getX(),e.getY());
+                MyArrowHead myArrowHead = (MyArrowHead) panel.getComponent(panel.getComponentCount() - 1);
+                myArrowHead.setX2Y2(e.getX(),e.getY());
             }
         });
         jFrame.add(panel);

@@ -155,9 +155,7 @@ public class MyComponent2D extends JComponent {
     }
 
     protected void lostFocus(){
-        System.out.println(3);
         if(myPoints.size()!=0){
-            System.out.println(0);
             for(MyPoint p:myPoints){
                 p.setVisible(false);
             }
