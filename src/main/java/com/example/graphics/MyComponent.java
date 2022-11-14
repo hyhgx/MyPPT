@@ -1,4 +1,6 @@
-package com.example;
+package com.example.graphics;
+
+import com.example.graphics.MyPoint;
 
 import javax.swing.*;
 import java.awt.*;

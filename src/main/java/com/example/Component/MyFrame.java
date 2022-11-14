@@ -1,4 +1,6 @@
-package com.example;
+package com.example.Component;
+
+import com.example.graphics.CanvasPanels;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -12,7 +14,7 @@ public class MyFrame extends JFrame {
     private CanvasPanels panels=new CanvasPanels();
     private MyJList jlist=new MyJList(panels,this);
 
-    private CanvasPanel centerPanel = jlist.getCurrentPanel();
+    private CanvasPanels.CanvasPanel centerPanel = jlist.getCurrentPanel();
 
 
     public MyFrame() {

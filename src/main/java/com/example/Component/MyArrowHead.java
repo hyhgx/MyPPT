@@ -1,28 +1,32 @@
-package com.example;
+package com.example.Component;
+
+import com.example.graphics.CanvasPanels;
+import com.example.graphics.MyComponent2D;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MyCircle extends MyComponent2D{
-    public MyCircle(int x,int y){
+public class MyArrowHead extends MyComponent2D {
+    public MyArrowHead(int x,int y){
         super(x,y);
-        this.setName("圆");
+        this.setName("箭头");
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(122,234,123));//需要进行设置
-        g.drawOval(5,5,maxX-minX,maxY-minY);
+        g.setColor(new Color(200,200,200));//后期进行设置
+        g.drawRect(5,5+(maxY-minY)/4,(maxX-minX)/2,(maxY-minY)/2);
+        int [] xpoint={5+(maxX-minX)/2,5+(maxX-minX)/2,5+(maxX-minX)};
+        int [] ypoint={5,5+(maxY-minY),5+(maxY-minY)/2};
+        g.drawPolygon(xpoint,ypoint,3);
     }
-
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);
         jFrame.setBounds(0,0,1000,800);
-        final CanvasPanel panel = new CanvasPanel();
+        final CanvasPanels.CanvasPanel panel = new CanvasPanels.CanvasPanel();
         panel.setLayout(null);
         panel.setBounds(0,0,1000,700);
         panel.setBackground(new Color(123,123,123));
@@ -30,8 +34,8 @@ public class MyCircle extends MyComponent2D{
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                MyCircle myCircle= new MyCircle(e.getX(),e.getY());
-                panel.add(myCircle);
+                MyArrowHead myArrowHead= new MyArrowHead(e.getX(),e.getY());
+                panel.add(myArrowHead);
                 panel.focusChanged();
             }
         });
@@ -43,8 +47,8 @@ public class MyCircle extends MyComponent2D{
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                MyCircle myCircle = (MyCircle)panel.getComponent(panel.getComponentCount() - 1);
-                myCircle.setX2Y2(e.getX(),e.getY());
+                MyArrowHead myArrowHead = (MyArrowHead) panel.getComponent(panel.getComponentCount() - 1);
+                myArrowHead.setX2Y2(e.getX(),e.getY());
             }
         });
         jFrame.add(panel);

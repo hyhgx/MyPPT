@@ -1,4 +1,6 @@
-package com.example;
+package com.example.Component;
+
+import com.example.graphics.CanvasPanels;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -129,7 +131,7 @@ public class MyJList extends JList<String> {
         panels = p;
     }
 
-    public CanvasPanel getCurrentPanel() {
+    public CanvasPanels.CanvasPanel getCurrentPanel() {
         return panels.getPanel(currentPage);
     }
 }

@@ -1,9 +1,6 @@
-package com.example;
+package com.example.graphics;
 
 import javax.swing.*;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -91,7 +88,7 @@ public class MyText extends MyComponent2D {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);
         jFrame.setBounds(0,0,1000,800);
-        final CanvasPanel panel = new CanvasPanel();
+        final CanvasPanels.CanvasPanel panel = new CanvasPanels.CanvasPanel();
         panel.setLayout(null);
         panel.setBounds(0,0,1000,700);
         panel.setBackground(new Color(123,123,123));
