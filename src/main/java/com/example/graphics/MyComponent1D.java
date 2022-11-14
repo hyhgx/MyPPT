@@ -1,5 +1,8 @@
 package com.example.graphics;
 
+import com.example.Component.CanvasPanel;
+import com.example.Component.CanvasPanels;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -66,7 +69,7 @@ public class MyComponent1D extends MyComponent {
 
     @Override
     public void getFocus() {
-        CanvasPanels.CanvasPanel parent = (CanvasPanels.CanvasPanel) this.getParent();
+        CanvasPanel parent = (CanvasPanel) this.getParent();
         parent.focusChanged();
         if (myPoints.size() == 0) {
             MyPoint p1 = new MyPoint(getX1RelativePosition(), getY1RelativePosition());

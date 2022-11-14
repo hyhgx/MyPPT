@@ -1,7 +1,5 @@
 package com.example.Component;
 
-import com.example.graphics.CanvasPanels;
-
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -11,10 +9,10 @@ public class MyFrame extends JFrame {
 
     private Boolean toolBarVisible = false;
 
-    private CanvasPanels panels=new CanvasPanels();
-    private MyJList jlist=new MyJList(panels,this);
+    private final CanvasPanels panels=new CanvasPanels();
+    private final MyJList jlist=new MyJList(panels,this);
 
-    private CanvasPanels.CanvasPanel centerPanel = jlist.getCurrentPanel();
+    private CanvasPanel centerPanel = jlist.getCurrentPanel();
 
 
     public MyFrame() {

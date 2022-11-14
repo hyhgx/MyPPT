@@ -1,7 +1,5 @@
 package com.example.Component;
 
-import com.example.graphics.CanvasPanels;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyJList extends JList<String> {
-    private DefaultListModel<String> model = new DefaultListModel<>();//左侧列表的内容
+    private final DefaultListModel<String> model = new DefaultListModel<>();//左侧列表的内容
     private int pageCount = 3;
     private int currentPage = 0;//从0开始
     private List<BufferedImage> images = new ArrayList<>();
@@ -131,7 +129,7 @@ public class MyJList extends JList<String> {
         panels = p;
     }
 
-    public CanvasPanels.CanvasPanel getCurrentPanel() {
+    public CanvasPanel getCurrentPanel() {
         return panels.getPanel(currentPage);
     }
 }

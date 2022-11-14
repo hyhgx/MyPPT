@@ -22,7 +22,7 @@ public class MyComponent extends JComponent {
     }
 
     protected void setX2Y2(int x,int y){}
-    protected void lostFocus(){
+    public void lostFocus(){
         if(myPoints.size()!=0){
             for(MyPoint p:myPoints){
                 p.setVisible(false);

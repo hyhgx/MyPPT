@@ -1,5 +1,8 @@
 package com.example.graphics;
 
+import com.example.Component.CanvasPanel;
+import com.example.Component.CanvasPanels;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -21,7 +24,7 @@ public class MyLine extends MyComponent1D {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);
         jFrame.setBounds(0,0,1000,800);
-        final CanvasPanels.CanvasPanel panel = new CanvasPanels.CanvasPanel();
+        final CanvasPanel panel = new CanvasPanel();
         panel.setLayout(null);
         panel.setBounds(0,0,1000,700);
         panel.setBackground(new Color(123,123,123));
