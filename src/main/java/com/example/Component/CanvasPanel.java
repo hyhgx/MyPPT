@@ -23,5 +23,9 @@ public  class CanvasPanel extends JPanel {
         this.setBounds(0,0,970,820);
         this.setBackground(new Color(255,255,255));
     }
+    public CanvasPanel(){
+        this.setBounds(0,0,970,820);
+        this.setBackground(new Color(255,255,255));
+    }
 
 }
