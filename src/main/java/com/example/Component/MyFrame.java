@@ -158,8 +158,6 @@ public class MyFrame extends JFrame {
         JScrollPane jScrollPane = new JScrollPane(jlist, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-
-
         //设置右侧
         RightPanel rightPanel1 = new RightPanel("文字");
         JPanel rightPanel = rightPanel1.returnPanel();
