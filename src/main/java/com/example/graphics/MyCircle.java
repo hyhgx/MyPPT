@@ -20,7 +20,6 @@ public class MyCircle extends MyComponent2D {
         g.setColor(new Color(122,234,123));//需要进行设置
         g.drawOval(5,5,maxX-minX,maxY-minY);
     }
-
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);

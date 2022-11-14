@@ -6,14 +6,10 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 
 public class MyFrame extends JFrame {
-
     private Boolean toolBarVisible = false;
-
+    public String type;
     private final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
-
-
-
     public MyFrame() {
         init();
     }
@@ -25,7 +21,6 @@ public class MyFrame extends JFrame {
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("MyPPT");
-
 
         //设置菜单栏
         JPanel panel = new JPanel(new BorderLayout());
@@ -50,7 +45,6 @@ public class MyFrame extends JFrame {
         jMenuBar.add(fileMenu);
         jMenuBar.add(toolMenu);
         this.setJMenuBar(jMenuBar);
-
 
         //设置工具栏
         JButton button = new JButton();//画笔

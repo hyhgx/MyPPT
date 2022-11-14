@@ -45,7 +45,7 @@ public class MyComponent1D extends MyComponent {
     }
 
     @Override
-    protected void setX2Y2(int x, int y) {
+    public void setX2Y2(int x, int y) {
         this.x2 = x;
         this.y2 = y;
         updateBounds();

@@ -93,9 +93,9 @@ public class RightPanel {
                     if(selectedItem.equals("加粗")){
                         s=1;
                     }
-                    RightPanel.this.component.setFont(new Font(RightPanel.this.component.getFont().getName(),
-                            s,
-                            RightPanel.this.component.getFont().getSize()));
+//                    RightPanel.this.component.setFont(new Font(RightPanel.this.component.getFont().getName(),
+//                            s,
+//                            RightPanel.this.component.getFont().getSize()));
                 }
             }
         });
@@ -116,9 +116,9 @@ public class RightPanel {
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     int index=myFont.getSelectedIndex();
                     String selectedItem = (String)myFont.getSelectedItem();
-                    RightPanel.this.component.setFont(new Font(selectedItem,
-                            RightPanel.this.component.getFont().getStyle(),
-                            RightPanel.this.component.getFont().getSize()));
+//                    RightPanel.this.component.setFont(new Font(selectedItem,
+//                            RightPanel.this.component.getFont().getStyle(),
+//                            RightPanel.this.component.getFont().getSize()));
                 }
             }
         });
@@ -140,9 +140,9 @@ public class RightPanel {
                     int index=myfont.getSelectedIndex();
                     Integer selectedItem = (Integer) myfont.getSelectedItem();
                     int item=selectedItem.intValue();
-                    RightPanel.this.component.setFont(new Font(RightPanel.this.component.getFont().getName(),
-                            RightPanel.this.component.getFont().getStyle(),
-                            item));
+//                    RightPanel.this.component.setFont(new Font(RightPanel.this.component.getFont().getName(),
+//                            RightPanel.this.component.getFont().getStyle(),
+//                            item));
                 }
             }
         });

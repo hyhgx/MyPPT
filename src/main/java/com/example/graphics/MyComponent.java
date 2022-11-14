@@ -21,7 +21,7 @@ public class MyComponent extends JComponent {
         super.paintComponent(g);
     }
 
-    protected void setX2Y2(int x,int y){}
+    public void setX2Y2(int x,int y){}
     public void lostFocus(){
         if(myPoints.size()!=0){
             for(MyPoint p:myPoints){

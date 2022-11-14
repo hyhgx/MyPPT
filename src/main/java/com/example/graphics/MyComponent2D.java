@@ -47,7 +47,7 @@ public class MyComponent2D extends MyComponent {
     }
 
     @Override
-    protected void setX2Y2(int x,int y){
+    public void setX2Y2(int x,int y){
         this.x2=x;
         this.y2=y;
         minX=Math.min(x1,x2);
