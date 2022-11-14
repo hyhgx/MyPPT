@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public  class CanvasPanel extends JPanel {
+
+    private MyFrame frame=null;
     public void focusChanged(){
         Component[] components = this.getComponents();
         for(Component i: components){
@@ -16,7 +18,8 @@ public  class CanvasPanel extends JPanel {
         }
     }
 
-    public CanvasPanel(){
+    public CanvasPanel(MyFrame frame){
+        this.frame=frame;
         this.setBounds(0,0,970,820);
         this.setBackground(new Color(255,255,255));
     }

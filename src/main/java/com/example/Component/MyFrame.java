@@ -9,7 +9,7 @@ public class MyFrame extends JFrame {
 
     private Boolean toolBarVisible = false;
 
-    private final CanvasPanels panels=new CanvasPanels();
+    private final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
 
 
