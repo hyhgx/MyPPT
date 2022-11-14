@@ -13,7 +13,6 @@ import java.util.List;
 
 public class MyJList extends JList<String> {
     private final DefaultListModel<String> model = new DefaultListModel<>();//左侧列表的内容
-    private int pageCount = 3;
     private int currentPage = 0;//从0开始
     private List<BufferedImage> images = new ArrayList<>();
     private CanvasPanels panels = null;
@@ -28,18 +27,18 @@ public class MyJList extends JList<String> {
 
     private void init() {
         //设置左侧PPT列表内容
-        for (int i = 1; i <= pageCount; ++i) {
-            model.addElement(String.valueOf(i));
-            //图片
-            final BufferedImage bufferedImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
-            Graphics graphics = bufferedImage.getGraphics();
-            graphics.setColor(new Color(239, 99, 12));
-            graphics.drawRect(0, 0, 200, 200);
-            graphics.drawLine(0, 0, 200, 200);
-            images.add(bufferedImage);
-            panels.addPanel();
-        }
+        model.addElement(String.valueOf(1));
+        //图片
+        final BufferedImage bufferedImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
+        Graphics graphics = bufferedImage.getGraphics();
+        graphics.setColor(new Color(239, 99, 12));
+        graphics.drawRect(0, 0, 200, 200);
+        graphics.drawLine(0, 0, 200, 200);
+        images.add(bufferedImage);
+        panels.addPanel();
+        panels.setCurrentPanel(0);
         this.setModel(model);
+
 
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -84,14 +83,23 @@ public class MyJList extends JList<String> {
         this.add(jPopupMenu);
         this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
+                int i = MyJList.this.locationToIndex(e.getPoint());
                 if (e.getButton() == 3) {//右键
-                    MyJList.this.setSelectedIndex(MyJList.this.locationToIndex(e.getPoint()));//设置右键也能选中元素
+                    if (i != currentPage) {
+                        MyJList.this.setSelectedIndex(i);//设置右键也能选中元素
+                        currentPage = i;
+                        panels.changeCurrentPanel(getCurrentPanel());
+                    }
                     jPopupMenu.show(MyJList.this, e.getX(), e.getY());
                 } else if (e.getButton() == 1) {//左键
-                    currentPage = MyJList.this.getSelectedIndex();
-                    MyJList.this.frame.changeCenterPanel();
+                    if (i != currentPage) {
+                        currentPage = i;
+                        panels.changeCurrentPanel(getCurrentPanel());
+                    }
+
                 }
+
             }
         });
         jMenuItemAddPage.addActionListener(new ActionListener() {
@@ -103,16 +111,42 @@ public class MyJList extends JList<String> {
         jMenuItemDeletePage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //当前一个也没有时直接返回
+                if(currentPage==-1){
+                    return;
+                }
                 int selectedIndex = MyJList.this.getSelectedIndex();
-                deletePage(selectedIndex);
+                if (currentPage == panels.getPanelsSize() - 1) {//删除最后一个时
+                    if(currentPage==0){//前面没有了
+                        panels.changeCurrentPanel(null);
+                        currentPage = -1;
+                        deletePage(selectedIndex);
+                    }else {//前面还有
+                        panels.changeCurrentPanel(panels.getPanel(currentPage--));
+                        deletePage(selectedIndex);
+                        MyJList.this.setSelectedIndex(currentPage);
+                    }
+                }else {//不是最后一个时
+                    panels.changeCurrentPanel(panels.getPanel(currentPage+1));
+                    deletePage(selectedIndex);
+                    MyJList.this.setSelectedIndex(currentPage);//currentPage不变
+                }
             }
         });
     }
 
     private void addPage() {
-        model.addElement(String.valueOf(++pageCount));
+        boolean isEmpty=panels.getPanelsSize()==0;//如果从零变成1,自动选中
+        if(isEmpty){
+            currentPage = 0;//要先把currentPage变成0,再添加model
+        }
         images.add(new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB));
         panels.addPanel();
+        model.addElement(String.valueOf(panels.getPanelsSize()));
+        if(isEmpty){//选中要在添加model后
+            this.setSelectedIndex(0);
+            panels.changeCurrentPanel(getCurrentPanel());
+        }
     }
 
     private void deletePage(int selectedIndex) {
@@ -122,7 +156,7 @@ public class MyJList extends JList<String> {
         model.remove(selectedIndex);
         images.remove(selectedIndex);
         panels.deletePanel(selectedIndex);
-        pageCount--;
+
     }
 
     public void setPanels(CanvasPanels p) {
