@@ -9,10 +9,9 @@ public class MyFrame extends JFrame {
 
     private Boolean toolBarVisible = false;
 
-    private final CanvasPanels panels=new CanvasPanels();
+    private final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
 
-    private CanvasPanel centerPanel = jlist.getCurrentPanel();
 
 
     public MyFrame() {
@@ -31,6 +30,7 @@ public class MyFrame extends JFrame {
         //设置菜单栏
         JPanel panel = new JPanel(new BorderLayout());
         JMenuBar jMenuBar = new JMenuBar();
+        jMenuBar.setBackground(new Color(255,255,255));
         JMenu fileMenu = new JMenu("文件");
         JMenu toolMenu = new JMenu("工具");
         JMenuItem jMenuItemSave = new JMenuItem("保存");
@@ -114,6 +114,7 @@ public class MyFrame extends JFrame {
         jToolBar.add(button3);
         jToolBar.add(button4);
         jToolBar.add(button5);
+        jToolBar.setBackground(new Color(255,255,255));
         jToolBar.setVisible(false);
 
 
@@ -163,7 +164,7 @@ public class MyFrame extends JFrame {
         JPanel rightPanel = rightPanel1.returnPanel();
 
         //设置布局
-        panel.add(centerPanel, BorderLayout.CENTER);
+        panel.add(panels, BorderLayout.CENTER);
         panel.add(rightPanel, BorderLayout.EAST);
         panel.add(jScrollPane, BorderLayout.WEST);
         panel.add(jToolBar, BorderLayout.NORTH);
@@ -172,9 +173,5 @@ public class MyFrame extends JFrame {
 
     }
 
-    public void changeCenterPanel(){
-        centerPanel=jlist.getCurrentPanel();
-        centerPanel.repaint();
-    }
 
 }
