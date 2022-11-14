@@ -32,6 +32,7 @@ public  class CanvasPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                System.out.println(CanvasPanel.this.frame.type);
                 if(CanvasPanel.this.frame.type.equals("文本框")){
                     MyText myText= new MyText(e.getX(),e.getY());
                     CanvasPanel.this.add(myText);
