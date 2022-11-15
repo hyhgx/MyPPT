@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
@@ -53,6 +55,8 @@ public class MyFrame extends JFrame {
         JButton button3 = new JButton();//橡皮檫
         JButton button4 = new JButton();//椭圆
         JButton button5 = new JButton();//直线
+        JButton button6 = new JButton();//圆角矩形
+        JButton button7 = new JButton();//箭头
 
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
@@ -60,6 +64,8 @@ public class MyFrame extends JFrame {
         button1.setBounds(60,0,20,20);
         button4.setBounds(60,20,20,20);
         button5.setBounds(80,0,20,20);
+        button6.setBounds(80,20,20,20);
+        button7.setBounds(100,0,40,40);
 
 
         String path="src/main/resources/images/huabi.png";
@@ -98,6 +104,18 @@ public class MyFrame extends JFrame {
         icon5=new ImageIcon(temp5);
         button5.setIcon(icon5);
 
+        String path6="src/main/resources/images/yuanjiaojuxing.png";
+        ImageIcon icon6 =new ImageIcon(path6);
+        Image temp6=icon6.getImage().getScaledInstance(button6.getWidth(),button6.getHeight(),icon6.getImage().SCALE_AREA_AVERAGING);
+        icon6=new ImageIcon(temp6);
+        button6.setIcon(icon6);
+
+        String path7="src/main/resources/images/jiantou.png";
+        ImageIcon icon7 =new ImageIcon(path7);
+        Image temp7=icon7.getImage().getScaledInstance(button7.getWidth(),button7.getHeight(),icon7.getImage().SCALE_AREA_AVERAGING);
+        icon7=new ImageIcon(temp7);
+        button7.setIcon(icon7);
+
         final JToolBar jToolBar = new JToolBar();
         jToolBar.setLayout(null);
         jToolBar.setPreferredSize(new Dimension(700,40));
@@ -108,8 +126,68 @@ public class MyFrame extends JFrame {
         jToolBar.add(button3);
         jToolBar.add(button4);
         jToolBar.add(button5);
+        jToolBar.add(button6);
+        jToolBar.add(button7);
         jToolBar.setBackground(new Color(255,255,255));
         jToolBar.setVisible(false);
+
+        button.setToolTipText("画笔");
+        button1.setToolTipText("直角矩形");
+        button2.setToolTipText("文本框");
+        button3.setToolTipText("橡皮擦");
+        button4.setToolTipText("椭圆");
+        button5.setToolTipText("直线");
+        button6.setToolTipText("圆角矩形");
+        button7.setToolTipText("箭头");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="画笔";
+            }
+        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="直角矩形";
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="文本框";
+
+            }
+        });
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="橡皮擦";
+            }
+        });
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="椭圆";
+            }
+        });
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="直线";
+            }
+        });
+        button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="圆角矩形";
+            }
+        });
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="箭头";
+            }
+        });
 
 
         //绑定菜单栏事件
