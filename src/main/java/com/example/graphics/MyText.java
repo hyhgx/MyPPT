@@ -15,7 +15,6 @@ public class MyText extends MyComponent2D {
     public JMenuItem paste = new JMenuItem("粘贴");
     public JMenuItem cut = new JMenuItem("剪切");
     public JMenuItem selectAll = new JMenuItem("全选");
-    public Font font;
     public MyText(int x,int y){
        super(x,y);
        jp.add(copy);
@@ -37,6 +36,7 @@ public class MyText extends MyComponent2D {
                 super.mouseEntered(e);
                 MyText.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));//改变光标
             }
+
            @Override
            public void mouseClicked(MouseEvent e) {
                super.mouseClicked(e);
@@ -72,13 +72,14 @@ public class MyText extends MyComponent2D {
             }
         });
     }
-    //回调函数，改变左侧面板
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.text.setFont(this.font);
         this.text.setBounds(5,5,maxX-minX,maxY-minY);
     }
+
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);
