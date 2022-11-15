@@ -6,8 +6,9 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 
 public class MyFrame extends JFrame {
+    public RightPanel rightPanel = new RightPanel();
     private Boolean toolBarVisible = false;
-    public String type;
+    public String type="直线";
     private final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
     public MyFrame() {
@@ -45,7 +46,6 @@ public class MyFrame extends JFrame {
         jMenuBar.add(fileMenu);
         jMenuBar.add(toolMenu);
         this.setJMenuBar(jMenuBar);
-
         //设置工具栏
         JButton button = new JButton();//画笔
         JButton button1 = new JButton();//长方形
@@ -154,8 +154,6 @@ public class MyFrame extends JFrame {
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         //设置右侧
-        RightPanel rightPanel1 = new RightPanel("文字");
-        JPanel rightPanel = rightPanel1.returnPanel();
 
         //设置布局
         panel.add(panels, BorderLayout.CENTER);

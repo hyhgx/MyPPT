@@ -29,9 +29,15 @@ public class MyComponent extends JComponent {
             }
         }
     }
-
+    public interface RightPanelChangeListener{
+        void rightPanelChangeL();
+    }
+    public RightPanelChangeListener rightPanelChangeListener;
+    public void setRightPanelChangeListener(RightPanelChangeListener r){
+        this.rightPanelChangeListener=r;
+    }
     public void getFocus(){
-
+        rightPanelChangeListener.rightPanelChangeL();
     }
     protected void updatePoints(){}
 }

@@ -59,6 +59,7 @@ public class MyComponent2D extends MyComponent {
     }
     @Override
     public void getFocus(){
+        super.getFocus();
         CanvasPanel parent = (CanvasPanel)this.getParent();
         parent.focusChanged();
         if(myPoints.size()==0){

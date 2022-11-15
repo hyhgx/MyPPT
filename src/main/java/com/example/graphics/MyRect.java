@@ -9,6 +9,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyRect extends MyComponent2D {
+    public Color fillColor=new Color(255,255,255);
+    public Color lineColor=new Color(255,255,255);
+    public boolean isFill;
+    public boolean isBorder;
     public MyRect(int x,int y){
         super(x,y);
         this.setName("直角矩形");
@@ -16,8 +20,27 @@ public class MyRect extends MyComponent2D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(200,200,200));//后期进行设置
-        g.drawRect(5,5,maxX-minX,maxY-minY);
+        if(isBorder){
+            BasicStroke basicStroke = new BasicStroke(2.0f);
+            Graphics2D g1=(Graphics2D) g;
+            g1.setStroke(basicStroke);
+            if(isFill){
+                g1.setColor(new Color(200,200,200));//后期进行设置
+                g1.fillRect(5,5,maxX-minX,maxY-minY);
+            }else{
+                g1.setColor(new Color(200,200,200));//后期进行设置
+                g1.drawRect(5,5,maxX-minX,maxY-minY);
+            }
+        }else{
+            if(isFill){
+                g.setColor(new Color(200,200,200));//后期进行设置
+                g.fillRect(5,5,maxX-minX,maxY-minY);
+            }else{
+                g.setColor(new Color(200,200,200));//后期进行设置
+                g.drawRect(5,5,maxX-minX,maxY-minY);
+            }
+        }
+
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();

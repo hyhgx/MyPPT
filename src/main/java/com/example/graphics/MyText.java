@@ -34,7 +34,6 @@ public class MyText extends MyComponent2D {
                 super.mouseEntered(e);
                 MyText.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));//改变光标
             }
-
            @Override
            public void mouseClicked(MouseEvent e) {
                super.mouseClicked(e);
@@ -48,7 +47,6 @@ public class MyText extends MyComponent2D {
                 initX=e.getX();
                 initY=e.getY();
                 getFocus();
-
             }
         });
 
@@ -79,7 +77,7 @@ public class MyText extends MyComponent2D {
             }
         });
     }
-
+    //回调函数，改变左侧面板
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

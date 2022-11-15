@@ -1,5 +1,7 @@
 package com.example.Component;
 
+import com.example.graphics.MyRect;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,11 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class RightPanel {
+public class RightPanel extends JPanel{
     private String panelType;
     private Component component;
-    public RightPanel(String type){
-        panelType=type;
+    public RightPanel(){
     }
     public RightPanel(Component component,String type){
         this.component=component;
@@ -34,24 +35,42 @@ public class RightPanel {
         });
         return color;
     }
-    public  JButton getFillColor(){
+    public  JButton getFillColor(final String t, final Component component){
         JButton color = new JButton("颜色填充");
         color.setBounds(100,80,100,20);
         color.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RightPanel.this.component.setBackground(JColorChooser.showDialog(null,"颜色选择",Color.red));
+                if(t.equals("直角矩形")){
+                    MyRect myRect=(MyRect) component;
+                    Color color1=JColorChooser.showDialog(null,"颜色选择",Color.red);
+                    if(color1!=null){
+                        myRect.isFill=true;
+                        myRect.fillColor=color1;
+                        myRect.repaint();
+                    }
+                }
+
             }
         });
         return color;
     }
-    public  JButton getBorderColor(){
-        JButton color = new JButton("边界颜色");
+    public  JButton getBorderColor(final String t, final Component component){
+        final JButton color = new JButton("边界颜色");
         color.setBounds(100,120,100,20);
         color.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RightPanel.this.component.setBackground(JColorChooser.showDialog(null,"颜色选择",Color.red));
+                if(t.equals("直角矩形")){
+                    MyRect myRect=(MyRect) component;
+                    Color color1=JColorChooser.showDialog(null,"颜色选择",Color.red);
+                    if(color1!=null){
+                        myRect.isBorder=true;
+                        myRect.lineColor=color1;
+                        myRect.repaint();
+                    }
+                }
+
             }
         });
         return color;
@@ -113,6 +132,7 @@ public class RightPanel {
         myFont.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     int index=myFont.getSelectedIndex();
                     String selectedItem = (String)myFont.getSelectedItem();
@@ -151,34 +171,42 @@ public class RightPanel {
         rightPanel.add(fontSize);
         rightPanel.add(myfont);
     }
-    public JPanel returnPanel(){
-        Image image=new ImageIcon("src/main/resources/images/img.png").getImage();
-        BackgroundPanel rightPanel = new BackgroundPanel(image);
-        rightPanel.setLayout(null);
-        rightPanel.setPreferredSize(new Dimension(300,800));
+    public void returnPanel(String type,JComponent component) {
+      /*  Image image = new ImageIcon("src/main/resources/images/img.png").getImage();
+        BackgroundPanel rightPanel = new BackgroundPanel(image);*/
+        this.setLayout(null);
+        this.setPreferredSize(new Dimension(300, 800));
         //rightPanel.setBackground(new Color(255,255,200));
-        if(panelType.equals("文字")){
-            rightPanel.removeAll();
-            JButton color=getColorButton();
-            rightPanel.add(color);
-            getFontSize(rightPanel,this.component);
-            getFontType(rightPanel,this.component);
-        }else if(panelType.equals("图形")){
-            rightPanel.removeAll();
-            JButton color=getFillColor();
-            rightPanel.add(color);
-            JButton color1=getBorderColor();
-            rightPanel.add(color1);
-        }else if(panelType.equals("线条")){
-            rightPanel.removeAll();
-            JButton color=getColorButton();
-            rightPanel.add(color);
-            getLineBold(rightPanel,this.component);
-            getLineT(rightPanel,this.component);
-        }else{
-            rightPanel.removeAll();
+        if (type.equals("文字")) {
+            this.removeAll();
+            JButton color = getColorButton();
+            this.add(color);
+            getFontSize(this, this.component);
+            getFontType(this, this.component);
         }
-        return rightPanel;
+//        else if (type.equals("图形")) {
+//            this.removeAll();
+//            JButton color = getFillColor();
+//            this.add(color);
+//            JButton color1 = getBorderColor();
+//            this.add(color1);
+//        }
+           else if (type.equals("线条")) {
+            this.removeAll();
+            JButton color = getColorButton();
+            this.add(color);
+            getLineBold(this, this.component);
+            getLineT(this, this.component);
+        } else if (type.equals("直角矩形")) {
+            MyRect myRect=(MyRect) component;
+            this.removeAll();
+            JButton color = getFillColor("直角矩形",myRect);
+            this.add(color);
+            JButton color1 = getBorderColor("直角矩形",myRect);
+            this.add(color1);
+        } else {
+            this.removeAll();
+        }
     }
 }
 
