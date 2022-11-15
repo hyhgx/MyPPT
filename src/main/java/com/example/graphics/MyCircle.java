@@ -17,8 +17,13 @@ public class MyCircle extends MyComponent2D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(122,234,123));//需要进行设置
-        g.drawOval(5,5,maxX-minX,maxY-minY);
+        BasicStroke basicStroke = new BasicStroke(1.0f);
+        Graphics2D g1=(Graphics2D) g;
+        g1.setStroke(basicStroke);
+        g1.setColor(lineColor);
+        g1.drawOval(5,5,maxX-minX,maxY-minY);
+        g1.setColor(fillColor);
+        g1.fillOval(6,6,maxX-minX-2,maxY-minY-2);
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();

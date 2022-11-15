@@ -7,11 +7,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MyComponent extends JComponent {
+    public Color fillColor=new Color(255,255,255);
+    public Color lineColor=new Color(0,0,0);
+    public float lineWidth=1.0f;
     protected int x1;
     protected int x2;
     protected int y1;
     protected int y2;
-
     protected int initX;
     protected int initY;
     protected ArrayList<MyPoint> myPoints=new ArrayList<>();

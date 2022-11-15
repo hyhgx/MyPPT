@@ -15,11 +15,19 @@ public class MyArrowHead extends MyComponent2D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(200,200,200));//后期进行设置
-        g.drawRect(5,5+(maxY-minY)/4,(maxX-minX)/2,(maxY-minY)/2);
+        BasicStroke basicStroke = new BasicStroke(1.0f);
+        Graphics2D g1=(Graphics2D) g;
+        g1.setStroke(basicStroke);
+        g1.setColor(lineColor);
+        g1.drawRect(5,5+(maxY-minY)/4,(maxX-minX)/2,(maxY-minY)/2);
         int [] xpoint={5+(maxX-minX)/2,5+(maxX-minX)/2,5+(maxX-minX)};
         int [] ypoint={5,5+(maxY-minY),5+(maxY-minY)/2};
-        g.drawPolygon(xpoint,ypoint,3);
+        g1.drawPolygon(xpoint,ypoint,3);
+        g1.setColor(fillColor);
+        g1.fillRect(6,6+(maxY-minY)/4,(maxX-minX)/2-1,(maxY-minY)/2-1);
+        int [] xpoint1={5+(maxX-minX)/2+1,5+(maxX-minX)/2+1,5+(maxX-minX-1)};
+        int [] ypoint1={5+1,5+(maxY-minY)-1,5+(maxY-minY)/2};
+        g1.fillPolygon(xpoint1,ypoint1,3);
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();

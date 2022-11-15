@@ -9,10 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyRect extends MyComponent2D {
-    public Color fillColor=new Color(255,255,255);
-    public Color lineColor=new Color(255,255,255);
-    public boolean isFill;
-    public boolean isBorder;
+
     public MyRect(int x,int y){
         super(x,y);
         this.setName("直角矩形");
@@ -20,27 +17,13 @@ public class MyRect extends MyComponent2D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(isBorder){
-            BasicStroke basicStroke = new BasicStroke(2.0f);
-            Graphics2D g1=(Graphics2D) g;
-            g1.setStroke(basicStroke);
-            if(isFill){
-                g1.setColor(new Color(200,200,200));//后期进行设置
-                g1.fillRect(5,5,maxX-minX,maxY-minY);
-            }else{
-                g1.setColor(new Color(200,200,200));//后期进行设置
-                g1.drawRect(5,5,maxX-minX,maxY-minY);
-            }
-        }else{
-            if(isFill){
-                g.setColor(new Color(200,200,200));//后期进行设置
-                g.fillRect(5,5,maxX-minX,maxY-minY);
-            }else{
-                g.setColor(new Color(200,200,200));//后期进行设置
-                g.drawRect(5,5,maxX-minX,maxY-minY);
-            }
-        }
-
+        BasicStroke basicStroke = new BasicStroke(1.0f);
+        Graphics2D g1=(Graphics2D) g;
+        g1.setStroke(basicStroke);
+        g1.setColor(lineColor);
+        g1.drawRect(5,5,maxX-minX,maxY-minY);
+        g1.setColor(fillColor);
+        g1.fillRect(6,6,maxX-minX-2,maxY-minY-2);
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();

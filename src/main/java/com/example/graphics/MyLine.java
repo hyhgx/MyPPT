@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyLine extends MyComponent1D {
+    public Color lineColor=new Color(200,200,200);
+    public boolean lineT=false;
     public MyLine(int x,int y){
         super(x,y);
     }
@@ -16,8 +18,21 @@ public class MyLine extends MyComponent1D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(200,200,200));
-        g.drawLine(getX1RelativePosition(),getY1RelativePosition(),getX2RelativePosition(),getY2RelativePosition());
+        float [] dash=new float[]{5,10};
+        if(lineT){//虚线
+            BasicStroke basicStroke = new BasicStroke(this.lineWidth,BasicStroke.CAP_SQUARE,BasicStroke.JOIN_MITER
+                    ,10.0f,dash,0.0f);//设置画笔
+            Graphics2D g1=(Graphics2D) g;
+            g1.setStroke(basicStroke);
+            g1.setColor(lineColor);
+            g1.drawLine(getX1RelativePosition(),getY1RelativePosition(),getX2RelativePosition(),getY2RelativePosition());
+        }else {//实线
+            BasicStroke basicStroke1 = new BasicStroke(this.lineWidth);//设置画笔
+            Graphics2D g2=(Graphics2D) g;
+            g2.setStroke(basicStroke1);
+            g2.setColor(lineColor);
+            g.drawLine(getX1RelativePosition(),getY1RelativePosition(),getX2RelativePosition(),getY2RelativePosition());
+        }
     }
 
     public static void main(String[] args) {

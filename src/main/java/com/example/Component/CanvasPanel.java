@@ -32,15 +32,13 @@ public  class CanvasPanel extends JPanel {
             @Override
                 public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                System.out.println(CanvasPanel.this.frame.type);
                 if(CanvasPanel.this.frame.type.equals("文本框")){
                     final MyText myText= new MyText(e.getX(),e.getY());
                     myText.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
                         @Override
                         public void rightPanelChangeL() {
-                            CanvasPanel.this.frame.rightPanel.returnPanel("文字",myText);
+                            CanvasPanel.this.frame.rightPanel.returnPanel("文本框",myText);
                         }
-
                     });
                     CanvasPanel.this.add(myText);
                     CanvasPanel.this.focusChanged();
@@ -59,17 +57,18 @@ public  class CanvasPanel extends JPanel {
                     myRoundRect.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
                         @Override
                         public void rightPanelChangeL() {
-                            CanvasPanel.this.frame.rightPanel.returnPanel("图形",myRoundRect);
+                            CanvasPanel.this.frame.rightPanel.returnPanel("圆角矩形",myRoundRect);
                         }
                     });
                     CanvasPanel.this.add(myRoundRect);
                     CanvasPanel.this.focusChanged();
+
                 }else if(CanvasPanel.this.frame.type.equals("椭圆")){
                     final MyCircle myCircle= new MyCircle(e.getX(),e.getY());
                     myCircle.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
                         @Override
                         public void rightPanelChangeL() {
-                            CanvasPanel.this.frame.rightPanel.returnPanel("图形",myCircle);
+                            CanvasPanel.this.frame.rightPanel.returnPanel("椭圆",myCircle);
                         }
                     });
                     CanvasPanel.this.add(myCircle);
@@ -79,7 +78,7 @@ public  class CanvasPanel extends JPanel {
                     myArrowHead.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
                         @Override
                         public void rightPanelChangeL() {
-                            CanvasPanel.this.frame.rightPanel.returnPanel("图形",myArrowHead);
+                            CanvasPanel.this.frame.rightPanel.returnPanel("箭头",myArrowHead);
                         }
                     });
                     CanvasPanel.this.add(myArrowHead);
@@ -89,13 +88,13 @@ public  class CanvasPanel extends JPanel {
                     myLine.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
                         @Override
                         public void rightPanelChangeL() {
-                            CanvasPanel.this.frame.rightPanel.returnPanel("线条",myLine);
+                            CanvasPanel.this.frame.rightPanel.returnPanel("直线",myLine);
                         }
                     });
                     CanvasPanel.this.add(myLine);
                     CanvasPanel.this.focusChanged();
                 }
-
+                CanvasPanel.this.frame.rightPanel.repaint();
             }
         });
         this.addMouseMotionListener(new MouseAdapter() {

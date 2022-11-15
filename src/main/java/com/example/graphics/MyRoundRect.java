@@ -16,8 +16,13 @@ public class MyRoundRect extends MyComponent2D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(11,11,9));
-        g.drawRoundRect(5,5,maxX-minX,maxY-minY,10,10);
+        BasicStroke basicStroke = new BasicStroke(1.0f);
+        Graphics2D g1=(Graphics2D) g;
+        g1.setStroke(basicStroke);
+        g1.setColor(lineColor);
+        g1.drawRoundRect(5,5,maxX-minX,maxY-minY,10,10);
+        g1.setColor(fillColor);
+        g1.fillRoundRect(6,6,maxX-minX-2,maxY-minY-2,10,10);
     }
 
     public static void main(String[] args) {

@@ -15,12 +15,15 @@ public class MyText extends MyComponent2D {
     public JMenuItem paste = new JMenuItem("粘贴");
     public JMenuItem cut = new JMenuItem("剪切");
     public JMenuItem selectAll = new JMenuItem("全选");
+    public Font font;
     public MyText(int x,int y){
        super(x,y);
        jp.add(copy);
        jp.add(cut);
        jp.add(paste);
        jp.add(selectAll);
+       this.text.setFont(new Font("宋体",Font.PLAIN,12));
+       this.font=this.text.getFont();
        this.setName("文本框");
        this.add(text);
        this.text.setOpaque(false);
@@ -41,13 +44,6 @@ public class MyText extends MyComponent2D {
                    MyText.this.jp.show(MyText.this,e.getX(),e.getY());
                }
            }
-           @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                initX=e.getX();
-                initY=e.getY();
-                getFocus();
-            }
         });
 
         this.copy.addActionListener(new ActionListener() {
@@ -60,7 +56,6 @@ public class MyText extends MyComponent2D {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MyText.this.text.paste();
-                System.out.println(1);
             }
         });
         this.cut.addActionListener(new ActionListener() {
@@ -81,10 +76,9 @@ public class MyText extends MyComponent2D {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(122,234,123));//需要进行设置
+        this.text.setFont(this.font);
         this.text.setBounds(5,5,maxX-minX,maxY-minY);
     }
-
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);
