@@ -35,10 +35,23 @@ public  class CanvasPanel extends JPanel {
                 CanvasPanel.this.repaint();
             }
         });
+        final StringBuffer s=new StringBuffer();
+        if(component instanceof MyText){
+            s.append("文本框");
+        }else if(component instanceof MyRect){
+            s.append("直角矩形");
+        }else if(component instanceof MyRoundRect){
+
+            s.append("圆角矩形");
+        }else if(component instanceof MyCircle){
+            s.append("椭圆");
+        }else if(component instanceof MyArrowHead){
+            s.append("箭头");
+        }
         component.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
             @Override
             public void rightPanelChangeL() {
-                CanvasPanel.this.frame.rightPanel.returnPanel(CanvasPanel.this.frame.type,component);
+                CanvasPanel.this.frame.rightPanel.returnPanel(s.toString(),component);
             }
         });
     }

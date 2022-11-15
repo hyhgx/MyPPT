@@ -15,6 +15,7 @@ public class MyText extends MyComponent2D {
     public JMenuItem paste = new JMenuItem("粘贴");
     public JMenuItem cut = new JMenuItem("剪切");
     public JMenuItem selectAll = new JMenuItem("全选");
+    public Font font;
     public MyText(int x,int y){
        super(x,y);
        jp.add(copy);
