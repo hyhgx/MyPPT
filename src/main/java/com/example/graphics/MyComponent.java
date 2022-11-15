@@ -4,6 +4,9 @@ import com.example.graphics.MyPoint;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class MyComponent extends JComponent {
@@ -16,6 +19,22 @@ public class MyComponent extends JComponent {
     protected int initY;
     protected ArrayList<MyPoint> myPoints=new ArrayList<>();
 
+    protected MyComponentEventListener eventListener=null;
+
+    public void addMyComponentEventListener(MyComponentEventListener eventListener){
+        this.eventListener=eventListener;
+    }
+    public MyComponent(){
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode()==127&&eventListener!=null){//按下delete键时
+                    eventListener.remove(MyComponent.this);
+                }
+            }
+        });
+    }
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -30,8 +49,13 @@ public class MyComponent extends JComponent {
         }
     }
 
-    public void getFocus(){
+    public interface MyComponentEventListener{
+        void remove(MyComponent myComponent);
 
+    }
+
+    public void getFocus(){
+        this.requestFocus(true);
     }
     protected void updatePoints(){}
 }

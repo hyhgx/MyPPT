@@ -23,6 +23,16 @@ public  class CanvasPanel extends JPanel {
         this.setBounds(0,0,970,820);
         this.setBackground(new Color(255,255,255));
     }
+
+    public void addListener(MyComponent component){
+        component.addMyComponentEventListener(new MyComponent.MyComponentEventListener() {
+            @Override
+            public void remove(MyComponent myComponent) {
+                CanvasPanel.this.remove(myComponent);
+                CanvasPanel.this.repaint();
+            }
+        });
+    }
     public CanvasPanel(MyFrame frame){
         this.frame=frame;
         this.setBounds(0,0,970,820);
@@ -31,29 +41,33 @@ public  class CanvasPanel extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                MyComponent component=null;
                 super.mousePressed(e);
-                System.out.println(CanvasPanel.this.frame.type);
-                if(CanvasPanel.this.frame.type.equals("文本框")){
-                    MyText myText= new MyText(e.getX(),e.getY());
-                    CanvasPanel.this.add(myText);
-                    CanvasPanel.this.focusChanged();
-                }else if(CanvasPanel.this.frame.type.equals("直角矩形")){
-                    MyRect myRect= new MyRect(e.getX(),e.getY());
-                    CanvasPanel.this.add(myRect);
-                    CanvasPanel.this.focusChanged();
-                }else if (CanvasPanel.this.frame.type.equals("圆角矩形")){
-                    MyRoundRect myRoundRect= new MyRoundRect(e.getX(),e.getY());
-                    CanvasPanel.this.add(myRoundRect);
-                    CanvasPanel.this.focusChanged();
-                }else if(CanvasPanel.this.frame.type.equals("椭圆")){
-                    MyCircle myCircle= new MyCircle(e.getX(),e.getY());
-                    CanvasPanel.this.add(myCircle);
-                    CanvasPanel.this.focusChanged();
-                }else if(CanvasPanel.this.frame.type.equals("箭头")){
-                    MyArrowHead myArrowHead= new MyArrowHead(e.getX(),e.getY());
-                    CanvasPanel.this.add(myArrowHead);
-                    CanvasPanel.this.focusChanged();
+                if(CanvasPanel.this.frame.type!=null){
+                    switch (CanvasPanel.this.frame.type) {
+                        case "文本框":
+                            component = new MyText(e.getX(), e.getY());
+                            break;
+                        case "直角矩形":
+                            component = new MyRect(e.getX(), e.getY());
+                            break;
+                        case "圆角矩形":
+                            component = new MyRoundRect(e.getX(), e.getY());
+                            break;
+                        case "椭圆":
+                            component = new MyCircle(e.getX(), e.getY());
+                            break;
+                        case "箭头":
+                            component = new MyArrowHead(e.getX(), e.getY());
+                            break;
+                    }
+                    if(component!=null){
+                        CanvasPanel.this.addListener(component);
+                        CanvasPanel.this.add(component);
+                    }
                 }
+                CanvasPanel.this.focusChanged();
+                CanvasPanel.this.requestFocus(true);
 
             }
         });
@@ -61,21 +75,30 @@ public  class CanvasPanel extends JPanel {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                if(CanvasPanel.this.frame.type.equals("文本框")){
-                    MyText myText = (MyText) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    myText.setX2Y2(e.getX(),e.getY());
-                }else if(CanvasPanel.this.frame.type.equals("直角矩形")){
-                    MyRect myRect = (MyRect)CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    myRect.setX2Y2(e.getX(),e.getY());
-                }else if (CanvasPanel.this.frame.type.equals("圆角矩形")){
-                    MyRoundRect myRoundRect = (MyRoundRect) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    myRoundRect.setX2Y2(e.getX(),e.getY());
-                }else if(CanvasPanel.this.frame.type.equals("椭圆")){
-                    MyCircle myCircle = (MyCircle) CanvasPanel.this.getComponent( CanvasPanel.this.getComponentCount() - 1);
-                    myCircle.setX2Y2(e.getX(),e.getY());
-                }else if(CanvasPanel.this.frame.type.equals("箭头")){
-                    MyArrowHead myArrowHead = (MyArrowHead) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    myArrowHead.setX2Y2(e.getX(),e.getY());
+                if(CanvasPanel.this.frame.type==null){
+                    return;
+                }
+                switch (CanvasPanel.this.frame.type) {
+                    case "文本框":
+                        MyText myText = (MyText) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                        myText.setX2Y2(e.getX(), e.getY());
+                        break;
+                    case "直角矩形":
+                        MyRect myRect = (MyRect) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                        myRect.setX2Y2(e.getX(), e.getY());
+                        break;
+                    case "圆角矩形":
+                        MyRoundRect myRoundRect = (MyRoundRect) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                        myRoundRect.setX2Y2(e.getX(), e.getY());
+                        break;
+                    case "椭圆":
+                        MyCircle myCircle = (MyCircle) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                        myCircle.setX2Y2(e.getX(), e.getY());
+                        break;
+                    case "箭头":
+                        MyArrowHead myArrowHead = (MyArrowHead) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                        myArrowHead.setX2Y2(e.getX(), e.getY());
+                        break;
                 }
 
             }

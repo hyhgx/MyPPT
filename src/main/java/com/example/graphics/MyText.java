@@ -15,7 +15,9 @@ public class MyText extends MyComponent2D {
     public JMenuItem paste = new JMenuItem("粘贴");
     public JMenuItem cut = new JMenuItem("剪切");
     public JMenuItem selectAll = new JMenuItem("全选");
-    public MyText(int x,int y){
+
+
+    public MyText(int x, int y){
        super(x,y);
        jp.add(copy);
        jp.add(cut);
@@ -42,14 +44,6 @@ public class MyText extends MyComponent2D {
                    MyText.this.jp.show(MyText.this,e.getX(),e.getY());
                }
            }
-           @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                initX=e.getX();
-                initY=e.getY();
-                getFocus();
-
-            }
         });
 
         this.copy.addActionListener(new ActionListener() {
@@ -62,7 +56,6 @@ public class MyText extends MyComponent2D {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MyText.this.text.paste();
-                System.out.println(1);
             }
         });
         this.cut.addActionListener(new ActionListener() {

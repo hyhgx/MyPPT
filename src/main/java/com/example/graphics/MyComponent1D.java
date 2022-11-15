@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 public class MyComponent1D extends MyComponent {
     public MyComponent1D(int x, int y) {
+        super();
         this.x1 = x;
         this.x2 = x;
         this.y1 = y;
@@ -69,6 +70,7 @@ public class MyComponent1D extends MyComponent {
 
     @Override
     public void getFocus() {
+        super.getFocus();
         CanvasPanel parent = (CanvasPanel) this.getParent();
         parent.focusChanged();
         if (myPoints.size() == 0) {

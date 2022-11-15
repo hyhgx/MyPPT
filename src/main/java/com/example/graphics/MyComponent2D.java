@@ -13,6 +13,7 @@ public class MyComponent2D extends MyComponent {
     protected int maxX;
     protected int maxY;
     public MyComponent2D(int x,int y){
+        super();
         this.x1=x;
         this.x2=x;
         this.y1=y;
@@ -59,6 +60,7 @@ public class MyComponent2D extends MyComponent {
     }
     @Override
     public void getFocus(){
+        super.getFocus();
         CanvasPanel parent = (CanvasPanel)this.getParent();
         parent.focusChanged();
         if(myPoints.size()==0){
