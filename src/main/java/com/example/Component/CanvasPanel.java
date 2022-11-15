@@ -4,8 +4,11 @@ import com.example.graphics.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public  class CanvasPanel extends JPanel {
 
@@ -38,6 +41,7 @@ public  class CanvasPanel extends JPanel {
         this.setBounds(0,0,970,820);
         this.setBackground(new Color(255,255,255));
         this.setLayout(null);
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -101,6 +105,16 @@ public  class CanvasPanel extends JPanel {
                         break;
                 }
 
+            }
+        });
+        this.addMouseListener(new MouseAdapter() {//设置按压就更新缩略图
+            @Override
+            public void mousePressed(MouseEvent e) {
+                BufferedImage image = new BufferedImage(CanvasPanel.this.getWidth(),CanvasPanel.this.getHeight(), BufferedImage.SCALE_SMOOTH);
+                Graphics2D g2 =(Graphics2D) image.getGraphics();
+                CanvasPanel.this.paint(g2);
+                MyJList jlist = CanvasPanel.this.frame.getJlist();
+                jlist.updateImage(image);
             }
         });
 

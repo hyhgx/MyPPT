@@ -70,49 +70,49 @@ public class MyFrame extends JFrame {
 
         String path="src/main/resources/images/huabi.png";
         ImageIcon icon =new ImageIcon(path);
-        Image temp=icon.getImage().getScaledInstance(button.getWidth(),button.getHeight(),icon.getImage().SCALE_AREA_AVERAGING);
+        Image temp=icon.getImage().getScaledInstance(button.getWidth(),button.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon=new ImageIcon(temp);
         button.setIcon(icon);
 
         String path1="src/main/resources/images/changfangxing.png";
         ImageIcon icon1 =new ImageIcon(path1);
-        Image temp1=icon1.getImage().getScaledInstance(button1.getWidth(),button1.getHeight(),icon1.getImage().SCALE_AREA_AVERAGING);
+        Image temp1=icon1.getImage().getScaledInstance(button1.getWidth(),button1.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon1=new ImageIcon(temp1);
         button1.setIcon(icon1);
 
         String path2="src/main/resources/images/wenzi.png";
         ImageIcon icon2 =new ImageIcon(path2);
-        Image temp2=icon2.getImage().getScaledInstance(button2.getWidth(),button2.getHeight(),icon2.getImage().SCALE_AREA_AVERAGING);
+        Image temp2=icon2.getImage().getScaledInstance(button2.getWidth(),button2.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon2=new ImageIcon(temp2);
         button2.setIcon(icon2);
 
         String path3="src/main/resources/images/xiangpica.png";
         ImageIcon icon3 =new ImageIcon(path3);
-        Image temp3=icon3.getImage().getScaledInstance(button3.getWidth(),button3.getHeight(),icon3.getImage().SCALE_AREA_AVERAGING);
+        Image temp3=icon3.getImage().getScaledInstance(button3.getWidth(),button3.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon3=new ImageIcon(temp3);
         button3.setIcon(icon3);
 
         String path4="src/main/resources/images/tuoyuan.png";
         ImageIcon icon4 =new ImageIcon(path4);
-        Image temp4=icon4.getImage().getScaledInstance(button4.getWidth(),button4.getHeight(),icon4.getImage().SCALE_AREA_AVERAGING);
+        Image temp4=icon4.getImage().getScaledInstance(button4.getWidth(),button4.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon4=new ImageIcon(temp4);
         button4.setIcon(icon4);
 
         String path5="src/main/resources/images/zhixian.png";
         ImageIcon icon5 =new ImageIcon(path5);
-        Image temp5=icon5.getImage().getScaledInstance(button5.getWidth(),button5.getHeight(),icon5.getImage().SCALE_AREA_AVERAGING);
+        Image temp5=icon5.getImage().getScaledInstance(button5.getWidth(),button5.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon5=new ImageIcon(temp5);
         button5.setIcon(icon5);
 
         String path6="src/main/resources/images/yuanjiaojuxing.png";
         ImageIcon icon6 =new ImageIcon(path6);
-        Image temp6=icon6.getImage().getScaledInstance(button6.getWidth(),button6.getHeight(),icon6.getImage().SCALE_AREA_AVERAGING);
+        Image temp6=icon6.getImage().getScaledInstance(button6.getWidth(),button6.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon6=new ImageIcon(temp6);
         button6.setIcon(icon6);
 
         String path7="src/main/resources/images/jiantou.png";
         ImageIcon icon7 =new ImageIcon(path7);
-        Image temp7=icon7.getImage().getScaledInstance(button7.getWidth(),button7.getHeight(),icon7.getImage().SCALE_AREA_AVERAGING);
+        Image temp7=icon7.getImage().getScaledInstance(button7.getWidth(),button7.getHeight(),Image.SCALE_AREA_AVERAGING);
         icon7=new ImageIcon(temp7);
         button7.setIcon(icon7);
 
@@ -244,6 +244,8 @@ public class MyFrame extends JFrame {
         this.setVisible(true);
 
     }
-
+    public MyJList getJlist(){
+        return jlist;
+    }
 
 }
