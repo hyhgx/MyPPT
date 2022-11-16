@@ -4,19 +4,44 @@ import com.example.graphics.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 
-public class RightPanel extends BackgroundPanel{
+public class RightPanel extends JPanel{
+    private static final long serialVersionUID = -6352788025440244338L;
+    private Image image = new ImageIcon("src/main/resources/images/img.png").getImage();
     private String panelType;
     private Component component;
     public RightPanel(){
+        this.setPreferredSize(new Dimension(300, 800));
     }
-    public RightPanel(Component component,String type){
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
+    }
+    public RightPanel(Component component, String type){
         this.component=component;
         this.panelType=type;
+    }
+    public void getComponentName(Component component){
+        JLabel label = new JLabel("名称：");
+        label.setBounds(100,240,60,20);
+        JTextField name = new JTextField(component.getName());
+        name.setBounds(180,240,60,20);
+        name.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                component.setName(name.getText());
+            }
+        });
+        this.add(label);
+        this.add(name);
     }
     public JButton getColorButton(String type,Component component){
         JButton color = new JButton();
@@ -287,52 +312,53 @@ public class RightPanel extends BackgroundPanel{
     }
 
     public void returnPanel(String type,JComponent component) {
-
-        this.setLayout(null);
-        this.setPreferredSize(new Dimension(300, 800));
         this.removeAll();
-        this.repaint();
+        this.setLayout(null);
         if (type.equals("文本框")) {
             MyText myText=(MyText) component;
             fontBold(myText);
-            getFontSize( myText);
-            getFontType( myText);
+            getFontSize(myText);
+            getFontType(myText);
+            getComponentName(myText);
         } else if (type.equals("直线")) {
             MyLine myLine=(MyLine) component;
-            JButton color = getBorderColor("直线",myLine);//线条颜色
+            JButton color = getBorderColor(type,myLine);//线条颜色
             this.add(color);
-            getLineBold("直线", myLine);//粗细
-            getLineT("直线", myLine);//类型，实线虚线
+            getLineBold(type, myLine);//粗细
+            getLineT(type, myLine);//类型，实线虚线
+            getComponentName(myLine);
         } else if (type.equals("直角矩形")) {
             MyRect myRect=(MyRect) component;
-            JButton color = getFillColor("直角矩形",myRect);
+            JButton color = getFillColor(type,myRect);
             this.add(color);
-            JButton color1 = getBorderColor("直角矩形",myRect);
+            JButton color1 = getBorderColor(type,myRect);
             this.add(color1);
+            getComponentName(myRect);
         }else if (type.equals("圆角矩形")) {
-            MyRoundRect myRect=(MyRoundRect) component;
-            JButton color = getFillColor("圆角矩形",myRect);
+            MyRoundRect myRoundRect=(MyRoundRect) component;
+            JButton color = getFillColor(type,myRoundRect);
             this.add(color);
-            JButton color1 = getBorderColor("圆角矩形",myRect);
+            JButton color1 = getBorderColor(type,myRoundRect);
             this.add(color1);
+            getComponentName(myRoundRect);
         }else if (type.equals("椭圆")) {
             MyCircle myCircle=(MyCircle) component;
-            JButton color = getFillColor("椭圆",myCircle);
+            JButton color = getFillColor(type,myCircle);
             this.add(color);
-            JButton color1 = getBorderColor("椭圆",myCircle);
+            JButton color1 = getBorderColor(type,myCircle);
             this.add(color1);
+            getComponentName(myCircle);
         }else if (type.equals("箭头")) {
             MyArrowHead myArrowHead = (MyArrowHead) component;
-            this.removeAll();
-            JButton color = getFillColor("箭头", myArrowHead);
+            JButton color = getFillColor(type, myArrowHead);
             this.add(color);
-            JButton color1 = getBorderColor("箭头", myArrowHead);
+            JButton color1 = getBorderColor(type, myArrowHead);
             this.add(color1);
-        }
-           else {
+            getComponentName(myArrowHead);
+        } else {
             this.removeAll();
         }
-
+        this.repaint();
     }
 }
 

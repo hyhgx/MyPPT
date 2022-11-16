@@ -4,10 +4,7 @@ import com.example.graphics.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 public  class CanvasPanel extends JPanel {
@@ -61,6 +58,13 @@ public  class CanvasPanel extends JPanel {
         this.setBounds(0,0,970,820);
         this.setBackground(new Color(255,255,255));
         this.setLayout(null);
+        this.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                CanvasPanel.this.frame.rightPanel.returnPanel("",null);
+            }
+        });
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

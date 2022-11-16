@@ -240,7 +240,6 @@ public class MyFrame extends JFrame {
         panel.add(jToolBar, BorderLayout.NORTH);
         this.add(panel);
         this.setVisible(true);
-
     }
     public MyJList getJlist(){
         return jlist;

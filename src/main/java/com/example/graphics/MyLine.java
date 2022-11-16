@@ -13,6 +13,7 @@ public class MyLine extends MyComponent1D {
     public boolean lineT=false;
     public MyLine(int x,int y){
         super(x,y);
+        this.setName("直线");
     }
 
     @Override
