@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
     private Boolean toolBarVisible = false;
-    public String type="直线";
+    public String type="正常";
     private final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
     public MyFrame() {

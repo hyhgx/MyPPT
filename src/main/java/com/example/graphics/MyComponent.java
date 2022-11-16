@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class MyComponent extends JComponent {
-    public Color fillColor=new Color(255,255,255);
+    public Color fillColor=new Color(255,255,255,0);
     public Color lineColor=new Color(0,0,0);
     public float lineWidth=1.0f;
     protected int x1;
