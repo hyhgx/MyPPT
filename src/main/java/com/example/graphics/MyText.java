@@ -29,7 +29,7 @@ public class MyText extends MyComponent2D {
        this.text.setOpaque(false);
        this.text.setLineWrap(true);
        this.text.setWrapStyleWord(true);
-       this.text.setBorder(BorderFactory.createEtchedBorder());
+       this.text.setBorder(null);
        this.setBackground(new Color(123,123,123));
        this.text.addMouseListener(new MouseAdapter() {
             @Override
@@ -78,6 +78,8 @@ public class MyText extends MyComponent2D {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.text.setFont(this.font);
+        g.setColor(new Color(111,111,111));
+        g.drawRect(4,4,maxX-minX+1,maxY-minY+1);
         this.text.setBounds(5,5,maxX-minX,maxY-minY);
     }
 
