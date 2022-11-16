@@ -1,6 +1,10 @@
 package com.example.Component;
 
+import com.example.graphics.MyOuter;
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
@@ -116,9 +120,95 @@ public class MyFrame extends JFrame {
         icon7=new ImageIcon(temp7);
         button7.setIcon(icon7);
 
+        final MyOuter out=new MyOuter();
+        out.setBounds(200,0,50,50);
+
+        JButton color1=new JButton();
+        color1.setBackground(new Color(0,0,0));
+        color1.setBounds(260,0,15,15);
+        color1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(0,0,0);
+            }
+        });
+        JButton color2=new JButton();
+        color2.setBackground(new Color(255,255,255));
+        color2.setBounds(275,0,15,15);
+        color2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(255,255,255);
+            }
+        });
+        JButton color3=new JButton();
+        color3.setBackground(new Color(192,192,192));
+        color3.setBounds(290,0,15,15);
+        color3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(192,192,192);
+            }
+        });
+        JButton color4=new JButton();
+        color4.setBackground(new Color(255,0,0));
+        color4.setBounds(260,15,15,15);
+        color4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(255,0,0);
+            }
+        });
+        JButton color5=new JButton();
+        color5.setBackground(new Color(255,255,0));
+        color5.setBounds(275,15,15,15);
+        color5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(255,255,0);
+            }
+        });
+        JButton color6=new JButton();
+        color6.setBackground(new Color(0,0,255));
+        color6.setBounds(290,15,15,15);
+        color6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(0,0,255);
+            }
+        });
+        JButton color7=new JButton();
+        color7.setBackground(new Color(0,255,0));
+        color7.setBounds(260,30,15,15);
+        color7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(0,255,0);
+            }
+        });
+        JButton color8=new JButton();
+        color8.setBackground(new Color(128,42,42));
+        color8.setBounds(275,30,15,15);
+        color8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                out.changeColor(128,42,42);
+            }
+        });
+        JButton color9=new JButton("...");
+        color9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color colorx=JColorChooser.showDialog(null,"颜色选择",Color.red);
+                out.changeColor1(colorx);
+            }
+        });
+        color9.setBounds(290,30,15,15);
+
+
         final JToolBar jToolBar = new JToolBar();
         jToolBar.setLayout(null);
-        jToolBar.setPreferredSize(new Dimension(700,40));
+        jToolBar.setPreferredSize(new Dimension(700,45));
         jToolBar.setFloatable(false);
         jToolBar.add(button);
         jToolBar.add(button1);
@@ -128,6 +218,16 @@ public class MyFrame extends JFrame {
         jToolBar.add(button5);
         jToolBar.add(button6);
         jToolBar.add(button7);
+        jToolBar.add(out);
+        jToolBar.add(color1);
+        jToolBar.add(color2);
+        jToolBar.add(color3);
+        jToolBar.add(color4);
+        jToolBar.add(color5);
+        jToolBar.add(color6);
+        jToolBar.add(color7);
+        jToolBar.add(color8);
+        jToolBar.add(color9);
         jToolBar.setBackground(new Color(255,255,255));
         jToolBar.setVisible(false);
 
