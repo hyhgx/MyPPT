@@ -41,12 +41,13 @@ public  class CanvasPanel extends JPanel {
         }else if(component instanceof MyRect){
             s.append("直角矩形");
         }else if(component instanceof MyRoundRect){
-
             s.append("圆角矩形");
         }else if(component instanceof MyCircle){
             s.append("椭圆");
         }else if(component instanceof MyArrowHead){
             s.append("箭头");
+        }else if(component instanceof MyLine){
+            s.append("直线");
         }
         component.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
             @Override
@@ -81,6 +82,9 @@ public  class CanvasPanel extends JPanel {
                             break;
                         case "箭头":
                             component = new MyArrowHead(e.getX(), e.getY());
+                            break;
+                        case "直线":
+                            component=new MyLine(e.getX(),e.getY());
                             break;
                     }
                     if(component!=null){

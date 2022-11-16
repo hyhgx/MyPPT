@@ -27,8 +27,8 @@ public class MyJList extends JList<String> {
 
     private void init() {
         //设置左侧PPT列表内容
-        addPage();//添加一页
         this.setModel(model);
+        addPage();//添加一页
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//设置只能单选
         this.setCellRenderer(new ListCellRenderer<String>() {
             private final JLabel jLabel = new JLabel();
