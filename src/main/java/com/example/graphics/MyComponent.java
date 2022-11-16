@@ -66,7 +66,9 @@ public class MyComponent extends JComponent {
     }
     public void getFocus(){
         this.requestFocus(true);
-        rightPanelChangeListener.rightPanelChangeL();
+        if(rightPanelChangeListener!=null){
+            rightPanelChangeListener.rightPanelChangeL();
+        }
     }
     protected void updatePoints(){}
 }

@@ -1,11 +1,17 @@
 package com.example.Component;
 
+import com.example.graphics.MyImage;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
@@ -58,6 +64,8 @@ public class MyFrame extends JFrame {
         JButton button6 = new JButton();//圆角矩形
         JButton button7 = new JButton();//箭头
 
+        JButton button8=new JButton("图片");//图片 !!!!新增
+
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
         button2.setBounds(40,20,20,20);
@@ -66,7 +74,7 @@ public class MyFrame extends JFrame {
         button5.setBounds(80,0,20,20);
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
-
+        button8.setBounds(200,0,40,40);
 
         String path="src/main/resources/images/huabi.png";
         ImageIcon icon =new ImageIcon(path);
@@ -128,6 +136,7 @@ public class MyFrame extends JFrame {
         jToolBar.add(button5);
         jToolBar.add(button6);
         jToolBar.add(button7);
+        jToolBar.add(button8);
         jToolBar.setBackground(new Color(255,255,255));
         jToolBar.setVisible(false);
 
@@ -139,6 +148,7 @@ public class MyFrame extends JFrame {
         button5.setToolTipText("直线");
         button6.setToolTipText("圆角矩形");
         button7.setToolTipText("箭头");
+        button8.setToolTipText("图片");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -186,6 +196,12 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 type="箭头";
+            }
+        });
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showImageFileOpenDialog(MyFrame.this);
             }
         });
 
@@ -243,6 +259,37 @@ public class MyFrame extends JFrame {
     }
     public MyJList getJlist(){
         return jlist;
+    }
+
+    public void showImageFileOpenDialog(Component parent){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
+        // 设置文件选择的模式（只选文件、只选文件夹、文件和文件均可选）
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        // 设置是否允许多选
+        fileChooser.setMultiSelectionEnabled(false);
+        // 设置默认使用的文件过滤器
+        fileChooser.setFileFilter(new FileNameExtensionFilter("image(*.jpg, *.png)", "jpg", "png"));
+        // 打开文件选择框（线程将被阻塞, 直到选择框被关闭）
+        int result = fileChooser.showOpenDialog(parent);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // 如果点击了"确定", 则获取选择的文件路径
+            File file = fileChooser.getSelectedFile();
+            try {
+                Image image = ImageIO.read(file);
+                CanvasPanel currentPanel = this.jlist.getCurrentPanel();
+                if(currentPanel!=null){
+                    MyImage myImage = new MyImage(50, 50, image.getWidth(null) + 50, image.getHeight(null) + 50, image);
+                    currentPanel.addListener(myImage);
+                    currentPanel.add(myImage);
+                    currentPanel.focusChanged();
+                    currentPanel.requestFocus(true);
+                    currentPanel.repaint();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 }

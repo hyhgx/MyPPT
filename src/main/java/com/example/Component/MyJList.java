@@ -155,6 +155,9 @@ public class MyJList extends JList<String> {
     }
 
     public CanvasPanel getCurrentPanel() {
+        if(currentPage==-1){
+            return null;
+        }
         return panels.getPanel(currentPage);
     }
 

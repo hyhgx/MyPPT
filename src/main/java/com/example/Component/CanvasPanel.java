@@ -36,6 +36,8 @@ public class CanvasPanel extends JPanel {
             public void remove(MyComponent myComponent) {
                 CanvasPanel.this.remove(myComponent);
                 CanvasPanel.this.repaint();
+                CanvasPanel.this.focusChanged();
+                CanvasPanel.this.requestFocus(true);
             }
         });
         final StringBuffer s = new StringBuffer();
@@ -52,12 +54,14 @@ public class CanvasPanel extends JPanel {
         } else if (component instanceof MyLine) {
             s.append("直线");
         }
-        component.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
-            @Override
-            public void rightPanelChangeL() {
-                CanvasPanel.this.frame.rightPanel.returnPanel(s.toString(), component);
-            }
-        });
+        if(!s.toString().equals("")){
+            component.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
+                @Override
+                public void rightPanelChangeL() {
+                    CanvasPanel.this.frame.rightPanel.returnPanel(s.toString(), component);
+                }
+            });
+        }
     }
 
     public CanvasPanel(MyFrame frame) {
