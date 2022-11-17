@@ -9,7 +9,11 @@ import java.awt.event.MouseEvent;
 
 public class MyArrowHead extends MyComponent2D {
     public MyArrowHead(int x,int y){
-        super(x,y);
+        super(x,y,null);
+        this.setName("箭头");
+    }
+    public MyArrowHead(int x,int y,Color lineColor){
+        super(x,y,lineColor);
         this.setName("箭头");
     }
     @Override

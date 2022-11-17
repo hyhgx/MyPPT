@@ -10,7 +10,11 @@ import java.awt.event.MouseEvent;
 
 public class MyCircle extends MyComponent2D {
     public MyCircle(int x,int y){
-        super(x,y);
+        super(x,y,null);
+        this.setName("圆");
+    }
+    public MyCircle(int x,int y,Color lineColor){
+        super(x,y,lineColor);
         this.setName("圆");
     }
 

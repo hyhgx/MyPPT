@@ -7,7 +7,7 @@ public class MyImage extends MyComponent2D {
     private final Image image;
 
     public MyImage(int minX,int minY,int maxX,int maxY,Image image){
-        super(0,0);
+        super(0,0,null);
         this.minX=minX;
         this.minY=minY;
         this.maxX=maxX;

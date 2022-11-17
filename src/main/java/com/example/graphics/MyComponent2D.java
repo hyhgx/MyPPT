@@ -12,12 +12,15 @@ public class MyComponent2D extends MyComponent {
     protected int minY;
     protected int maxX;
     protected int maxY;
-    public MyComponent2D(int x,int y){
+    public MyComponent2D(int x,int y,Color lineColor){
         super();
         this.x1=x;
         this.x2=x;
         this.y1=y;
         this.y2=y;
+        if(lineColor!=null){
+            this.lineColor=lineColor;
+        }
         this.setLayout(null);
         this.addMouseListener(new MouseAdapter() {
             @Override

@@ -17,7 +17,7 @@ public class MyText extends MyComponent2D {
     public JMenuItem selectAll = new JMenuItem("全选");
     public Font font;
     public MyText(int x,int y){
-       super(x,y);
+       super(x,y,null);
        jp.add(copy);
        jp.add(cut);
        jp.add(paste);
