@@ -6,12 +6,14 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
     private Boolean toolBarVisible = false;
     public String type="正常";
-    private final CanvasPanels panels=new CanvasPanels(this);
+    public final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
     public MyFrame() {
         init();
@@ -31,6 +33,9 @@ public class MyFrame extends JFrame {
         jMenuBar.setBackground(new Color(255,255,255));
         JMenu fileMenu = new JMenu("文件");
         JMenu toolMenu = new JMenu("工具");
+        JMenu view = new JMenu("播放");
+        JMenuItem fromBegin = new JMenuItem("从头开始");
+        JMenuItem fromNow = new JMenuItem("从当前页面开始");
         JMenuItem jMenuItemSave = new JMenuItem("保存");
         JMenuItem jMenuItemNew = new JMenuItem("新建");
         JMenuItem jMenuItemOpen = new JMenuItem("打开");
@@ -45,8 +50,11 @@ public class MyFrame extends JFrame {
         fileMenu.add(jMenuItemSaveE);
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemBack);
+        view.add(fromBegin);
+        view.add(fromNow);
         jMenuBar.add(fileMenu);
         jMenuBar.add(toolMenu);
+        jMenuBar.add(view);
         this.setJMenuBar(jMenuBar);
         //设置工具栏
         JButton button = new JButton();//画笔
@@ -191,6 +199,7 @@ public class MyFrame extends JFrame {
 
 
         //绑定菜单栏事件
+
         toolMenu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
@@ -225,9 +234,41 @@ public class MyFrame extends JFrame {
 
             }
         });
+        view.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                jToolBar.setVisible(false);
+                toolBarVisible = false;
+            }
 
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
+            }
+        });
+//设置播放
+        fromBegin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyFrame.this.setVisible(false);
+                ViewFrame viewFrame = new ViewFrame( 0,MyFrame.this);
+                viewFrame.repaint();
+            }
+        });
+        fromNow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyFrame.this.setVisible(false);
+                ViewFrame viewFrame = new ViewFrame( MyFrame.this.jlist.returnIndex(),MyFrame.this);
+                viewFrame.repaint();
+            }
+        });
         //设置左侧
-
         JScrollPane jScrollPane = new JScrollPane(jlist, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 

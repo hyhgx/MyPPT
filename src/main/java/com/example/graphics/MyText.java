@@ -37,7 +37,6 @@ public class MyText extends MyComponent2D {
                 super.mouseEntered(e);
                 MyText.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));//改变光标
             }
-
            @Override
            public void mouseClicked(MouseEvent e) {
                super.mouseClicked(e);

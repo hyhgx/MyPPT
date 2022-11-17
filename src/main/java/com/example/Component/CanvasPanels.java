@@ -25,7 +25,7 @@ public class CanvasPanels extends Panel {
     public CanvasPanel getPanel(int index){
         return panels.get(index);
     }
-
+    public List<CanvasPanel> returnPanels(){return panels; }
     public void changeCurrentPanel(CanvasPanel newPanel){
         if(currentPanel!=null){
             this.remove(currentPanel);
