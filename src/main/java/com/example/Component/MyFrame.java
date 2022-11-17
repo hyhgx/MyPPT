@@ -6,8 +6,6 @@ import javax.imageio.ImageIO;
 import com.example.graphics.MyOuter;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -78,7 +76,7 @@ public class MyFrame extends JFrame {
         button5.setBounds(80,0,20,20);
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
-        button8.setBounds(200,0,40,40);
+        button8.setBounds(150,0,40,40);
 
         String path="src/main/resources/images/huabi.png";
         ImageIcon icon =new ImageIcon(path);
