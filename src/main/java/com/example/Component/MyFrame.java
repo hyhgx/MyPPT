@@ -14,13 +14,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
     private Boolean toolBarVisible = false;
     public String type="正常";
-    private final CanvasPanels panels=new CanvasPanels(this);
+    public final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
+    public  final  MyOuter out=new MyOuter();
     public MyFrame() {
         init();
     }
@@ -39,6 +42,9 @@ public class MyFrame extends JFrame {
         jMenuBar.setBackground(new Color(255,255,255));
         JMenu fileMenu = new JMenu("文件");
         JMenu toolMenu = new JMenu("工具");
+        JMenu view = new JMenu("播放");
+        JMenuItem fromBegin = new JMenuItem("从头开始");
+        JMenuItem fromNow = new JMenuItem("从当前页面开始");
         JMenuItem jMenuItemSave = new JMenuItem("保存");
         JMenuItem jMenuItemNew = new JMenuItem("新建");
         JMenuItem jMenuItemOpen = new JMenuItem("打开");
@@ -53,8 +59,11 @@ public class MyFrame extends JFrame {
         fileMenu.add(jMenuItemSaveE);
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemBack);
+        view.add(fromBegin);
+        view.add(fromNow);
         jMenuBar.add(fileMenu);
         jMenuBar.add(toolMenu);
+        jMenuBar.add(view);
         this.setJMenuBar(jMenuBar);
         //设置工具栏
         JButton button = new JButton();//画笔
@@ -66,7 +75,7 @@ public class MyFrame extends JFrame {
         JButton button6 = new JButton();//圆角矩形
         JButton button7 = new JButton();//箭头
 
-        JButton button8=new JButton("图片");//图片 !!!!新增
+        JButton button8=new JButton();//图片 !!!!新增
 
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
@@ -77,6 +86,12 @@ public class MyFrame extends JFrame {
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
         button8.setBounds(150,0,40,40);
+
+        String path8="src/main/resources/images/tupian.png";
+        ImageIcon icon8 =new ImageIcon(path8);
+        Image temp8=icon8.getImage().getScaledInstance(button8.getWidth(),button8.getHeight(), Image.SCALE_AREA_AVERAGING);
+        icon8=new ImageIcon(temp8);
+        button8.setIcon(icon8);
 
         String path="src/main/resources/images/huabi.png";
         ImageIcon icon =new ImageIcon(path);
@@ -126,7 +141,7 @@ public class MyFrame extends JFrame {
         icon7=new ImageIcon(temp7);
         button7.setIcon(icon7);
 
-        final MyOuter out=new MyOuter();
+
         out.setBounds(200,0,50,50);
 
         JButton color1=new JButton();
@@ -305,6 +320,7 @@ public class MyFrame extends JFrame {
 
 
         //绑定菜单栏事件
+
         toolMenu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
@@ -339,7 +355,40 @@ public class MyFrame extends JFrame {
 
             }
         });
+        view.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                jToolBar.setVisible(false);
+                toolBarVisible = false;
+            }
 
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
+            }
+        });
+//设置播放
+        fromBegin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyFrame.this.setVisible(false);
+                ViewFrame viewFrame = new ViewFrame( 0,MyFrame.this);
+                viewFrame.repaint();
+            }
+        });
+        fromNow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyFrame.this.setVisible(false);
+                ViewFrame viewFrame = new ViewFrame( MyFrame.this.jlist.returnIndex(),MyFrame.this);
+                viewFrame.repaint();
+            }
+        });
         //设置左侧
 
         JScrollPane jScrollPane = new JScrollPane(jlist, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,

@@ -24,7 +24,7 @@ public class MyJList extends JList<String> {
         this.frame = f;
         init();
     }
-
+    public int returnIndex(){return currentPage;}
     private void init() {
         //设置左侧PPT列表内容
         this.setModel(model);
