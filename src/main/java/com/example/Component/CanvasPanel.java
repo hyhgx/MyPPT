@@ -116,6 +116,8 @@ public class CanvasPanel extends JPanel {
             }
             @Override
             public void mouseReleased(MouseEvent e) {//鼠标松开时更新缩略图
+                Component component=CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+
                 BufferedImage image = new BufferedImage(CanvasPanel.this.getWidth(), CanvasPanel.this.getHeight(), BufferedImage.SCALE_SMOOTH);
                 Graphics2D g2 = (Graphics2D) image.getGraphics();
                 CanvasPanel.this.paint(g2);
@@ -134,26 +136,32 @@ public class CanvasPanel extends JPanel {
                     case "文本框":
                         MyText myText = (MyText) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
                         myText.setX2Y2(e.getX(), e.getY());
+                        myText.isUseful=true;
                         break;
                     case "直角矩形":
                         MyRect myRect = (MyRect) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
                         myRect.setX2Y2(e.getX(), e.getY());
+                        myRect.isUseful=true;
                         break;
                     case "圆角矩形":
                         MyRoundRect myRoundRect = (MyRoundRect) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
                         myRoundRect.setX2Y2(e.getX(), e.getY());
+                        myRoundRect.isUseful=true;
                         break;
                     case "椭圆":
                         MyCircle myCircle = (MyCircle) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
                         myCircle.setX2Y2(e.getX(), e.getY());
+                        myCircle.isUseful=true;
                         break;
                     case "箭头":
                         MyArrowHead myArrowHead = (MyArrowHead) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
                         myArrowHead.setX2Y2(e.getX(), e.getY());
+                        myArrowHead.isUseful=true;
                         break;
                     case "直线":
                         MyLine myLine = (MyLine) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
                         myLine.setX2Y2(e.getX(), e.getY());
+                        myLine.isUseful=true;
                         break;
                     case "画笔":
                         points.addPoint(new Point(e.getX(), e.getY()));

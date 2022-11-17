@@ -52,7 +52,6 @@ public class ViewFrame extends JFrame {
                     }
                 }
                 ViewFrame.this.repaint();
-
             }
         });
     }

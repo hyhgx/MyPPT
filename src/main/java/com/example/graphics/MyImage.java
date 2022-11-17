@@ -13,6 +13,7 @@ public class MyImage extends MyComponent2D {
         this.maxX=maxX;
         this.maxY=maxY;
         this.image=image;
+        this.isUseful=true;
         this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
         this.repaint();
     }
