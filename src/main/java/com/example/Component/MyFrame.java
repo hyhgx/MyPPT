@@ -23,6 +23,7 @@ public class MyFrame extends JFrame {
     public String type="正常";
     public final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
+    public  final  MyOuter out=new MyOuter();
     public MyFrame() {
         init();
     }
