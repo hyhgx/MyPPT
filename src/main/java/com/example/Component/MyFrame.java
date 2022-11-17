@@ -21,6 +21,7 @@ public class MyFrame extends JFrame {
     public String type="正常";
     private final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
+    public final MyOuter out=new MyOuter();
     public MyFrame() {
         init();
     }
@@ -66,7 +67,7 @@ public class MyFrame extends JFrame {
         JButton button6 = new JButton();//圆角矩形
         JButton button7 = new JButton();//箭头
 
-        JButton button8=new JButton("图片");//图片 !!!!新增
+        JButton button8=new JButton();//图片 !!!!新增
 
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
@@ -77,6 +78,12 @@ public class MyFrame extends JFrame {
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
         button8.setBounds(150,0,40,40);
+
+        String path8="src/main/resources/images/tupian.png";
+        ImageIcon icon8 =new ImageIcon(path8);
+        Image temp8=icon8.getImage().getScaledInstance(button8.getWidth(),button8.getHeight(), Image.SCALE_AREA_AVERAGING);
+        icon8=new ImageIcon(temp8);
+        button8.setIcon(icon8);
 
         String path="src/main/resources/images/huabi.png";
         ImageIcon icon =new ImageIcon(path);
@@ -126,7 +133,7 @@ public class MyFrame extends JFrame {
         icon7=new ImageIcon(temp7);
         button7.setIcon(icon7);
 
-        final MyOuter out=new MyOuter();
+
         out.setBounds(200,0,50,50);
 
         JButton color1=new JButton();
