@@ -73,12 +73,72 @@ public class MyText extends MyComponent2D {
         });
     }
 
+    public MyText(int x,int y,Color lineColor){
+        super(x,y,lineColor);
+        jp.add(copy);
+        jp.add(cut);
+        jp.add(paste);
+        jp.add(selectAll);
+        this.text.setFont(new Font("宋体",Font.PLAIN,12));
+        this.font=this.text.getFont();
+        this.setName("文本框");
+        this.add(text);
+        this.text.setOpaque(false);
+        this.text.setLineWrap(true);
+        this.text.setWrapStyleWord(true);
+        this.text.setBorder(null);
+        this.setBackground(new Color(123,123,123));
+        this.text.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                MyText.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));//改变光标
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(e.getButton()==MouseEvent.BUTTON3){
+                    MyText.this.jp.show(MyText.this,e.getX(),e.getY());
+                }
+            }
+        });
+
+        this.copy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyText.this.text.copy();
+            }
+        });
+        this.paste.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyText.this.text.paste();
+            }
+        });
+        this.cut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyText.this.text.cut();
+            }
+        });
+
+        this.selectAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyText.this.text.selectAll();
+            }
+        });
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.text.setFont(this.font);
-        g.setColor(new Color(111,111,111));
-        g.drawRect(4,4,maxX-minX+1,maxY-minY+1);
+        BasicStroke basicStroke = new BasicStroke(1.0f);
+        Graphics2D g1=(Graphics2D) g;
+        g1.setStroke(basicStroke);
+        g1.setColor(lineColor);
+        g1.drawRect(4,4,maxX-minX+1,maxY-minY+1);
         this.text.setBounds(5,5,maxX-minX,maxY-minY);
     }
 
