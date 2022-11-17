@@ -18,13 +18,10 @@ public class MyComponent extends JComponent {
     protected int x2;
     protected int y1;
     protected int y2;
-
     protected int initX;
     protected int initY;
     protected ArrayList<MyPoint> myPoints=new ArrayList<>();
-
     protected MyComponentEventListener eventListener=null;
-
     public void addMyComponentEventListener(MyComponentEventListener eventListener){
         this.eventListener=eventListener;
     }

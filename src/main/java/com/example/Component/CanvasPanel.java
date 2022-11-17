@@ -12,9 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CanvasPanel extends JPanel {
-
+    private boolean isAdd=false;//判断是否添加成功
     private MyFrame frame = null;
-
     public void focusChanged() {
         Component[] components = this.getComponents();
         for (Component i : components) {
@@ -108,6 +107,7 @@ public class CanvasPanel extends JPanel {
                     if (component != null) {
                         CanvasPanel.this.addListener(component);
                         CanvasPanel.this.add(component);
+                        CanvasPanel.this.isAdd=true;
                     }
                 }
                 CanvasPanel.this.focusChanged();
@@ -115,9 +115,16 @@ public class CanvasPanel extends JPanel {
 
             }
             @Override
-            public void mouseReleased(MouseEvent e) {//鼠标松开时更新缩略图
-                Component component=CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-
+            public void mouseReleased(MouseEvent e) {
+                //松开时删除无效图形
+                if(CanvasPanel.this.isAdd){
+                    MyComponent component=(MyComponent) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                    if(component.isUseful==false){
+                        CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
+                        CanvasPanel.this.isAdd=false;
+                    }
+                }
+                //鼠标松开时更新缩略图
                 BufferedImage image = new BufferedImage(CanvasPanel.this.getWidth(), CanvasPanel.this.getHeight(), BufferedImage.SCALE_SMOOTH);
                 Graphics2D g2 = (Graphics2D) image.getGraphics();
                 CanvasPanel.this.paint(g2);

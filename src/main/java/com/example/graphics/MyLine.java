@@ -20,7 +20,6 @@ public class MyLine extends MyComponent1D {
         this.lineColor=lineColor;
         this.setName("直线");
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
