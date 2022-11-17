@@ -133,4 +133,14 @@ public class MyComponent1D extends MyComponent {
         myPoints.get(0).setXY(getX1RelativePosition(), getY1RelativePosition());
         myPoints.get(1).setXY(getX2RelativePosition(), getY2RelativePosition());
     }
+
+    @Override
+    public void moveComponent(int dx, int dy) {
+        x1 += dx;
+        y1 += dy;
+        x2 += dx;
+        y2 += dy;
+        updateBounds();
+        repaint();
+    }
 }

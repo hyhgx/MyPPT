@@ -24,6 +24,12 @@ public class MyComponent extends JComponent {
 
     protected MyComponentEventListener eventListener=null;
 
+    Point getLTPoint(){//左上角
+        return new Point(Math.min(x1,x2),Math.min(y1,y2));
+    }
+    Point getRBPoint(){//右下角
+        return new Point(Math.max(x1,x2),Math.max(y1,y2));
+    }
     public void addMyComponentEventListener(MyComponentEventListener eventListener){
         this.eventListener=eventListener;
     }
@@ -71,4 +77,21 @@ public class MyComponent extends JComponent {
         }
     }
     protected void updatePoints(){}
+
+    public Boolean isInArea(Rectangle rectangle){
+        Point locat = this.getLocation();
+
+        if(this.myPoints.size()!=0){//有操作点时,检验操作点是否全部在区域内
+            for(MyPoint p:this.myPoints){
+                if(!(rectangle.contains(new Point(p.x+locat.x,p.y+locat.y)))){
+                    return false;
+                }
+            }
+        }else {//无操作点时检验x1,y1,x2,y2是否在区域内
+            return rectangle.contains(this.getLTPoint())&&rectangle.contains(this.getRBPoint());
+        }
+        return true;
+    }
+
+    public void moveComponent(int dx,int dy){}
 }

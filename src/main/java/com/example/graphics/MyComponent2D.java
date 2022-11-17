@@ -51,6 +51,16 @@ public class MyComponent2D extends MyComponent {
     }
 
     @Override
+    Point getRBPoint() {
+        return new Point(maxX,maxY);
+    }
+
+    @Override
+    Point getLTPoint() {
+        return new Point(minX,minY);
+    }
+
+    @Override
     public void setX2Y2(int x,int y){
         this.x2=x;
         this.y2=y;
@@ -181,4 +191,13 @@ public class MyComponent2D extends MyComponent {
         maxY=Math.max(t3,t4);
     }
 
+    @Override
+    public void moveComponent(int dx, int dy) {
+        minX+=dx;
+        minY+=dy;
+        maxX+=dx;
+        maxY+=dy;
+        setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
+        repaint();
+    }
 }

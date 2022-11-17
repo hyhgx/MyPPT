@@ -76,6 +76,7 @@ public class MyFrame extends JFrame {
         JButton button7 = new JButton();//箭头
 
         JButton button8=new JButton();//图片 !!!!新增
+        JButton button9=new JButton("矩形选取");
 
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
@@ -86,6 +87,7 @@ public class MyFrame extends JFrame {
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
         button8.setBounds(150,0,40,40);
+        button9.setBounds(350,0,40,40);
 
         String path8="src/main/resources/images/tupian.png";
         ImageIcon icon8 =new ImageIcon(path8);
@@ -240,6 +242,7 @@ public class MyFrame extends JFrame {
         jToolBar.add(button6);
         jToolBar.add(button7);
         jToolBar.add(button8);
+        jToolBar.add(button9);
         jToolBar.add(out);
         jToolBar.add(color1);
         jToolBar.add(color2);
@@ -315,6 +318,12 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showImageFileOpenDialog(MyFrame.this);
+            }
+        });
+        button9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="矩形选区";
             }
         });
 
