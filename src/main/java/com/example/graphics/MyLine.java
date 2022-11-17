@@ -15,6 +15,11 @@ public class MyLine extends MyComponent1D {
         super(x,y);
         this.setName("直线");
     }
+    public MyLine(int x,int y,Color lineColor){
+        super(x,y);
+        this.lineColor=lineColor;
+        this.setName("直线");
+    }
 
     @Override
     public void paintComponent(Graphics g) {

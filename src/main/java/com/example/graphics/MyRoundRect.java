@@ -10,7 +10,11 @@ import java.awt.event.MouseEvent;
 
 public class MyRoundRect extends MyComponent2D {
     public MyRoundRect(int x,int y){
-        super(x,y);
+        super(x,y,null);
+        this.setName("圆角矩形");
+    }
+    public MyRoundRect(int x,int y,Color lineColor){
+        super(x,y,lineColor);
         this.setName("圆角矩形");
     }
     @Override

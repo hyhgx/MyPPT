@@ -84,22 +84,22 @@ public class CanvasPanel extends JPanel {
                 if (CanvasPanel.this.frame.type != null) {
                     switch (CanvasPanel.this.frame.type) {
                         case "文本框":
-                            component = new MyText(e.getX(), e.getY());
+                            component = new MyText(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
                             break;
                         case "直角矩形":
-                            component = new MyRect(e.getX(), e.getY());
+                            component = new MyRect(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
                             break;
                         case "圆角矩形":
-                            component = new MyRoundRect(e.getX(), e.getY());
+                            component = new MyRoundRect(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
                             break;
                         case "椭圆":
-                            component = new MyCircle(e.getX(), e.getY());
+                            component = new MyCircle(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
                             break;
                         case "箭头":
-                            component = new MyArrowHead(e.getX(), e.getY());
+                            component = new MyArrowHead(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
                             break;
                         case "直线":
-                            component = new MyLine(e.getX(), e.getY());
+                            component = new MyLine(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
                             break;
                         case "画笔":
                             points.addLineSet();
@@ -179,8 +179,9 @@ public class CanvasPanel extends JPanel {
 
     }
 
-    static class Points {
+     class Points {
         public LinkedList<LinkedList<Point>> lines = new LinkedList<>();
+        public LinkedList<Color> colors=new LinkedList<>();
 
         void addPoint(Point p) {
             if (lines.size() > 0) {
@@ -189,11 +190,14 @@ public class CanvasPanel extends JPanel {
         }
         void addLineSet(){
             lines.add(new LinkedList<Point>());
+            colors.add(CanvasPanel.this.frame.out.getColor());
         }
        void removeLine(Point point){
             for(LinkedList<Point> line: lines){
                 for(Point p:line){
                     if(p.x>=point.x-5&&p.x<=point.x+5&&p.y>=point.y-5&&p.y<=point.y+5){//在10*10的像素内存在点就删除
+                        int i = lines.indexOf(line);
+                        colors.remove(i);
                         lines.remove(line);
                         return;
                     }
@@ -211,10 +215,13 @@ public class CanvasPanel extends JPanel {
         BasicStroke stroke = new BasicStroke(2.0f);
         Graphics2D gr2 = (Graphics2D) g;
         gr2.setStroke(stroke);
+        int index=0;
         for(List<Point> line:points.lines){
+            gr2.setColor(points.colors.get(index));
             for(int i=1;i<line.size();++i){
                 gr2.drawLine(line.get(i-1).x,line.get(i-1).y,line.get(i).x,line.get(i).y);
             }
+            index++;
         }
     }
 }

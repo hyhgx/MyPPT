@@ -11,7 +11,11 @@ import java.awt.event.MouseEvent;
 public class MyRect extends MyComponent2D {
 
     public MyRect(int x,int y){
-        super(x,y);
+        super(x,y,null);
+        this.setName("直角矩形");
+    }
+    public MyRect(int x,int y,Color linecolor){
+        super(x,y,linecolor);
         this.setName("直角矩形");
     }
     @Override
