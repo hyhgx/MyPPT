@@ -286,12 +286,31 @@ public class CanvasPanel extends JPanel {
     }
 
     public void handlePaste(){
+        if(MyClipBoard.getContent().isEmpty()){
+            return;
+        }
         ArrayList<MyComponent> contents = MyClipBoard.getContent();
-        for(MyComponent content:contents){
-            MyComponent contentCloned = content.cloneMySelf();//以剪切板中的为副本clone一个新的
+        if(MyClipBoard.isSingle){
+            MyComponent myComponent = contents.get(0);
+            MyComponent contentCloned = myComponent.cloneMySelf();//以剪切板中的为副本clone一个新的
             CanvasPanel.this.addListener(contentCloned);
             CanvasPanel.this.add(contentCloned);
+            CanvasPanel.this.repaint();
+            return;
         }
+        MySelectArea area = (MySelectArea) contents.get(0).cloneMySelf();
+        CanvasPanel.this.addListener(area);
+        CanvasPanel.this.add(area);
+        CanvasPanel.this.setComponentZOrder(area,0);
+        ArrayList<MyComponent> list=new ArrayList<>();
+        for(int i=1;i<contents.size();++i){
+            MyComponent component=contents.get(i).cloneMySelf();
+            CanvasPanel.this.addListener(component);
+            CanvasPanel.this.add(component);
+            list.add(component);
+        }
+        area.setComponentsSelected(list);
+        area.getFocus();
         CanvasPanel.this.repaint();
     }
 }
