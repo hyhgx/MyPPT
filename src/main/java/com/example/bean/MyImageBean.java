@@ -1,4 +1,4 @@
-package com.example.bin;
+package com.example.bean;
 
 import java.awt.*;
 

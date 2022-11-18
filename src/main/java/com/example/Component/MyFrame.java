@@ -50,6 +50,16 @@ public class MyFrame extends JFrame {
         JMenuItem jMenuItemOpen = new JMenuItem("打开");
         JMenuItem jMenuItemSaveE = new JMenuItem("另存为");
         JMenuItem jMenuItemBack = new JMenuItem("退出");
+        jMenuItemSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         fileMenu.add(jMenuItemNew);
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemOpen);
@@ -65,6 +75,7 @@ public class MyFrame extends JFrame {
         jMenuBar.add(toolMenu);
         jMenuBar.add(view);
         this.setJMenuBar(jMenuBar);
+
         //设置工具栏
         JButton button = new JButton();//画笔
         JButton button1 = new JButton();//长方形
@@ -385,17 +396,19 @@ public class MyFrame extends JFrame {
         fromBegin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyFrame.this.setVisible(false);
-                ViewFrame viewFrame = new ViewFrame( 0,MyFrame.this);
-                viewFrame.repaint();
+                if(MyFrame.this.panels.returnPanels().size()!=0){
+                    MyFrame.this.setVisible(false);
+                    ViewFrame viewFrame = new ViewFrame( 0,MyFrame.this);
+                    viewFrame.repaint();
+                }
             }
         });
         fromNow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyFrame.this.setVisible(false);
-                ViewFrame viewFrame = new ViewFrame( MyFrame.this.jlist.returnIndex(),MyFrame.this);
-                viewFrame.repaint();
+                if(MyFrame.this.panels.returnPanels().size()!=0){MyFrame.this.setVisible(false);
+                    ViewFrame viewFrame = new ViewFrame( MyFrame.this.jlist.returnIndex(),MyFrame.this);
+                    viewFrame.repaint();}
             }
         });
         //设置左侧

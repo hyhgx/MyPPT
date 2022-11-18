@@ -211,7 +211,6 @@ public class CanvasPanel extends JPanel {
             }
 
         });
-
     }
 
     class Points {

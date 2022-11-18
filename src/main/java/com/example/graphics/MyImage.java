@@ -4,6 +4,10 @@ import java.awt.*;
 
 public class MyImage extends MyComponent2D {
 
+    public Image getImage() {
+        return image;
+    }
+
     private final Image image;
 
     public MyImage(int minX,int minY,int maxX,int maxY,Image image){

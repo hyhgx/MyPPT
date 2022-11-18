@@ -1,17 +1,20 @@
 package com.example.Component;
 
-import com.example.bin.*;
+import com.example.bean.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class JSONdata {
-    public List<MyTextBean> myTexts;
-    public List<MyCircleBean> myCircles;
-    public List<MyRectBean> myRects;
-    public List<MyArrowHeadBean> myArrowHeads;
-    public List<MyImageBean> myImages;
-    public List<MyLineBean> myLines;
-    public List<MyRoundRectBean> myRoundRects;
+    public List<MyTextBean> myTexts=new LinkedList<>();
+    public List<MyCircleBean> myCircles=new LinkedList<>();
+    public List<MyRectBean> myRects=new LinkedList<>();
+    public List<MyArrowHeadBean> myArrowHeads=new LinkedList<>();
+    public List<MyImageBean> myImages=new LinkedList<>();
+    public List<MyLineBean> myLines=new LinkedList<>();
+    public List<MyRoundRectBean> myRoundRects=new LinkedList<>();
+    public List<MypointsBean> mypointsBeans=new LinkedList<>();
     public JSONdata(){
+
     }
 }

@@ -1,0 +1,123 @@
+[
+  {
+    "myArrowHeads": [],
+    "myCircles": [],
+    "myImages": [],
+    "myLines": [],
+    "myRects": [
+      {
+        "componentName": "直角矩形",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 631,
+        "maxY": 334,
+        "minX": 218,
+        "minY": 102
+      },
+      {
+        "componentName": "直角矩形",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 799,
+        "maxY": 488,
+        "minX": 170,
+        "minY": 71
+      }
+    ],
+    "myRoundRects": [],
+    "myTexts": []
+  },
+  {
+    "myArrowHeads": [],
+    "myCircles": [
+      {
+        "componentName": "圆",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 655,
+        "maxY": 358,
+        "minX": 345,
+        "minY": 150
+      },
+      {
+        "componentName": "圆",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 826,
+        "maxY": 450,
+        "minX": 331,
+        "minY": 107
+      },
+      {
+        "componentName": "圆",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 469,
+        "maxY": 542,
+        "minX": 467,
+        "minY": 542
+      }
+    ],
+    "myImages": [],
+    "myLines": [],
+    "myRects": [],
+    "myRoundRects": [],
+    "myTexts": []
+  },
+  {
+    "myArrowHeads": [
+      {
+        "componentName": "箭头",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 644,
+        "maxY": 364,
+        "minX": 207,
+        "minY": 223
+      },
+      {
+        "componentName": "箭头",
+        "fillBlue": 255,
+        "fillGreen": 255,
+        "fillRed": 255,
+        "lineBorderBlue": 0,
+        "lineBorderGreen": 0,
+        "lineBorderRed": 0,
+        "maxX": 863,
+        "maxY": 518,
+        "minX": 132,
+        "minY": 118
+      }
+    ],
+    "myCircles": [],
+    "myImages": [],
+    "myLines": [],
+    "myRects": [],
+    "myRoundRects": [],
+    "myTexts": []
+  }
+]

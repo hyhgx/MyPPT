@@ -1,4 +1,4 @@
-package com.example.bin;
+package com.example.bean;
 
 import java.awt.*;
 
@@ -7,8 +7,10 @@ public class MyLineBean {
     public int x2;
     public int y1;
     public int y2;
-    public Color lineColor;
-    public Color lineT;
+    public int lineRed;
+    public int lineGreen;
+    public int lineBlue;
+    public Boolean lineT;
     public String componentName;
     public MyLineBean(){}
 }
