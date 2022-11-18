@@ -118,8 +118,11 @@ public class CanvasPanel extends JPanel {
                         CanvasPanel.this.add(component);
                         if(component instanceof MySelectArea){//如果是矩形选区,设置事件触发优先级最高
                             CanvasPanel.this.setComponentZOrder(component,0);
+                            CanvasPanel.this.isAdd=false;
+                        }else{
+                            CanvasPanel.this.isAdd=true;
                         }
-                        CanvasPanel.this.isAdd=true;
+
                     }
                 }
 
@@ -128,14 +131,7 @@ public class CanvasPanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                //松开时删除无效图形
-                if(CanvasPanel.this.isAdd){
-                    MyComponent component=(MyComponent) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    if(component.isUseful==false){
-                        CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
-                        CanvasPanel.this.isAdd=false;
-                    }
-                }
+
                 //鼠标松开时更新缩略图
                 BufferedImage image = new BufferedImage(CanvasPanel.this.getWidth(), CanvasPanel.this.getHeight(), BufferedImage.SCALE_SMOOTH);
                 Graphics2D g2 = (Graphics2D) image.getGraphics();
@@ -150,7 +146,14 @@ public class CanvasPanel extends JPanel {
                         selectArea.getFocus();
                     }
                 }
-
+                //松开时删除无效图形
+                if(CanvasPanel.this.isAdd){
+                    MyComponent component=(MyComponent) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
+                    if(component.isUseful==false){
+                        CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
+                        CanvasPanel.this.isAdd=false;
+                    }
+                }
             }
         });
         this.addMouseMotionListener(new MouseAdapter() {
