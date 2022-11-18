@@ -8,6 +8,7 @@ import java.awt.event.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +30,10 @@ public class CanvasPanel extends JPanel {
         this.setBackground(new Color(255, 255, 255));
     }
 
-    public void addListener(final MyComponent component) {
+    public void addListener(MyComponent component) {
+        if(component instanceof MySelectArea){
+            return;
+        }
         component.addMyComponentEventListener(new MyComponent.MyComponentEventListener() {
             @Override
             public void remove(MyComponent myComponent) {
@@ -53,7 +57,7 @@ public class CanvasPanel extends JPanel {
         } else if (component instanceof MyLine) {
             s.append("直线");
         }
-        if(!s.toString().equals("")){
+        if (!s.toString().equals("")) {
             component.setRightPanelChangeListener(new MyComponent.RightPanelChangeListener() {
                 @Override
                 public void rightPanelChangeL() {
@@ -72,48 +76,56 @@ public class CanvasPanel extends JPanel {
             @Override
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
-                CanvasPanel.this.frame.rightPanel.returnPanel("",null);
+                CanvasPanel.this.frame.rightPanel.returnPanel("", null);
             }
         });
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                CanvasPanel.this.focusChanged();
+                CanvasPanel.this.requestFocus(true);
                 MyComponent component = null;
                 super.mousePressed(e);
                 if (CanvasPanel.this.frame.type != null) {
                     switch (CanvasPanel.this.frame.type) {
                         case "文本框":
-                            component = new MyText(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
+                            component = new MyText(e.getX(), e.getY(), CanvasPanel.this.frame.out.getColor());
                             break;
                         case "直角矩形":
-                            component = new MyRect(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
+                            component = new MyRect(e.getX(), e.getY(), CanvasPanel.this.frame.out.getColor());
                             break;
                         case "圆角矩形":
-                            component = new MyRoundRect(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
+                            component = new MyRoundRect(e.getX(), e.getY(), CanvasPanel.this.frame.out.getColor());
                             break;
                         case "椭圆":
-                            component = new MyCircle(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
+                            component = new MyCircle(e.getX(), e.getY(), CanvasPanel.this.frame.out.getColor());
                             break;
                         case "箭头":
-                            component = new MyArrowHead(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
+                            component = new MyArrowHead(e.getX(), e.getY(), CanvasPanel.this.frame.out.getColor());
                             break;
                         case "直线":
-                            component = new MyLine(e.getX(), e.getY(),CanvasPanel.this.frame.out.getColor());
+                            component = new MyLine(e.getX(), e.getY(), CanvasPanel.this.frame.out.getColor());
                             break;
                         case "画笔":
                             points.addLineSet();
+                            break;
+                        case "矩形选区":
+                            component = new MySelectArea(e.getX(), e.getY());
                             break;
                     }
                     if (component != null) {
                         CanvasPanel.this.addListener(component);
                         CanvasPanel.this.add(component);
+                        if(component instanceof MySelectArea){//如果是矩形选区,设置事件触发优先级最高
+                            CanvasPanel.this.setComponentZOrder(component,0);
+                        }
                         CanvasPanel.this.isAdd=true;
                     }
                 }
-                CanvasPanel.this.focusChanged();
-                CanvasPanel.this.requestFocus(true);
+
 
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
                 //松开时删除无效图形
@@ -130,6 +142,15 @@ public class CanvasPanel extends JPanel {
                 CanvasPanel.this.paint(g2);
                 MyJList jlist = CanvasPanel.this.frame.getJlist();
                 jlist.updateImage(image);
+                //如果是矩形选区,松手时自动聚焦
+                if(CanvasPanel.this.frame.type.equals("矩形选区")){
+                    Component component = CanvasPanel.this.getComponent(0);
+                    if(component instanceof MySelectArea){
+                        MySelectArea selectArea = (MySelectArea)component;
+                        selectArea.getFocus();
+                    }
+                }
+
             }
         });
         this.addMouseMotionListener(new MouseAdapter() {
@@ -178,6 +199,10 @@ public class CanvasPanel extends JPanel {
                         points.removeLine(new Point(e.getX(), e.getY()));
                         CanvasPanel.this.repaint();
                         break;
+                    case "矩形选区":
+                        MySelectArea selectArea = (MySelectArea) CanvasPanel.this.getComponent(0);
+                        selectArea.setX2Y2(e.getX(), e.getY());
+                        break;
                 }
 
             }
@@ -186,23 +211,25 @@ public class CanvasPanel extends JPanel {
 
     }
 
-     class Points {
+    class Points {
         public LinkedList<LinkedList<Point>> lines = new LinkedList<>();
-        public LinkedList<Color> colors=new LinkedList<>();
+        public LinkedList<Color> colors = new LinkedList<>();
 
         void addPoint(Point p) {
             if (lines.size() > 0) {
                 lines.getLast().add(p);
             }
         }
-        void addLineSet(){
+
+        void addLineSet() {
             lines.add(new LinkedList<Point>());
             colors.add(CanvasPanel.this.frame.out.getColor());
         }
-       void removeLine(Point point){
-            for(LinkedList<Point> line: lines){
-                for(Point p:line){
-                    if(p.x>=point.x-5&&p.x<=point.x+5&&p.y>=point.y-5&&p.y<=point.y+5){//在10*10的像素内存在点就删除
+
+        void removeLine(Point point) {
+            for (LinkedList<Point> line : lines) {
+                for (Point p : line) {
+                    if (p.x >= point.x - 5 && p.x <= point.x + 5 && p.y >= point.y - 5 && p.y <= point.y + 5) {//在10*10的像素内存在点就删除
                         int i = lines.indexOf(line);
                         colors.remove(i);
                         lines.remove(line);
@@ -210,7 +237,7 @@ public class CanvasPanel extends JPanel {
                     }
                 }
             }
-       }
+        }
     }
 
     public Points points = new Points();
@@ -222,13 +249,27 @@ public class CanvasPanel extends JPanel {
         BasicStroke stroke = new BasicStroke(2.0f);
         Graphics2D gr2 = (Graphics2D) g;
         gr2.setStroke(stroke);
-        int index=0;
-        for(List<Point> line:points.lines){
+        int index = 0;
+        for (List<Point> line : points.lines) {
             gr2.setColor(points.colors.get(index));
-            for(int i=1;i<line.size();++i){
-                gr2.drawLine(line.get(i-1).x,line.get(i-1).y,line.get(i).x,line.get(i).y);
+            for (int i = 1; i < line.size(); ++i) {
+                gr2.drawLine(line.get(i - 1).x, line.get(i - 1).y, line.get(i).x, line.get(i).y);
             }
             index++;
         }
+    }
+
+    public List<MyComponent> getComponentsInArea(Rectangle rectangle){
+        ArrayList<MyComponent> list=new ArrayList<>();
+        Component[] components = this.getComponents();
+        for (Component i : components) {
+            if (i instanceof MyComponent) {
+                MyComponent myComponent=(MyComponent) i;
+                if(myComponent.isInArea(rectangle)){
+                    list.add(myComponent);
+                }
+            }
+        }
+        return list;
     }
 }

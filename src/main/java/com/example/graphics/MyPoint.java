@@ -6,8 +6,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyPoint extends JComponent{
-    private int x;
-    private int y;
+    public int x;
+    public int y;
     private static final int r=5;
     public enum Type{
         left,right,top,bottom,leftTop,rightTop,leftBottom,rightBottom,normal
