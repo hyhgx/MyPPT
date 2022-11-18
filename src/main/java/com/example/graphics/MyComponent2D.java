@@ -12,6 +12,36 @@ public class MyComponent2D extends MyComponent {
     protected int minY;
     protected int maxX;
     protected int maxY;
+    public MyComponent2D(){//为了保存使用
+        super();
+        this.setLayout(null);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                MyComponent2D.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                initX=e.getX();
+                initY=e.getY();
+                getFocus();
+            }
+        });
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                minX+=e.getX()-initX;
+                minY+=e.getY()-initY;
+                maxX+=e.getX()-initX;
+                maxY+=e.getY()-initY;
+                MyComponent2D.this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
+                MyComponent2D.this.repaint();
+            }
+        });
+    }
     public MyComponent2D(int x,int y,Color lineColor){
         super();
         this.x1=x;

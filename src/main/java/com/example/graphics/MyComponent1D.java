@@ -16,7 +16,6 @@ public class MyComponent1D extends MyComponent {
         this.y2 = y;
         this.setLayout(null);
         this.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
@@ -24,7 +23,6 @@ public class MyComponent1D extends MyComponent {
                 initY = e.getY();
                 getFocus();
             }
-
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);

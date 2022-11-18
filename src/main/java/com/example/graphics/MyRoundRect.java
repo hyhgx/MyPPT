@@ -17,6 +17,16 @@ public class MyRoundRect extends MyComponent2D {
         super(x,y,lineColor);
         this.setName("圆角矩形");
     }
+    public MyRoundRect(int minX,int minY,int maxX,int maxY,String name, Color lineColor,Color fillcolor){
+        super();
+        this.fillColor=fillcolor;
+        this.lineColor=lineColor;
+        this.minX=minX;
+        this.minY=minY;
+        this.maxX=maxX;
+        this.maxY=maxY;
+        this.setName(name);
+    }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
