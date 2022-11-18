@@ -27,6 +27,7 @@ public class MyCircle extends MyComponent2D {
         this.maxX=maxX;
         this.maxY=maxY;
         this.setName(name);
+        this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -39,6 +40,12 @@ public class MyCircle extends MyComponent2D {
         g1.setColor(fillColor);
         g1.fillOval(6,6,maxX-minX-2,maxY-minY-2);
     }
+
+    @Override
+    public MyComponent cloneMySelf() {
+        return new MyCircle(minX,minY,maxX,maxY,getName(),lineColor,fillColor);
+    }
+
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);

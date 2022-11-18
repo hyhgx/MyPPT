@@ -230,4 +230,11 @@ public class MyComponent2D extends MyComponent {
         setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
         repaint();
     }
+
+    @Override
+    public void setPosition(int x, int y) {
+        int dx=x-minX;
+        int dy=y-minY;
+        moveComponent(dx,dy);
+    }
 }

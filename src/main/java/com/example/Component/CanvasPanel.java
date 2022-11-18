@@ -116,7 +116,7 @@ public class CanvasPanel extends JPanel {
                     if (component != null) {
                         CanvasPanel.this.addListener(component);
                         CanvasPanel.this.add(component);
-                        if(component instanceof MySelectArea){//如果是矩形选区,设置事件触发优先级最高
+                        if(component instanceof MySelectArea){//如果是矩形选区,设置事件触发优先级最高且不被自动删除
                             CanvasPanel.this.setComponentZOrder(component,0);
                             CanvasPanel.this.isAdd=false;
                         }else{
@@ -211,6 +211,15 @@ public class CanvasPanel extends JPanel {
             }
 
         });
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //按下Ctrl+v
+                if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'V') {
+                    handlePaste();
+                }
+            }
+        });
 
     }
 
@@ -274,5 +283,15 @@ public class CanvasPanel extends JPanel {
             }
         }
         return list;
+    }
+
+    public void handlePaste(){
+        ArrayList<MyComponent> contents = MyClipBoard.getContent();
+        for(MyComponent content:contents){
+            MyComponent contentCloned = content.cloneMySelf();//以剪切板中的为副本clone一个新的
+            CanvasPanel.this.addListener(contentCloned);
+            CanvasPanel.this.add(contentCloned);
+        }
+        CanvasPanel.this.repaint();
     }
 }

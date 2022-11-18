@@ -1,9 +1,8 @@
-package com.example.bin;
+package com.example.bean;
 
 import java.awt.*;
 
-public class MyArrowHeadBean {
-
+public class MyRectBean {
     public int minX;
     public int minY;
     public int maxX;
@@ -11,5 +10,7 @@ public class MyArrowHeadBean {
     public Color fillColor;
     public Color lineBorderColor;
     public String componentName;
-    public MyArrowHeadBean(){}
+    public MyRectBean(){
+
+    }
 }

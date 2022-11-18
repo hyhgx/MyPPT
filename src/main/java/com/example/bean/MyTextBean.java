@@ -1,16 +1,13 @@
-package com.example.bin;
+package com.example.bean;
 
 import java.awt.*;
 
-public class MyRectBean {
+public class MyTextBean {
     public int minX;
     public int minY;
     public int maxX;
     public int maxY;
-    public Color fillColor;
+    public Font font;
     public Color lineBorderColor;
     public String componentName;
-    public MyRectBean(){
-
-    }
 }

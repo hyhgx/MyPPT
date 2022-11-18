@@ -1,13 +1,15 @@
-package com.example.bin;
+package com.example.bean;
 
 import java.awt.*;
 
-public class MyTextBean {
+public class MyArrowHeadBean {
+
     public int minX;
     public int minY;
     public int maxX;
     public int maxY;
-    public Font font;
+    public Color fillColor;
     public Color lineBorderColor;
     public String componentName;
+    public MyArrowHeadBean(){}
 }

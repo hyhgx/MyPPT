@@ -1,6 +1,6 @@
 package com.example.Component;
 
-import com.example.bin.*;
+import com.example.bean.*;
 
 import java.util.List;
 

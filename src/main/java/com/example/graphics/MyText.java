@@ -16,7 +16,7 @@ public class MyText extends MyComponent2D {
     public JMenuItem cut = new JMenuItem("剪切");
     public JMenuItem selectAll = new JMenuItem("全选");
     public Font font;
-    public MyText(int minX,int minY,int maxX,int maxY,String name, Color lineColor,Font font){
+    public MyText(int minX,int minY,int maxX,int maxY,String name, Color lineColor,Font font,String text){
         super();
         init();
         this.font=font;
@@ -26,6 +26,8 @@ public class MyText extends MyComponent2D {
         this.maxX=maxX;
         this.maxY=maxY;
         this.setName(name);
+        this.text.setText(text);
+        this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
     }
     public MyText(int x,int y){
        super(x,y,null);
@@ -144,6 +146,12 @@ public class MyText extends MyComponent2D {
             }
         });
     }
+
+    @Override
+    public MyComponent cloneMySelf() {
+        return new MyText(minX,minY,maxX,maxY,getName(),lineColor,font,text.getText());
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
