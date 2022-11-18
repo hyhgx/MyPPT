@@ -1,9 +1,11 @@
 package com.example.graphics;
 
-import com.example.graphics.MyPoint;
+import com.example.Component.CanvasPanel;
+import com.example.Component.MyClipBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -72,10 +74,19 @@ public class MyComponent extends JComponent {
                 super.keyPressed(e);
                 if(e.getKeyCode()==127&&eventListener!=null){//按下delete键时
                     eventListener.remove(MyComponent.this);
+                } else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'C') {// 按下CTRL+C
+                    handleCopy();
+                } else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'V') { //按下Ctrl+v,转发给外层
+                    CanvasPanel parent = (CanvasPanel) MyComponent.this.getParent();
+                    parent.handlePaste();
+                }else if(e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'X'){//按下Ctrl+x
+                    handleCut();
                 }
+
             }
         });
     }
+
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -125,5 +136,24 @@ public class MyComponent extends JComponent {
         return true;
     }
 
-    public void moveComponent(int dx,int dy){}
+    public void moveComponent(int dx, int dy) {
+    }
+
+    public MyComponent cloneMySelf() {
+        return null;
+    }
+
+    public void setPosition(int x, int y) {
+    }
+
+    public void handleCopy() {
+        MyComponent myComponent = MyComponent.this.cloneMySelf();
+        myComponent.setPosition(20, 20);
+        MyClipBoard.setContent(myComponent);
+    }
+
+    public void handleCut(){
+        handleCopy();
+        eventListener.remove(MyComponent.this);
+    }
 }

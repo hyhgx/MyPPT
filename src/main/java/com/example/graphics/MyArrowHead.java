@@ -25,6 +25,7 @@ public class MyArrowHead extends MyComponent2D {
         this.maxX=maxX;
         this.maxY=maxY;
         this.setName(name);
+        this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -43,6 +44,12 @@ public class MyArrowHead extends MyComponent2D {
         int [] ypoint1={5+1,5+(maxY-minY)-1,5+(maxY-minY)/2};
         g1.fillPolygon(xpoint1,ypoint1,3);
     }
+
+    @Override
+    public MyComponent cloneMySelf() {
+        return new MyArrowHead(minX,minY,maxX,maxY,getName(),lineColor,fillColor);
+    }
+
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setLayout(null);

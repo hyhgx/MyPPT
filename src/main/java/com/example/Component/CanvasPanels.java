@@ -34,6 +34,7 @@ public class CanvasPanels extends Panel {
             this.add(newPanel);
         }
         currentPanel=newPanel;
+        currentPanel.requestFocus(true);
         this.repaint();
     }
     public void setCurrentPanel(int index){

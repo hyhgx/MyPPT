@@ -43,6 +43,37 @@ public class MyComponent1D extends MyComponent {
         });
     }
 
+    public MyComponent1D(){
+        super();
+        this.setLayout(null);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                initX = e.getX();
+                initY = e.getY();
+                getFocus();
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                MyComponent1D.this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+            }
+        });
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                x1 += e.getX() - initX;
+                y1 += e.getY() - initY;
+                x2 += e.getX() - initX;
+                y2 += e.getY() - initY;
+                updateBounds();
+                MyComponent1D.this.repaint();
+            }
+        });
+    }
+
     @Override
     public void setX2Y2(int x, int y) {
         this.x2 = x;
@@ -140,5 +171,12 @@ public class MyComponent1D extends MyComponent {
         y2 += dy;
         updateBounds();
         repaint();
+    }
+
+    @Override
+    public void setPosition(int x, int y) {
+        int dx=x-Math.min(x1,x2);
+        int dy=y-Math.min(y1,y2);
+        moveComponent(dx,dy);
     }
 }
