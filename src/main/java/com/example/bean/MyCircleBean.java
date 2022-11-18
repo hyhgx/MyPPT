@@ -7,12 +7,7 @@ public class MyCircleBean {
     public int minY;
     public int maxX;
     public int maxY;
-    public int fillRed;
-    public int fillGreen;
-    public int fillBlue;
-    public int lineBorderRed;
-    public int lineBorderGreen;
-    public int lineBorderBlue;
+
     public String componentName;
     public MyCircleBean(){}
 
