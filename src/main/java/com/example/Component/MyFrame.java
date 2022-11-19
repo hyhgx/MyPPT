@@ -460,7 +460,7 @@ public class MyFrame extends JFrame {
     public MyJList getJlist(){
         return jlist;
     }
-    public void setJlist(JsonList jsonList){
+    public void setJlist(JsonList jsonList) throws Exception {
         ArrayList<CanvasPanel> list=new ArrayList<>();
         for(int i=0;i<jsonList.jsonDataList.size();i++){
             CanvasPanel p1=new CanvasPanel(MyFrame.this);
@@ -567,6 +567,15 @@ public class MyFrame extends JFrame {
             }
             p1.points.setLines(lines);
             p1.points.setColors(colors);
+            for(int j=0;j<jsonList.jsonDataList.get(i).myImages.size();j++){
+                MyImage myImage=new MyImage(jsonList.jsonDataList.get(i).myImages.get(j).minX,
+                        jsonList.jsonDataList.get(i).myImages.get(j).minY,
+                        jsonList.jsonDataList.get(i).myImages.get(j).maxX,
+                        jsonList.jsonDataList.get(i).myImages.get(j).maxY,
+                        jsonList.jsonDataList.get(i).myImages.get(j).s);
+                p1.addListener(myImage);
+                p1.add(myImage);
+            }
             list.add(p1);
         }
         jlist.load(list);

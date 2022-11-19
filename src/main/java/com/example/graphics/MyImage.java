@@ -33,7 +33,7 @@ public class MyImage extends MyComponent2D {
         this.minY=minY;
         this.maxX=maxX;
         this.maxY=maxY;
-        Base64ToImage(s);
+        this.image=Base64ToImage(s);
         this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
         this.repaint();
     }
@@ -47,12 +47,13 @@ public class MyImage extends MyComponent2D {
         super.paintComponent(g);
         g.drawImage(image,5,5,maxX-minX,maxY-minY,new Color(255,255,255),null);
     }
-    public void Base64ToImage(String s) throws Exception {
+    public BufferedImage Base64ToImage(String s) throws Exception {
         Base64.Decoder decoder =Base64.getDecoder();
         byte[] decode = decoder.decode(s);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decode);
         BufferedImage image = ImageIO.read(byteArrayInputStream);
         //this.image
+        return image;
 
     }
     public String imageToBase64() throws IOException {//得到向文件保存字符串
