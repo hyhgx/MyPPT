@@ -33,7 +33,7 @@ public class MyFile {
     }
     public void getPanels() throws Exception{
         String s = readFile();
-        JsonList jsonList = JSON.parseObject(s, JsonList.class);
+        jsonList = JSON.parseObject(s, JsonList.class);
     }
     public void saveFile() throws Exception {
         //String s = JSON.toJSONString(jsonList.jsonDataList);
@@ -71,7 +71,7 @@ public class MyFile {
             mypointsBean.red.add(c.getRed());
             mypointsBean.alpha.add((c.getAlpha()));
         }
-        jd.mypointsBeans.add(mypointsBean);
+        jd.mypointsBeans=mypointsBean;
         for(int i=0;i<components.length;i++){
             if(components[i] instanceof MyText){
                 MyText myText=(MyText) components[i];
@@ -101,7 +101,7 @@ public class MyFile {
                 myRectBean.fillBlue=myRect.fillColor.getBlue();
                 myRectBean.fillRed=myRect.fillColor.getRed();
                 myRectBean.fillGreen=myRect.fillColor.getGreen();
-                myRectBean.lineAlpha=myRect.fillColor.getAlpha();
+                myRectBean.fillAlpha=myRect.fillColor.getAlpha();
                 myRectBean.lineBorderRed=myRect.lineColor.getRed();
                 myRectBean.lineBorderGreen=myRect.lineColor.getGreen();
                 myRectBean.lineBorderBlue=myRect.lineColor.getBlue();

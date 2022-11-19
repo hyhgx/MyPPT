@@ -10,7 +10,7 @@ public class MyRectBean {
     public int fillRed;
     public int fillGreen;
     public int fillBlue;
-    public int lineAlpha;
+    public int fillAlpha;
     public int lineBorderRed;
     public int lineBorderGreen;
     public int lineBorderBlue;

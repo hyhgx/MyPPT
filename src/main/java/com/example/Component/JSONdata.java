@@ -13,7 +13,7 @@ public class JSONdata {
     public List<MyImageBean> myImages=new LinkedList<>();
     public List<MyLineBean> myLines=new LinkedList<>();
     public List<MyRoundRectBean> myRoundRects=new LinkedList<>();
-    public List<MypointsBean> mypointsBeans=new LinkedList<>();
+    public MypointsBean mypointsBeans=new MypointsBean();
     public JSONdata(){
 
     }

@@ -1,10 +1,8 @@
 package com.example.Component;
 
-import com.example.graphics.MyImage;
+import com.example.graphics.*;
 
 import javax.imageio.ImageIO;
-import com.example.graphics.MyOuter;
-import com.example.graphics.MyRect;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -64,6 +62,7 @@ public class MyFrame extends JFrame {
                         File file = chooser.getSelectedFile();
                         MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(), file);
                         myFile.getPanels();
+                        setJlist(myFile.jsonList);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -91,44 +90,6 @@ public class MyFrame extends JFrame {
                 }
             }
         });
-
-
-
-        //!!!!!!测试
-//        jMenuItemOpen.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                ArrayList<CanvasPanel> list=new ArrayList<>();
-//
-//                CanvasPanel p1=new CanvasPanel(MyFrame.this);
-//                MyRect cc = new MyRect(20, 20, 200, 200, "cc", new Color(200, 0, 20), new Color(0, 240, 0));
-//                p1.addListener(cc);
-//                p1.add(cc);
-//                CanvasPanel p2=new CanvasPanel(MyFrame.this);
-//
-//                LinkedList<Point> line=new LinkedList<>();
-//                line.add(new Point(50,50));
-//                line.add(new Point(100,100));
-//                line.add(new Point(150,100));
-//                LinkedList<LinkedList<Point>> lines = new LinkedList<>();
-//                lines.add(line);
-//                p2.points.setLines(lines);
-//                LinkedList<Color> colors=new LinkedList<>();
-//                colors.add(new Color(23,77,0));
-//                p2.points.setColors(colors);
-//                list.add(p1);
-//                list.add(p2);
-//
-//                jlist.load(list);
-//            }
-//        });
-
-
-
-
-
-
-
         fileMenu.add(jMenuItemNew);
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemOpen);
@@ -499,7 +460,117 @@ public class MyFrame extends JFrame {
     public MyJList getJlist(){
         return jlist;
     }
-
+    public void setJlist(JsonList jsonList){
+        ArrayList<CanvasPanel> list=new ArrayList<>();
+        for(int i=0;i<jsonList.jsonDataList.size();i++){
+            CanvasPanel p1=new CanvasPanel(MyFrame.this);
+            for(int j=0;j<jsonList.jsonDataList.get(i).myRects.size();j++){
+                MyRect m=new MyRect(jsonList.jsonDataList.get(i).myRects.get(j).minX,
+                        jsonList.jsonDataList.get(i).myRects.get(j).minY,
+                        jsonList.jsonDataList.get(i).myRects.get(j).maxX,
+                        jsonList.jsonDataList.get(i).myRects.get(j).minY,
+                        jsonList.jsonDataList.get(i).myRects.get(j).componentName,
+                        new Color(jsonList.jsonDataList.get(i).myRects.get(j).lineBorderRed,
+                                jsonList.jsonDataList.get(i).myRects.get(j).lineBorderGreen,
+                                jsonList.jsonDataList.get(i).myRects.get(j).lineBorderBlue,
+                                jsonList.jsonDataList.get(i).myRects.get(j).fillAlpha),
+                        new Color(jsonList.jsonDataList.get(i).myRects.get(j).fillRed,jsonList.jsonDataList.get(i).myRects.get(j).fillGreen,
+                                jsonList.jsonDataList.get(i).myRects.get(j).fillBlue,jsonList.jsonDataList.get(i).myRects.get(j).lineBorderAlpha));
+                p1.addListener(m);
+                p1.add(m);
+            }
+            for(int j=0;j<jsonList.jsonDataList.get(i).myRoundRects.size();j++){
+                MyRoundRect m=new MyRoundRect(jsonList.jsonDataList.get(i).myRoundRects.get(j).minX,
+                        jsonList.jsonDataList.get(i).myRoundRects.get(j).minY,
+                        jsonList.jsonDataList.get(i).myRoundRects.get(j).maxX,
+                        jsonList.jsonDataList.get(i).myRoundRects.get(j).minY,
+                        jsonList.jsonDataList.get(i).myRoundRects.get(j).componentName,
+                        new Color(jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderRed,
+                                jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderGreen,
+                                jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderBlue,
+                                jsonList.jsonDataList.get(i).myRoundRects.get(j).fillAlpha),
+                        new Color(jsonList.jsonDataList.get(i).myRoundRects.get(j).fillRed,jsonList.jsonDataList.get(i).myRoundRects.get(j).fillGreen,
+                                jsonList.jsonDataList.get(i).myRoundRects.get(j).fillBlue,jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderAlpha));
+                p1.addListener(m);
+                p1.add(m);
+            }
+            for(int j=0;j<jsonList.jsonDataList.get(i).myCircles.size();j++){
+                MyCircle m=new MyCircle(jsonList.jsonDataList.get(i).myCircles.get(j).minX,
+                        jsonList.jsonDataList.get(i).myCircles.get(j).minY,
+                        jsonList.jsonDataList.get(i).myCircles.get(j).maxX,
+                        jsonList.jsonDataList.get(i).myCircles.get(j).minY,
+                        jsonList.jsonDataList.get(i).myCircles.get(j).componentName,
+                        new Color(jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderRed,
+                                jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderGreen,
+                                jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderBlue,
+                                jsonList.jsonDataList.get(i).myCircles.get(j).fillAlpha),
+                        new Color(jsonList.jsonDataList.get(i).myCircles.get(j).fillRed,jsonList.jsonDataList.get(i).myCircles.get(j).fillGreen,
+                                jsonList.jsonDataList.get(i).myCircles.get(j).fillBlue,jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderAlpha));
+                p1.addListener(m);
+                p1.add(m);
+            }
+            for(int j=0;j<jsonList.jsonDataList.get(i).myArrowHeads.size();j++){
+                MyArrowHead m=new MyArrowHead(jsonList.jsonDataList.get(i).myArrowHeads.get(j).minX,
+                        jsonList.jsonDataList.get(i).myArrowHeads.get(j).minY,
+                        jsonList.jsonDataList.get(i).myArrowHeads.get(j).maxX,
+                        jsonList.jsonDataList.get(i).myArrowHeads.get(j).minY,
+                        jsonList.jsonDataList.get(i).myArrowHeads.get(j).componentName,
+                        new Color(jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderRed,
+                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderGreen,
+                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderBlue,
+                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillAlpha),
+                        new Color(jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillRed,jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillGreen,
+                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillBlue,jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderAlpha));
+                p1.addListener(m);
+                p1.add(m);
+            }
+            for(int j=0;j<jsonList.jsonDataList.get(i).myTexts.size();j++){
+                MyText m=new MyText(jsonList.jsonDataList.get(i).myTexts.get(j).minX,
+                        jsonList.jsonDataList.get(i).myTexts.get(j).minY,
+                        jsonList.jsonDataList.get(i).myTexts.get(j).maxX,
+                        jsonList.jsonDataList.get(i).myTexts.get(j).minY,
+                        jsonList.jsonDataList.get(i).myTexts.get(j).componentName,
+                        new Color(jsonList.jsonDataList.get(i).myTexts.get(j).red,
+                                jsonList.jsonDataList.get(i).myTexts.get(j).green,
+                                jsonList.jsonDataList.get(i).myTexts.get(j).blue,
+                                jsonList.jsonDataList.get(i).myTexts.get(j).alpha),
+                        new Font(jsonList.jsonDataList.get(i).myTexts.get(j).fontName,
+                                jsonList.jsonDataList.get(i).myTexts.get(j).fontStyle,
+                                jsonList.jsonDataList.get(i).myTexts.get(j).fontSize),
+                        jsonList.jsonDataList.get(i).myTexts.get(j).contentText
+                        );
+                p1.addListener(m);
+                p1.add(m);
+            }
+            for(int j=0;j<jsonList.jsonDataList.get(i).myLines.size();j++){
+                MyLine m=new MyLine(jsonList.jsonDataList.get(i).myLines.get(j).x1,
+                        jsonList.jsonDataList.get(i).myLines.get(j).x2,
+                        jsonList.jsonDataList.get(i).myLines.get(j).y1,
+                        jsonList.jsonDataList.get(i).myLines.get(j).y2,
+                        jsonList.jsonDataList.get(i).myLines.get(j).componentName,
+                        new Color(jsonList.jsonDataList.get(i).myLines.get(j).lineRed,
+                                jsonList.jsonDataList.get(i).myLines.get(j).lineGreen,
+                                jsonList.jsonDataList.get(i).myLines.get(j).lineBlue,
+                                jsonList.jsonDataList.get(i).myLines.get(j).lineAlpha)
+                );
+                p1.addListener(m);
+                p1.add(m);
+            }
+            //点
+            LinkedList<LinkedList<Point>> lines =jsonList.jsonDataList.get(i).mypointsBeans.lines;
+            LinkedList<Color> colors=new LinkedList<>();
+            for(int j=0;j<jsonList.jsonDataList.get(i).mypointsBeans.red.size();j++){
+                colors.add(new Color(jsonList.jsonDataList.get(i).mypointsBeans.red.get(j),
+                        jsonList.jsonDataList.get(i).mypointsBeans.green.get(j),
+                        jsonList.jsonDataList.get(i).mypointsBeans.blue.get(j),
+                        jsonList.jsonDataList.get(i).mypointsBeans.alpha.get(j)));
+            }
+            p1.points.setLines(lines);
+            p1.points.setColors(colors);
+            list.add(p1);
+        }
+        jlist.load(list);
+    }
     public void showImageFileOpenDialog(Component parent){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("."));

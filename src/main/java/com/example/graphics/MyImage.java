@@ -11,7 +11,6 @@ import java.util.Base64;
 
 public class MyImage extends MyComponent2D {
 
-    public String s;
     public Image getImage() {
         return image;
     }
@@ -28,13 +27,13 @@ public class MyImage extends MyComponent2D {
         this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
         this.repaint();
     }
-    public MyImage(int minX,int minY,int maxX,int maxY,String s){
+    public MyImage(int minX,int minY,int maxX,int maxY,String s) throws Exception {
         super(0,0,null);
         this.minX=minX;
         this.minY=minY;
         this.maxX=maxX;
         this.maxY=maxY;
-        this.s=s;
+        Base64ToImage(s);
         this.setBounds(minX-5,minY-5,maxX-minX+10,maxY-minY+10);
         this.repaint();
     }
@@ -53,9 +52,10 @@ public class MyImage extends MyComponent2D {
         byte[] decode = decoder.decode(s);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decode);
         BufferedImage image = ImageIO.read(byteArrayInputStream);
+        //this.image
 
     }
-    public String imageToBase64() throws IOException {
+    public String imageToBase64() throws IOException {//得到向文件保存字符串
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_BGR);
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.drawImage(image,0,0,null);
