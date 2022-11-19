@@ -13,6 +13,7 @@ public class MyTextBean {
     public int red;
     public int green;
     public int blue;
+    public int alpha;
     public String componentName;
     public String contentText;
     public MyTextBean(){

@@ -10,9 +10,11 @@ public class MyRoundRectBean {
     public int fillRed;
     public int fillGreen;
     public int fillBlue;
+    public int fillAlpha;
     public int lineBorderRed;
     public int lineBorderGreen;
     public int lineBorderBlue;
+    public int lineBorderAlpha;
     public String componentName;
     public MyRoundRectBean(){}
 }

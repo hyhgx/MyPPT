@@ -10,6 +10,7 @@ public class MyLineBean {
     public int lineRed;
     public int lineGreen;
     public int lineBlue;
+    public int lineAlpha;
     public Boolean lineT;
     public String componentName;
     public MyLineBean(){}

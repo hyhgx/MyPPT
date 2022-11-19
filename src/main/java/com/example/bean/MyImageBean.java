@@ -7,7 +7,7 @@ public class MyImageBean {
     public int minY;
     public int maxX;
     public int maxY;
-    public Image image;
+    public String s ;
     public String componentName;
     public MyImageBean(){}
 }
