@@ -468,14 +468,14 @@ public class MyFrame extends JFrame {
                 MyRect m=new MyRect(jsonList.jsonDataList.get(i).myRects.get(j).minX,
                         jsonList.jsonDataList.get(i).myRects.get(j).minY,
                         jsonList.jsonDataList.get(i).myRects.get(j).maxX,
-                        jsonList.jsonDataList.get(i).myRects.get(j).minY,
+                        jsonList.jsonDataList.get(i).myRects.get(j).maxY,
                         jsonList.jsonDataList.get(i).myRects.get(j).componentName,
                         new Color(jsonList.jsonDataList.get(i).myRects.get(j).lineBorderRed,
                                 jsonList.jsonDataList.get(i).myRects.get(j).lineBorderGreen,
                                 jsonList.jsonDataList.get(i).myRects.get(j).lineBorderBlue,
-                                jsonList.jsonDataList.get(i).myRects.get(j).fillAlpha),
+                                jsonList.jsonDataList.get(i).myRects.get(j).lineBorderAlpha),
                         new Color(jsonList.jsonDataList.get(i).myRects.get(j).fillRed,jsonList.jsonDataList.get(i).myRects.get(j).fillGreen,
-                                jsonList.jsonDataList.get(i).myRects.get(j).fillBlue,jsonList.jsonDataList.get(i).myRects.get(j).lineBorderAlpha));
+                                jsonList.jsonDataList.get(i).myRects.get(j).fillBlue,jsonList.jsonDataList.get(i).myRects.get(j).fillAlpha));
                 p1.addListener(m);
                 p1.add(m);
             }
@@ -483,14 +483,14 @@ public class MyFrame extends JFrame {
                 MyRoundRect m=new MyRoundRect(jsonList.jsonDataList.get(i).myRoundRects.get(j).minX,
                         jsonList.jsonDataList.get(i).myRoundRects.get(j).minY,
                         jsonList.jsonDataList.get(i).myRoundRects.get(j).maxX,
-                        jsonList.jsonDataList.get(i).myRoundRects.get(j).minY,
+                        jsonList.jsonDataList.get(i).myRoundRects.get(j).maxY,
                         jsonList.jsonDataList.get(i).myRoundRects.get(j).componentName,
                         new Color(jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderRed,
                                 jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderGreen,
                                 jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderBlue,
-                                jsonList.jsonDataList.get(i).myRoundRects.get(j).fillAlpha),
+                                jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderAlpha),
                         new Color(jsonList.jsonDataList.get(i).myRoundRects.get(j).fillRed,jsonList.jsonDataList.get(i).myRoundRects.get(j).fillGreen,
-                                jsonList.jsonDataList.get(i).myRoundRects.get(j).fillBlue,jsonList.jsonDataList.get(i).myRoundRects.get(j).lineBorderAlpha));
+                                jsonList.jsonDataList.get(i).myRoundRects.get(j).fillBlue,jsonList.jsonDataList.get(i).myRoundRects.get(j).fillAlpha));
                 p1.addListener(m);
                 p1.add(m);
             }
@@ -498,14 +498,14 @@ public class MyFrame extends JFrame {
                 MyCircle m=new MyCircle(jsonList.jsonDataList.get(i).myCircles.get(j).minX,
                         jsonList.jsonDataList.get(i).myCircles.get(j).minY,
                         jsonList.jsonDataList.get(i).myCircles.get(j).maxX,
-                        jsonList.jsonDataList.get(i).myCircles.get(j).minY,
+                        jsonList.jsonDataList.get(i).myCircles.get(j).maxY,
                         jsonList.jsonDataList.get(i).myCircles.get(j).componentName,
                         new Color(jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderRed,
                                 jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderGreen,
                                 jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderBlue,
-                                jsonList.jsonDataList.get(i).myCircles.get(j).fillAlpha),
+                                jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderAlpha),
                         new Color(jsonList.jsonDataList.get(i).myCircles.get(j).fillRed,jsonList.jsonDataList.get(i).myCircles.get(j).fillGreen,
-                                jsonList.jsonDataList.get(i).myCircles.get(j).fillBlue,jsonList.jsonDataList.get(i).myCircles.get(j).lineBorderAlpha));
+                                jsonList.jsonDataList.get(i).myCircles.get(j).fillBlue,jsonList.jsonDataList.get(i).myCircles.get(j).fillAlpha));
                 p1.addListener(m);
                 p1.add(m);
             }
@@ -513,14 +513,14 @@ public class MyFrame extends JFrame {
                 MyArrowHead m=new MyArrowHead(jsonList.jsonDataList.get(i).myArrowHeads.get(j).minX,
                         jsonList.jsonDataList.get(i).myArrowHeads.get(j).minY,
                         jsonList.jsonDataList.get(i).myArrowHeads.get(j).maxX,
-                        jsonList.jsonDataList.get(i).myArrowHeads.get(j).minY,
+                        jsonList.jsonDataList.get(i).myArrowHeads.get(j).maxY,
                         jsonList.jsonDataList.get(i).myArrowHeads.get(j).componentName,
                         new Color(jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderRed,
                                 jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderGreen,
                                 jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderBlue,
-                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillAlpha),
+                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderAlpha),
                         new Color(jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillRed,jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillGreen,
-                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillBlue,jsonList.jsonDataList.get(i).myArrowHeads.get(j).lineBorderAlpha));
+                                jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillBlue,jsonList.jsonDataList.get(i).myArrowHeads.get(j).fillAlpha));
                 p1.addListener(m);
                 p1.add(m);
             }
@@ -528,7 +528,7 @@ public class MyFrame extends JFrame {
                 MyText m=new MyText(jsonList.jsonDataList.get(i).myTexts.get(j).minX,
                         jsonList.jsonDataList.get(i).myTexts.get(j).minY,
                         jsonList.jsonDataList.get(i).myTexts.get(j).maxX,
-                        jsonList.jsonDataList.get(i).myTexts.get(j).minY,
+                        jsonList.jsonDataList.get(i).myTexts.get(j).maxY,
                         jsonList.jsonDataList.get(i).myTexts.get(j).componentName,
                         new Color(jsonList.jsonDataList.get(i).myTexts.get(j).red,
                                 jsonList.jsonDataList.get(i).myTexts.get(j).green,
