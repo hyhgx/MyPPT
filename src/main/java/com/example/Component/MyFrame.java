@@ -4,6 +4,7 @@ import com.example.graphics.MyImage;
 
 import javax.imageio.ImageIO;
 import com.example.graphics.MyOuter;
+import com.example.graphics.MyRect;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -16,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
@@ -60,6 +63,44 @@ public class MyFrame extends JFrame {
                 }
             }
         });
+
+
+
+        //!!!!!!测试
+//        jMenuItemOpen.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                ArrayList<CanvasPanel> list=new ArrayList<>();
+//
+//                CanvasPanel p1=new CanvasPanel(MyFrame.this);
+//                MyRect cc = new MyRect(20, 20, 200, 200, "cc", new Color(200, 0, 20), new Color(0, 240, 0));
+//                p1.addListener(cc);
+//                p1.add(cc);
+//                CanvasPanel p2=new CanvasPanel(MyFrame.this);
+//
+//                LinkedList<Point> line=new LinkedList<>();
+//                line.add(new Point(50,50));
+//                line.add(new Point(100,100));
+//                line.add(new Point(150,100));
+//                LinkedList<LinkedList<Point>> lines = new LinkedList<>();
+//                lines.add(line);
+//                p2.points.setLines(lines);
+//                LinkedList<Color> colors=new LinkedList<>();
+//                colors.add(new Color(23,77,0));
+//                p2.points.setColors(colors);
+//                list.add(p1);
+//                list.add(p2);
+//
+//                jlist.load(list);
+//            }
+//        });
+
+
+
+
+
+
+
         fileMenu.add(jMenuItemNew);
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemOpen);

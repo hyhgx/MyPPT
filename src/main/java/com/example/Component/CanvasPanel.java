@@ -233,6 +233,13 @@ public class CanvasPanel extends JPanel {
             }
         }
 
+        public void setLines(LinkedList<LinkedList<Point>> lines){
+            this.lines=lines;
+        }
+        public void setColors(LinkedList<Color> colors){
+            this.colors=colors;
+        }
+
         void addLineSet() {
             lines.add(new LinkedList<Point>());
             colors.add(CanvasPanel.this.frame.out.getColor());

@@ -46,7 +46,6 @@ public class MyJList extends JList<String> {
                 jLabel.setPreferredSize(new Dimension(250, 200));
                 jLabel.setFont(new Font("微软雅黑", Font.PLAIN, 30));
                 jLabel.setOpaque(true);
-
                 jLabel.setIcon(new ImageIcon(images.get(index)));
                 jLabel.setIconTextGap(20);
 
@@ -169,6 +168,40 @@ public class MyJList extends JList<String> {
         g2d.dispose();
         this.images.set(currentPage,newImage);
         this.repaint();
+    }
+
+    public void load(List<CanvasPanel> list){
+        //清空原有的
+        this.model.clear();
+        this.clearSelection();
+        this.panels.clear();
+        this.images.clear();
+        //载入新的
+
+        for(int i=0;i<list.size();++i){
+            CanvasPanel panel = list.get(i);
+
+            //得到缩略图
+            BufferedImage image = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.SCALE_SMOOTH);
+            Graphics2D g2 = (Graphics2D) image.getGraphics();
+            panel.paint(g2);
+            Image tmp = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            BufferedImage newImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = newImage.createGraphics();
+            g2d.drawImage(tmp, 0, 0, null);
+            g2d.dispose();
+            images.add(newImage);
+            //放入窗口
+            panels.addPanel(panel);
+            this.model.add(i,String.valueOf(i));
+        }
+        if(!list.isEmpty()){//非空选择第一个
+            this.setSelectedIndex(0);//左侧选中
+            this.currentPage=0;
+            this.panels.changeCurrentPanel(this.getCurrentPanel());//中心面板切换
+            this.getCurrentPanel().requestFocus();
+            this.getCurrentPanel().repaint();
+        }
     }
 
 }
