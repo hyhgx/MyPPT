@@ -1,6 +1,7 @@
 package com.example.graphics;
 
 import com.example.Component.CanvasPanel;
+import com.example.Component.MyClipBoard;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySelectArea extends MyComponent2D {
+
+    private boolean isCloned=false;//是否是被克隆生成的,如果是,则在聚焦时不需要绑定在区域内的组件
     public MySelectArea(int x, int y) {
         super(x, y, null);
         init();
@@ -19,15 +22,21 @@ public class MySelectArea extends MyComponent2D {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
+        isCloned=true;
         this.setBounds(minX - 5, minY - 5, maxX - minX + 10, maxY - minY + 10);
         init();
     }
+
+    private final ArrayList<MyComponent> componentsSelected=new ArrayList<>();
 
     private void init() {
         this.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-
+                if(!isCloned){
+                    CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
+                    componentsSelected.addAll(parent.getComponentsInArea(new Rectangle(minX, minY, maxX - minX, maxY - minY)));
+                }
             }
 
             @Override
@@ -45,13 +54,6 @@ public class MySelectArea extends MyComponent2D {
                 super.keyPressed(e);
                 if (e.getKeyCode() == 127) {//按下delete键时
                     handleDelete();
-                }else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'C') {// 按下CTRL+C
-                    handleCopy();
-                } else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'V') { //按下Ctrl+v,转发给外层
-//                    CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
-//                    parent.handlePaste();
-                }else if(e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'X'){//按下Ctrl+x
-                    handleCut();
                 }
             }
         });
@@ -59,13 +61,16 @@ public class MySelectArea extends MyComponent2D {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
-                List<MyComponent> componentsInArea = parent.getComponentsInArea(new Rectangle(minX, minY, maxX - minX, maxY - minY));
-                for (MyComponent i : componentsInArea) {
+                for (MyComponent i : componentsSelected) {
                     i.moveComponent(e.getX() - initX, e.getY() - initY);
                 }
             }
         });
+    }
+
+    @Override
+    public MyComponent cloneMySelf() {
+        return new MySelectArea(minX,maxX,minY,maxY);
     }
 
     @Override
@@ -86,8 +91,7 @@ public class MySelectArea extends MyComponent2D {
 
     public void handleDelete() {
         CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
-        List<MyComponent> componentsInArea = parent.getComponentsInArea(new Rectangle(minX, minY, maxX - minX, maxY - minY));
-        for (MyComponent i : componentsInArea) {
+        for (MyComponent i : componentsSelected) {
             parent.remove(i);
         }
         parent.remove(MySelectArea.this);
@@ -96,11 +100,37 @@ public class MySelectArea extends MyComponent2D {
 
     @Override
     public void handleCopy() {
-//        ArrayList<MyComponent> myComponents = new ArrayList<>();
-//        CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
-//        List<MyComponent> componentsInArea = parent.getComponentsInArea(new Rectangle(minX, minY, maxX - minX, maxY - minY));
-//        for (MyComponent i : componentsInArea) {
-//            MyComponent myComponent = i.cloneMySelf();
-//        }
+        ArrayList<MyComponent> myComponents = new ArrayList<>();
+        CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
+        MySelectArea mySelectAreaCloned = (MySelectArea) this.cloneMySelf();
+        mySelectAreaCloned.setPosition(20,20);
+        myComponents.add(mySelectAreaCloned);
+        for (MyComponent i : componentsSelected) {
+            MyComponent myComponent = i.cloneMySelf();
+            myComponent.setPosition(myComponent.getLocation().x-this.getLocation().x+20,myComponent.getLocation().y-this.getLocation().y+20);
+            myComponents.add(myComponent);
+        }
+        MyClipBoard.setContent(myComponents);
     }
+
+    @Override
+    public void handleCut() {
+        handleCopy();
+        CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
+        parent.requestFocus();
+        handleDelete();
+    }
+
+    @Override
+    protected void updateMinMax() {
+        super.updateMinMax();
+        componentsSelected.clear();
+        CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
+        componentsSelected.addAll(parent.getComponentsInArea(new Rectangle(minX, minY, maxX - minX, maxY - minY)));
+    }
+
+    public void setComponentsSelected(List<MyComponent> components){
+        componentsSelected.addAll(components);
+    }
+
 }
