@@ -9,13 +9,10 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -23,20 +20,21 @@ public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
     private Boolean toolBarVisible = false;
     public String type="正常";
+    public File oldFile;
+    public boolean isNew=true;
     public final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
     public  final  MyOuter out=new MyOuter();
     public MyFrame() {
         init();
     }
-
     private void init() {
         //初始化
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.setLocation(0, 0);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("MyPPT");
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //设置菜单栏
         JPanel panel = new JPanel(new BorderLayout());
@@ -51,7 +49,39 @@ public class MyFrame extends JFrame {
         JMenuItem jMenuItemNew = new JMenuItem("新建");
         JMenuItem jMenuItemOpen = new JMenuItem("打开");
         JMenuItem jMenuItemSaveE = new JMenuItem("另存为");
-        JMenuItem jMenuItemBack = new JMenuItem("退出");
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                int op = JOptionPane.showConfirmDialog(MyFrame.this, "是否保存");
+                if(op==JOptionPane.YES_OPTION){
+                    if(doFile()==JFileChooser.APPROVE_OPTION){
+                        System.exit(0);
+                    }
+                }else if(op==JOptionPane.NO_OPTION){
+                    System.exit(0);
+                }
+            }
+        });
+        jMenuItemNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int op = JOptionPane.showConfirmDialog(MyFrame.this, "是否保存");
+                if(op==JOptionPane.YES_OPTION){
+                    if(doFile()==JFileChooser.APPROVE_OPTION){
+                        MyFrame.this.jlist.deleteAll();
+                        MyFrame.this.repaint();
+                        MyFrame.this.isNew=true;
+                        MyFrame.this.oldFile=null;
+                    }
+                }else if(op==JOptionPane.NO_OPTION){
+                    MyFrame.this.jlist.deleteAll();
+                    MyFrame.this.repaint();
+                    MyFrame.this.isNew=true;
+                    MyFrame.this.oldFile=null;
+                }
+            }
+        });
         jMenuItemOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,31 +93,38 @@ public class MyFrame extends JFrame {
                         MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(), file);
                         myFile.getPanels();
                         setJlist(myFile.jsonList);
+                        MyFrame.this.isNew=false;
+                        MyFrame.this.oldFile=file;
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
+        jMenuItemSaveE.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                int option=chooser.showSaveDialog(null);
+                if(option==JFileChooser.APPROVE_OPTION){
+                    File file = chooser.getSelectedFile();
+                    String name = chooser.getName(file);
+                    if(name.indexOf(".json")==-1){
+                        file= new File(chooser.getCurrentDirectory(), name + ".json");
+                    }
+                    MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);
+                    try {
+                        myFile.getJsonData();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
         jMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    JFileChooser chooser = new JFileChooser();
-                    int option=chooser.showSaveDialog(null);
-                    if(option==JFileChooser.APPROVE_OPTION){
-                        File file = chooser.getSelectedFile();
-                        String name = chooser.getName(file);
-                        if(name.indexOf(".json")==-1){
-                            file= new File(chooser.getCurrentDirectory(), name + ".json");
-                        }
-                        MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);
-                        myFile.getJsonData();
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+               doFile();
             }
         });
         fileMenu.add(jMenuItemNew);
@@ -98,7 +135,6 @@ public class MyFrame extends JFrame {
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemSaveE);
         fileMenu.addSeparator();
-        fileMenu.add(jMenuItemBack);
         view.add(fromBegin);
         view.add(fromNow);
         jMenuBar.add(fileMenu);
@@ -459,6 +495,33 @@ public class MyFrame extends JFrame {
     }
     public MyJList getJlist(){
         return jlist;
+    }
+
+    public int doFile(){
+        int option=JFileChooser.APPROVE_OPTION;
+        try {
+            if(!isNew){
+                MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),MyFrame.this.oldFile);
+                myFile.getJsonData();
+            }else{
+                JFileChooser chooser = new JFileChooser();
+                option=chooser.showSaveDialog(null);
+                if(option==JFileChooser.APPROVE_OPTION){
+                    File file = chooser.getSelectedFile();
+                    String name = chooser.getName(file);
+                    if(name.indexOf(".json")==-1){
+                        file= new File(chooser.getCurrentDirectory(), name + ".json");
+                    }
+                    MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);
+                    myFile.getJsonData();
+                    MyFrame.this.oldFile=file;
+                    MyFrame.this.isNew=false;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return option;
     }
     public void setJlist(JsonList jsonList) throws Exception {
         ArrayList<CanvasPanel> list=new ArrayList<>();

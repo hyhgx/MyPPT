@@ -121,7 +121,7 @@ public class MyJList extends JList<String> {
         });
     }
 
-    private void addPage() {
+    public void addPage() {
         boolean isEmpty = panels.getPanelsSize() == 0;//如果从零变成1,自动选中
         if (isEmpty) {
             currentPage = 0;//要先把currentPage变成0,再添加model
@@ -169,7 +169,14 @@ public class MyJList extends JList<String> {
         this.images.set(currentPage,newImage);
         this.repaint();
     }
-
+    public void  deleteAll(){
+        //清空原有的
+        this.model.clear();
+        this.clearSelection();
+        this.panels.clear();
+        this.images.clear();
+        this.addPage();
+    }
     public void load(List<CanvasPanel> list){
         //清空原有的
         this.model.clear();
