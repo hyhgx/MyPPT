@@ -15,7 +15,7 @@ public class MyImage extends MyComponent2D {
         return image;
     }
 
-    private Image image;
+    private final Image image;
 
     public MyImage(int minX,int minY,int maxX,int maxY,Image image){
         super(0,0,null);
@@ -51,9 +51,7 @@ public class MyImage extends MyComponent2D {
         Base64.Decoder decoder =Base64.getDecoder();
         byte[] decode = decoder.decode(s);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decode);
-        BufferedImage image = ImageIO.read(byteArrayInputStream);
-        //this.image
-        return image;
+        return ImageIO.read(byteArrayInputStream);
 
     }
     public String imageToBase64() throws IOException {//得到向文件保存字符串
@@ -65,8 +63,7 @@ public class MyImage extends MyComponent2D {
         ImageIO.write(bufferedImage,"jpg",byteArrayOutputStream);
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encode = encoder.encode(byteArrayOutputStream.toByteArray());
-        String s =new String(encode,0,encode.length);
-        return s;
+        return new String(encode,0,encode.length);
 
     }
 }

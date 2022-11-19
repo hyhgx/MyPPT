@@ -1,15 +1,12 @@
 package com.example.Component;
 
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.bean.*;
 import com.example.graphics.*;
 
 import java.awt.*;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -53,14 +50,9 @@ public class MyFile {
             sb.append((char)ch);
         }
         inputStreamReader.close();
-        String s=sb.toString();
-        return  s;
+        return sb.toString();
     }
 
-
-    public void paste(CanvasPanel panel,JSONdata jd){
-
-    }
     public void copy(CanvasPanel panel,JSONdata jd){
         Component[] components = panel.getComponents();
         MypointsBean mypointsBean = new MypointsBean();

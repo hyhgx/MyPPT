@@ -147,7 +147,7 @@ public class CanvasPanel extends JPanel {
                 //松开时删除无效图形
                 if(CanvasPanel.this.isAdd){
                     MyComponent component=(MyComponent) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    if(component.isUseful==false){
+                    if(!component.isUseful){
                         CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
                         CanvasPanel.this.isAdd=false;
                     }

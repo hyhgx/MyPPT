@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CanvasPanels extends Panel {
 
-    private MyFrame frame = null;
+    private final MyFrame frame;
     private final List<CanvasPanel> panels = new LinkedList<CanvasPanel>();
 
     private CanvasPanel currentPanel;
@@ -56,10 +56,6 @@ public class CanvasPanels extends Panel {
 
     public void clear(){
         panels.clear();
-    }
-
-    public void addAll(List<CanvasPanel> list){
-        panels.addAll(list);
     }
 
 }

@@ -12,10 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -78,7 +75,7 @@ public class MyFrame extends JFrame {
                     if(option==JFileChooser.APPROVE_OPTION){
                         File file = chooser.getSelectedFile();
                         String name = chooser.getName(file);
-                        if(name.indexOf(".json")==-1){
+                        if(!name.contains(".json")){
                             file= new File(chooser.getCurrentDirectory(), name + ".json");
                         }
                         MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);

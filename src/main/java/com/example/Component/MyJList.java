@@ -201,6 +201,8 @@ public class MyJList extends JList<String> {
             this.panels.changeCurrentPanel(this.getCurrentPanel());//中心面板切换
             this.getCurrentPanel().requestFocus();
             this.getCurrentPanel().repaint();
+        }else{
+            this.panels.repaint();
         }
     }
 
