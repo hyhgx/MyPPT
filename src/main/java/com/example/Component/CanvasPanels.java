@@ -36,6 +36,8 @@ public class CanvasPanels extends Panel {
         currentPanel=newPanel;
         this.repaint();
     }
+
+
     public void setCurrentPanel(int index){
         currentPanel=panels.get(index);
         this.add(currentPanel);
