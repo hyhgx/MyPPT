@@ -55,6 +55,7 @@ public class CanvasPanels extends Panel {
     }
 
     public void clear(){
+        super.removeAll();
         panels.clear();
     }
 
