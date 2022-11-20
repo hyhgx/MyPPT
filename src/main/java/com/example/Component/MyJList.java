@@ -210,5 +210,10 @@ public class MyJList extends JList<String> {
             this.getCurrentPanel().repaint();
         }
     }
+    public void setCurrentPanel(int index){
+        currentPage = index;
+        setSelectedIndex(index);//设置右键也能选中元素
+        panels.changeCurrentPanel(getCurrentPanel());
+    }
 
 }

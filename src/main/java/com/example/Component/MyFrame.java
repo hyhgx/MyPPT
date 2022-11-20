@@ -15,6 +15,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
@@ -25,9 +28,16 @@ public class MyFrame extends JFrame {
     public final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
     public  final  MyOuter out=new MyOuter();
+    private String module;
+    private String sort;
+    public  List<List<MyComponent>> searchComponent=new ArrayList<>();
+    public static List<MyComponent>  sortComponent=new ArrayList<>();
+    private int num;
+    private int page;
     public MyFrame() {
         init();
     }
+
     private void init() {
         //初始化
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -155,6 +165,17 @@ public class MyFrame extends JFrame {
         JButton button8=new JButton();//图片 !!!!新增
         JButton button9=new JButton("矩形选取");
 
+        JButton search1=new JButton();
+        search1.setBounds(600,0,20,20);
+        String searchs="src/main/resources/images/search.png";
+        ImageIcon icons =new ImageIcon(searchs);
+        Image temps=icons.getImage().getScaledInstance(search1.getWidth(),search1.getHeight(), Image.SCALE_AREA_AVERAGING);
+        icons=new ImageIcon(temps);
+        search1.setIcon(icons);
+
+        JButton search2=new JButton();
+        search2.setBounds(600,20,20,20);
+        search2.setVisible(true);
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
         button2.setBounds(40,20,20,20);
@@ -163,7 +184,7 @@ public class MyFrame extends JFrame {
         button5.setBounds(80,0,20,20);
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
-        button8.setBounds(150,0,40,40);
+        button8.setBounds(400,0,40,40);
         button9.setBounds(350,0,40,40);
 
         String path8="src/main/resources/images/tupian.png";
@@ -221,7 +242,7 @@ public class MyFrame extends JFrame {
         button7.setIcon(icon7);
 
 
-        out.setBounds(200,0,50,50);
+        out.setBounds(180,0,50,50);
 
         JButton color1=new JButton();
         color1.setBackground(new Color(0,0,0));
@@ -305,11 +326,254 @@ public class MyFrame extends JFrame {
         });
         color9.setBounds(290,30,15,15);
 
+        JButton last=new JButton("上");
+        JButton next=new JButton("下");
+        JButton cancel=new JButton("退");
+        cancel.setBounds(640,0,30,20);
+        cancel.setVisible(false);
+        last.setBounds(600,0,30,20);
+        last.setVisible(false);
+        next.setBounds(600,30,30,20);
+        next.setVisible(false);
+        JButton sorting=new JButton("排");
+        sorting.setBounds(680,0,30,20);
+        sorting.setVisible(true);
+        JButton closeSort=new JButton();
+        closeSort.setBounds(680,25,30,20);
+        closeSort.setVisible(false);
+
+
+        JTextField text=new JTextField();
+        text.setBounds(450,8,150,30);
+        text.setColumns(10);
+        text.setFont(new Font("黑体",Font.PLAIN,20));//设置字体格式
+        search1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<CanvasPanel> searchPanels = new ArrayList<CanvasPanel>();
+                searchPanels = panels.returnPanels();
+                if (searchPanels.size() >= 1) {
+                    module = text.getText();
+                    last.setVisible(true);
+                    next.setVisible(true);
+                    cancel.setVisible(true);
+                    search1.setVisible(false);
+                    search2.setVisible(false);
+                    searchComponent.clear();
+                    num = 0;
+                    page = 0;
+                    for (int i = 0; i < searchPanels.size(); i++) {
+                        List<MyComponent> second = new ArrayList<MyComponent>();
+                        second.clear();
+                        CanvasPanel searchpanel = new CanvasPanel();
+                        searchpanel = searchPanels.get(i);
+                        Component[] searchcomponent = searchpanel.getComponents();
+                        for (Component x : searchcomponent) {
+                            if (x instanceof MyComponent && x.getName().equals(module)) {
+                                second.add((MyComponent) x);
+                            }
+                        }
+                        searchComponent.add(second);
+                    }
+                    for (int i = 0; i < searchComponent.size(); i++) {
+                        if (searchComponent.get(i).size() == 0) {
+                            page++;
+                            if ((page == searchComponent.size() - 1) && searchComponent.get(page).size() == 0) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            } else if (page > searchComponent.size() - 1) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            }
+                        } else {
+                            jlist.setCurrentPanel(page);
+                            searchComponent.get(page).get(num).getFocus();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        search2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<CanvasPanel> searchPanels = new ArrayList<CanvasPanel>();
+                searchPanels = panels.returnPanels();
+                if (searchPanels.size() >= 1) {
+                    module = text.getText();
+                    last.setVisible(true);
+                    next.setVisible(true);
+                    cancel.setVisible(true);
+                    search1.setVisible(false);
+                    search2.setVisible(false);
+                    searchComponent.clear();
+                    num = 0;
+                    page = 0;
+                    for (int i = 0; i < searchPanels.size(); i++) {
+                        List<MyComponent> second = new ArrayList<MyComponent>();
+                        second.clear();
+                        CanvasPanel searchpanel = new CanvasPanel();
+                        searchpanel = searchPanels.get(i);
+                        Component[] searchcomponent = searchpanel.getComponents();
+                        for (Component x : searchcomponent) {
+                            if (x instanceof MyComponent && x.getName().contains(module)) {
+                                second.add((MyComponent) x);
+                            }
+                        }
+                        searchComponent.add(second);
+                    }
+                    for (int i = 0; i < searchComponent.size(); i++) {
+                        if (searchComponent.get(i).size() == 0) {
+                            page++;
+                            if ((page == searchComponent.size() - 1) && searchComponent.get(page).size() == 0) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            } else if (page > searchComponent.size() - 1) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            }
+                        } else {
+                            jlist.setCurrentPanel(page);
+                            searchComponent.get(page).get(num).getFocus();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        last.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (searchComponent.get(page).size() >= 0) {
+                    if (num >= 1) {
+                        num--;
+                        searchComponent.get(page).get(num).getFocus();
+                    }
+                    else if (num == 0 && page >= 1) {
+                        page--;
+                        while (searchComponent.get(page).size()==0&&page>=1)
+                        {
+                            page--;
+                        }
+                        if(page==0&&searchComponent.get(0).size()==0)
+                        {
+
+                        }
+                        else {
+                            jlist.setCurrentPanel(page);
+                            num = searchComponent.get(page).size() - 1;
+                            searchComponent.get(page).get(num).getFocus();
+                        }
+                    }
+
+                }
+            }
+        });
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(searchComponent.get(page).size()>=0){
+
+                if((num==searchComponent.get(page).size()-1)&&(page<searchComponent.size()-1))
+                {
+                    page++;
+                    while (searchComponent.get(page).size()==0&&(page<searchComponent.size()-1))
+                    {
+                        page++;
+                    }
+                    if((page==searchComponent.size()-1)&&searchComponent.get(page).size()==0)
+                    {
+
+                    }
+                    else {
+                        num = 0;
+                        jlist.setCurrentPanel(page);
+                        searchComponent.get(page).get(num).getFocus();
+                    }
+                }
+//                if((num==searchComponent.get(page).size()-1)&&(page==searchComponent.size()-1))
+//                    {
+//                        num++;
+//                        searchComponent.get(page).get(num).getFocus();
+//                    }
+               else if(num<searchComponent.get(page).size()-1)
+                {
+                    num++;
+                    searchComponent.get(page).get(num).getFocus();
+                }
+            }
+            }
+        });
+
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                search1.setVisible(true);
+                search2.setVisible(true);
+                last.setVisible(false);
+                next.setVisible(false);
+                cancel.setVisible(false);
+                searchComponent.clear();
+            }
+        });
+        sorting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sorting.setVisible(false);
+                closeSort.setVisible(true);
+                sort=text.getText();
+                List<CanvasPanel> searchPanels=new ArrayList<CanvasPanel>();
+                searchPanels=panels.returnPanels();
+                for(int i=0;i<searchPanels.size();i++)
+                {
+                    CanvasPanel searchpanel=new CanvasPanel();
+                    searchpanel=searchPanels.get(i);
+                    Component[] searchcomponent = searchpanel.getComponents();
+                    for (Component x : searchcomponent) {
+                        if (x instanceof MyText||x instanceof MyRect||x instanceof MyLine||x instanceof MyRoundRect||x instanceof MyArrowHead||x instanceof MyCircle) {
+                            sortComponent.add((MyComponent) x);
+                        }
+                    }
+                }
+                new SubWindow(MyFrame.this.jlist,MyFrame.this.panels);
+            }
+        });
+        closeSort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sorting.setVisible(true);
+                closeSort.setVisible(false);
+                sortComponent.clear();
+            }
+        });
+
 
         final JToolBar jToolBar = new JToolBar();
         jToolBar.setLayout(null);
         jToolBar.setPreferredSize(new Dimension(700,45));
         jToolBar.setFloatable(false);
+        jToolBar.add(last);
+        jToolBar.add(next);
+        jToolBar.add(sorting);
+        jToolBar.add(closeSort);
+        jToolBar.add(cancel);
         jToolBar.add(button);
         jToolBar.add(button1);
         jToolBar.add(button2);
@@ -330,6 +594,9 @@ public class MyFrame extends JFrame {
         jToolBar.add(color7);
         jToolBar.add(color8);
         jToolBar.add(color9);
+        jToolBar.add(search1);
+        jToolBar.add(text);
+        jToolBar.add(search2);
         jToolBar.setBackground(new Color(255,255,255));
         jToolBar.setVisible(false);
 
