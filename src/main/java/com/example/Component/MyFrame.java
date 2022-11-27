@@ -268,11 +268,11 @@ public class MyFrame extends JFrame {
         JButton last=new JButton("上");
         JButton next=new JButton("下");
         JButton cancel=new JButton("退");
-        cancel.setBounds(640,0,30,20);
+        cancel.setBounds(640,12,30,20);
         cancel.setVisible(false);
         last.setBounds(600,0,30,20);
         last.setVisible(false);
-        next.setBounds(600,30,30,20);
+        next.setBounds(600,25,30,20);
         next.setVisible(false);
         JButton sorting=new JButton();
         sorting.setBounds(680,0,40,40);
