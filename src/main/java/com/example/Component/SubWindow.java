@@ -20,6 +20,7 @@ public class SubWindow extends JFrame{
     public SubWindow(MyJList jlist, CanvasPanels panels){
         list1=jlist;
         panelxx=panels;
+        this.setAlwaysOnTop(true);
         this.setResizable ( false );
         this.setTitle("按类型输出");
         this.setVisible(true);//从获取屏幕大小
@@ -49,7 +50,7 @@ public class SubWindow extends JFrame{
         rootNode.add(C);
         JTree tree=new JTree(rootNode);
         tree.setShowsRootHandles(true);
-        tree.setEditable(true);
+        tree.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(tree);
         panelx.add(scrollPane, BorderLayout.CENTER);
         this.setContentPane(panelx);

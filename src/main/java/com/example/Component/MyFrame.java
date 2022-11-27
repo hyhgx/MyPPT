@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,6 +95,11 @@ public class MyFrame extends JFrame {
         JButton search2=new JButton();
         search2.setBounds(600,20,20,20);
         search2.setVisible(true);
+        search2.setIcon(icons);
+
+        search1.setToolTipText("精确搜索");
+        search2.setToolTipText("模糊搜索");
+
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
         button2.setBounds(40,20,20,20);
@@ -103,6 +109,22 @@ public class MyFrame extends JFrame {
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
         button8.setBounds(400,0,40,40);
+
+        JButton sb=new JButton();
+        sb.setBounds(150,0,40,40);
+        sb.setVisible(true);
+        String pathsb="src/main/resources/images/sb.png";
+        ImageIcon iconsb =new ImageIcon(pathsb);
+        Image tempsb=iconsb.getImage().getScaledInstance(sb.getWidth(),sb.getHeight(), Image.SCALE_AREA_AVERAGING);
+        iconsb=new ImageIcon(tempsb);
+        sb.setIcon(iconsb);
+        sb.setToolTipText("鼠标");
+        sb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="普通";
+            }
+        });
 
         String path8="src/main/resources/images/tupian.png";
         ImageIcon icon8 =new ImageIcon(path8);
@@ -159,7 +181,7 @@ public class MyFrame extends JFrame {
         button7.setIcon(icon7);
 
 
-        out.setBounds(180,0,50,50);
+        out.setBounds(200,0,50,50);
 
         JButton color1=new JButton();
         color1.setBackground(new Color(0,0,0));
@@ -252,13 +274,14 @@ public class MyFrame extends JFrame {
         last.setVisible(false);
         next.setBounds(600,30,30,20);
         next.setVisible(false);
-        JButton sorting=new JButton("排");
-        sorting.setBounds(680,0,30,20);
+        JButton sorting=new JButton();
+        sorting.setBounds(680,0,40,40);
         sorting.setVisible(true);
-        JButton closeSort=new JButton();
-        closeSort.setBounds(680,25,30,20);
-        closeSort.setVisible(false);
-
+        String sorting1="src/main/resources/images/sort.png";
+        ImageIcon iconso =new ImageIcon(sorting1);
+        Image tempso=iconso.getImage().getScaledInstance(sorting.getWidth(),sorting.getHeight(),Image.SCALE_AREA_AVERAGING);
+        iconso=new ImageIcon(tempso);
+        sorting.setIcon(iconso);
 
         JTextField text=new JTextField();
         text.setBounds(450,8,150,30);
@@ -322,10 +345,13 @@ public class MyFrame extends JFrame {
         search2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<CanvasPanel> searchPanels = new ArrayList<CanvasPanel>();
-                searchPanels = panels.returnPanels();
-                if (searchPanels.size() >= 1) {
-                    module = text.getText();
+                List<CanvasPanel> searchPanels1 = new ArrayList<CanvasPanel>();
+                searchPanels1 = panels.returnPanels();
+                module = text.getText();
+                if(module.equals("")){
+
+                }
+                else if (searchPanels1.size() >= 1) {
                     last.setVisible(true);
                     next.setVisible(true);
                     cancel.setVisible(true);
@@ -334,18 +360,18 @@ public class MyFrame extends JFrame {
                     searchComponent.clear();
                     num = 0;
                     page = 0;
-                    for (int i = 0; i < searchPanels.size(); i++) {
-                        List<MyComponent> second = new ArrayList<MyComponent>();
-                        second.clear();
-                        CanvasPanel searchpanel = new CanvasPanel();
-                        searchpanel = searchPanels.get(i);
-                        Component[] searchcomponent = searchpanel.getComponents();
+                    for (int i = 0; i < searchPanels1.size(); i++) {
+                        List<MyComponent> second1 = new ArrayList<MyComponent>();
+                        second1.clear();
+                        CanvasPanel searchpanel1 = new CanvasPanel();
+                        searchpanel1 = searchPanels1.get(i);
+                        Component[] searchcomponent = searchpanel1.getComponents();
                         for (Component x : searchcomponent) {
                             if (x instanceof MyComponent && x.getName().contains(module)) {
-                                second.add((MyComponent) x);
+                                second1.add((MyComponent) x);
                             }
                         }
-                        searchComponent.add(second);
+                        searchComponent.add(second1);
                     }
                     for (int i = 0; i < searchComponent.size(); i++) {
                         if (searchComponent.get(i).size() == 0) {
@@ -453,9 +479,10 @@ public class MyFrame extends JFrame {
         sorting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sorting.setVisible(false);
-                closeSort.setVisible(true);
+//                sorting.setVisible(false);
+//                closeSort.setVisible(true);
                 sort=text.getText();
+                sortComponent.clear();
                 List<CanvasPanel> searchPanels=new ArrayList<CanvasPanel>();
                 searchPanels=panels.returnPanels();
                 for(int i=0;i<searchPanels.size();i++)
@@ -472,14 +499,14 @@ public class MyFrame extends JFrame {
                 new SubWindow(MyFrame.this.jlist,MyFrame.this.panels);
             }
         });
-        closeSort.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sorting.setVisible(true);
-                closeSort.setVisible(false);
-                sortComponent.clear();
-            }
-        });
+//        closeSort.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                sorting.setVisible(true);
+//                closeSort.setVisible(false);
+//                sortComponent.clear();
+//            }
+//        });
 
 
         final JToolBar jToolBar = new JToolBar();
@@ -489,7 +516,8 @@ public class MyFrame extends JFrame {
         jToolBar.add(last);
         jToolBar.add(next);
         jToolBar.add(sorting);
-        jToolBar.add(closeSort);
+        jToolBar.add(sb);
+//        jToolBar.add(closeSort);
         jToolBar.add(cancel);
         jToolBar.add(button);
         jToolBar.add(button1);
@@ -525,6 +553,7 @@ public class MyFrame extends JFrame {
         button6.setToolTipText("圆角矩形");
         button7.setToolTipText("箭头");
         button8.setToolTipText("图片");
+        sorting.setToolTipText("分类查找");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -656,7 +685,7 @@ public class MyFrame extends JFrame {
 
         JScrollPane jScrollPane = new JScrollPane(jlist, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
+        rightPanel.add(jScrollPane);
         //设置右侧
 
         //设置布局
