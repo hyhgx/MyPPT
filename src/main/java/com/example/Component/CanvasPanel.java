@@ -81,6 +81,50 @@ public class CanvasPanel extends JPanel {
         });
         this.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                switch (CanvasPanel.this.frame.type) {
+                    case "文本框":
+                        CanvasPanel.this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                        break;
+                    case "直角矩形":
+                        CanvasPanel.this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                        break;
+                    case "圆角矩形":
+                        CanvasPanel.this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                        break;
+                    case "椭圆":
+                        CanvasPanel.this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                        break;
+                    case "箭头":
+                        CanvasPanel.this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                        break;
+                    case "直线":
+                        CanvasPanel.this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                        break;
+                    case "画笔":
+                        Toolkit tk = Toolkit.getDefaultToolkit();
+                        Image image = new ImageIcon("src/main/resources/images/huabi.png").getImage();
+                        Cursor cursor = tk.createCustomCursor(image, new Point(10, 10), "norm");
+                        CanvasPanel.this.setCursor(cursor);
+                        break;
+                    case"橡皮擦":
+                        Toolkit tk1 = Toolkit.getDefaultToolkit();
+                        Image image1 = new ImageIcon("src/main/resources/images/xiangpica.png").getImage();
+                        Cursor cursor1 = tk1.createCustomCursor(image1, new Point(10, 10), "norm");
+                        CanvasPanel.this.setCursor(cursor1);
+                        break;
+                    default:
+                        CanvasPanel.this.setCursor(new Cursor(0));
+                        break;
+                }
+            }
+        });
+
+
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 CanvasPanel.this.focusChanged();
                 CanvasPanel.this.requestFocus(true);
@@ -142,11 +186,15 @@ public class CanvasPanel extends JPanel {
                 }
                 //松开时删除无效图形
                 if(CanvasPanel.this.isAdd){
-                    MyComponent component=(MyComponent) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    if(!component.isUseful){
-                        CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
-                        CanvasPanel.this.isAdd=false;
+                    int lastIndex=CanvasPanel.this.getComponentCount() - 1;
+                    if( lastIndex>=0){
+                        MyComponent component=(MyComponent) CanvasPanel.this.getComponent(lastIndex);
+                        if(  component.isUseful==false){
+                            CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
+                            CanvasPanel.this.isAdd=false;
+                        }
                     }
+
                 }
             }
         });

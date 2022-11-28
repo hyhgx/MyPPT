@@ -217,5 +217,8 @@ public class MyJList extends JList<String> {
         setSelectedIndex(index);//设置右键也能选中元素
         panels.changeCurrentPanel(getCurrentPanel());
     }
+    public int getCurrentPage(){
+        return  currentPage;
+    }
 
 }

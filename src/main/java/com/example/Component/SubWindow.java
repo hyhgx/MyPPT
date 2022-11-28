@@ -239,6 +239,8 @@ public class SubWindow extends JFrame{
                             }
                             if(i==0&&flag==1) break;
                         }
+                        int pa=jlist.getCurrentPage();
+                        if(pa!=j)
                         jlist.setCurrentPanel(j);
                         sortComponent.get(m).getFocus();
                     }
