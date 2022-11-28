@@ -212,6 +212,7 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 type="普通";
+                MyFrame.this.setCursor(null);
             }
         });
 
@@ -660,7 +661,6 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 type="文本框";
-
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -703,6 +703,7 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 type="矩形选区";
+                MyFrame.this.setCursor(null);
             }
         });
 
