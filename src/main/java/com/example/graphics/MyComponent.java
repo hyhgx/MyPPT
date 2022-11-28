@@ -76,6 +76,7 @@ public class MyComponent extends JComponent {
                     handleCopy();
                 } else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'V') { //按下Ctrl+v,转发给外层
                     parent.handlePaste();
+                    parent.updateLeftImage();
                 }else if(e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'X'){//按下Ctrl+x
                     handleCut();
                     parent.updateLeftImage();

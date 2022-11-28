@@ -369,6 +369,6 @@ public class CanvasPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) image.getGraphics();
         this.paint(g2);
         MyJList jlist = this.frame.getJlist();
-        jlist.updateImage(image);
+        jlist.updateImage(image,this);
     }
 }

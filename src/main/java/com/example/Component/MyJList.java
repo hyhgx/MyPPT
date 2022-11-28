@@ -24,7 +24,11 @@ public class MyJList extends JList<String> {
         this.frame = f;
         init();
     }
-    public int returnIndex(){return currentPage;}
+
+    public int returnIndex() {
+        return currentPage;
+    }
+
     private void init() {
         //设置左侧PPT列表内容
         this.setModel(model);
@@ -108,7 +112,7 @@ public class MyJList extends JList<String> {
                         currentPage = -1;
                         deletePage(selectedIndex);
                     } else {//前面还有
-                        panels.changeCurrentPanel(panels.getPanel(currentPage--));
+                        panels.changeCurrentPanel(panels.getPanel(--currentPage));
                         deletePage(selectedIndex);
                         MyJList.this.setSelectedIndex(currentPage);
                     }
@@ -128,8 +132,8 @@ public class MyJList extends JList<String> {
         }
         BufferedImage bufferedImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
         Graphics graphics = bufferedImage.getGraphics();
-        graphics.setColor(new Color(255,255,255));
-        graphics.fillRect(0,0,bufferedImage.getWidth(),bufferedImage.getHeight());
+        graphics.setColor(new Color(255, 255, 255));
+        graphics.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
         images.add(bufferedImage);
         panels.addPanel();
         model.addElement(String.valueOf(panels.getPanelsSize()));
@@ -154,22 +158,27 @@ public class MyJList extends JList<String> {
     }
 
     public CanvasPanel getCurrentPanel() {
-        if(currentPage==-1){
+        if (currentPage == -1) {
             return null;
         }
         return panels.getPanel(currentPage);
     }
 
-    public void updateImage(BufferedImage img) {
+    public void updateImage(BufferedImage img, CanvasPanel panel) {
         Image tmp = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         BufferedImage newImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = newImage.createGraphics();
         g2d.drawImage(tmp, 0, 0, null);
         g2d.dispose();
-        this.images.set(currentPage,newImage);
+        int index = getPanelIndex(panel);
+        if (index != -1) {
+            this.images.set(index, newImage);
+        }
+
         this.repaint();
     }
-    public void  deleteAll(){
+
+    public void deleteAll() {
         //清空原有的
         this.model.clear();
         this.clearSelection();
@@ -177,7 +186,8 @@ public class MyJList extends JList<String> {
         this.images.clear();
         this.addPage();
     }
-    public void load(List<CanvasPanel> list){
+
+    public void load(List<CanvasPanel> list) {
         //清空原有的
         this.model.clear();
         this.clearSelection();
@@ -185,7 +195,7 @@ public class MyJList extends JList<String> {
         this.images.clear();
         //载入新的
 
-        for(int i=0;i<list.size();++i){
+        for (int i = 0; i < list.size(); ++i) {
             CanvasPanel panel = list.get(i);
 
             //得到缩略图
@@ -200,25 +210,31 @@ public class MyJList extends JList<String> {
             images.add(newImage);
             //放入窗口
             panels.addPanel(panel);
-            this.model.add(i,String.valueOf(i));
+            this.model.add(i, String.valueOf(i));
         }
-        if(!list.isEmpty()){//非空选择第一个
+        if (!list.isEmpty()) {//非空选择第一个
             this.setSelectedIndex(0);//左侧选中
-            this.currentPage=0;
+            this.currentPage = 0;
             this.panels.changeCurrentPanel(this.getCurrentPanel());//中心面板切换
             this.getCurrentPanel().requestFocus();
             this.getCurrentPanel().repaint();
-        }else{
+        } else {
             this.panels.repaint();
         }
     }
-    public void setCurrentPanel(int index){
+
+    public void setCurrentPanel(int index) {
         currentPage = index;
         setSelectedIndex(index);//设置右键也能选中元素
         panels.changeCurrentPanel(getCurrentPanel());
     }
-    public int getCurrentPage(){
-        return  currentPage;
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public int getPanelIndex(CanvasPanel panel) {
+        return panels.getIndex(panel);
     }
 
 }

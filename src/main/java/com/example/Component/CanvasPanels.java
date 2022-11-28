@@ -42,6 +42,8 @@ public class CanvasPanels extends Panel {
 
     public void changeCurrentPanel(CanvasPanel newPanel) {
         if (currentPanel != null) {
+            currentPanel.focusChanged();
+            currentPanel.updateLeftImage();
             this.remove(currentPanel);
         }
         if (newPanel != null) {
@@ -61,5 +63,9 @@ public class CanvasPanels extends Panel {
     public void clear() {
         super.removeAll();
         panels.clear();
+    }
+
+    public int getIndex(CanvasPanel panel){
+        return panels.indexOf(panel);
     }
 }
