@@ -60,6 +60,14 @@ public class MyFrame extends JFrame {
         JMenuItem jMenuItemNew = new JMenuItem("新建");
         JMenuItem jMenuItemOpen = new JMenuItem("打开");
         JMenuItem jMenuItemSaveE = new JMenuItem("另存为");
+        view.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                MyFrame.this.panels.getCurrentPanel().focusChanged();
+                MyFrame.this.panels.getCurrentPanel().requestFocus(true);
+            }
+        });
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -768,7 +776,8 @@ public class MyFrame extends JFrame {
         fromNow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(MyFrame.this.panels.returnPanels().size()!=0){MyFrame.this.setVisible(false);
+                if(MyFrame.this.panels.returnPanels().size()!=0){
+                    MyFrame.this.setVisible(false);
                     ViewFrame viewFrame = new ViewFrame( MyFrame.this.jlist.returnIndex(),MyFrame.this);
                     viewFrame.repaint();}
             }

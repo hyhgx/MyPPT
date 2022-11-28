@@ -9,20 +9,13 @@ import java.awt.event.*;
 public class RightPanel extends JPanel{
     private static final long serialVersionUID = -6352788025440244338L;
     private Image image = new ImageIcon("src/main/resources/images/img.png").getImage();
-    private String panelType;
-    private Component component;
     public RightPanel(){
         this.setPreferredSize(new Dimension(300, 800));
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
-    }
-    public RightPanel(Component component, String type){
-        this.component=component;
-        this.panelType=type;
     }
     public void getComponentName(Component component){
         JLabel label = new JLabel("名称：");
@@ -42,23 +35,6 @@ public class RightPanel extends JPanel{
         });
         this.add(label);
         this.add(name);
-    }
-    public JButton getColorButton(String type,Component component){
-        JButton color = new JButton();
-        color.setBounds(140,50,50,50);
-        String ppath="src/main/resources/images/change.png";
-        ImageIcon iicon =new ImageIcon(ppath);
-        Image ttemp=iicon.getImage().getScaledInstance(color.getWidth(),color.getHeight(),iicon.getImage().SCALE_AREA_AVERAGING);
-        iicon=new ImageIcon(ttemp);
-        color.setIcon(iicon);
-        color.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Color returncolor = JColorChooser.showDialog(null, "颜色选择器", Color.red);
-                RightPanel.this.component.setBackground(returncolor);
-            }
-        });
-        return color;
     }
     public  JButton getFillColor(final String t, final Component component){
         JButton color = new JButton("颜色填充");
@@ -221,7 +197,7 @@ public class RightPanel extends JPanel{
         JLabel lineType = new JLabel("线条粗细");
         final MyText myText=(MyText) component;
         lineType.setBounds(100,200,50,20);
-        String[] listLine = new String[]{"普通","粗体","斜体"};
+        String[] listLine = new String[]{"普通","加粗","变斜"};
         int i;
         if(myText.font.getStyle()==Font.PLAIN){
             i=0;
@@ -240,12 +216,12 @@ public class RightPanel extends JPanel{
                     int index=line.getSelectedIndex();
                     Object selectedItem = line.getSelectedItem();
                     String t1=(String) selectedItem;
-                    if(t1.equals("斜体")){
-                        myText.font=new Font(myText.getFont().getFontName(), Font.ITALIC, myText.getFont().getSize());
-                    }else if(t1.equals("粗体")){
-                        myText.font=new Font(myText.getFont().getFontName(), Font.BOLD, myText.getFont().getSize());
+                    if(t1.equals("变斜")){
+                        myText.font=new Font(myText.text.getFont().getFontName(), Font.ITALIC, myText.text.getFont().getSize());
+                    }else if(t1.equals("加粗")){
+                        myText.font=new Font(myText.text.getFont().getFontName(), Font.BOLD, myText.text.getFont().getSize());
                     }else{
-                        myText.font=new Font(myText.getFont().getFontName(), Font.PLAIN, myText.getFont().getSize());
+                        myText.font=new Font(myText.text.getFont().getFontName(), Font.PLAIN, myText.text.getFont().getSize());
                     }
                     myText.repaint();
                 }
@@ -259,10 +235,11 @@ public class RightPanel extends JPanel{
         JLabel fontType = new JLabel("字体类型");
         final MyText myText=(MyText) component;
         fontType.setBounds(100,120,50,20);
-        String[] listType = new String[]{"Dialog.plain","宋体","黑体"};
+        String[] listType = new String[]{"普通","宋体","黑体","粗体","斜体"};
+        String[] listType1 = new String[]{"Dialog.plain","宋体","黑体","Dialog.bold","Dialog.italic"};
         int i=0;
-        for(i=0;i<listType.length;i++){
-            if(listType[i].equals(myText.font.getFontName())){
+        for(i=0;i<listType1.length;i++){
+            if(listType1[i].equals(myText.font.getFontName())){
                 break;
             }
         }
@@ -271,10 +248,16 @@ public class RightPanel extends JPanel{
         myFont.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     int index=myFont.getSelectedIndex();
                     String selectedItem = (String)myFont.getSelectedItem();
+                    if(selectedItem.equals("普通")){
+                        selectedItem="Dialog.plain";
+                    }else if(selectedItem.equals("粗体")){
+                        selectedItem="Dialog.bold";
+                    }else if(selectedItem.equals("斜体")){
+                        selectedItem="Dialog.italic";
+                    }
                     myText.font=new Font(selectedItem, myText.font.getStyle(), myText.font.getSize());
                     myText.repaint();
                 }

@@ -96,7 +96,7 @@ public class MyText extends MyComponent2D {
         jp.add(cut);
         jp.add(paste);
         jp.add(selectAll);
-        this.text.setFont(new Font("宋体",Font.PLAIN,12));
+        this.text.setFont(new Font(this.text.getFont().getFontName(),Font.PLAIN,12));
         this.font=this.text.getFont();
         this.setName("文本框");
         this.add(text);

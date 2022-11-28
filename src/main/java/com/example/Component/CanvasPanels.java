@@ -15,7 +15,7 @@ public class CanvasPanels extends Panel {
         this.setLayout(null);
         this.frame=frame;
     }
-
+    public CanvasPanel getCurrentPanel(){return currentPanel;}
     public void addPanel(){
         panels.add(new CanvasPanel(frame));
     }
