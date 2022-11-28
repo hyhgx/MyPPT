@@ -51,6 +51,7 @@ public class MyFrame extends JFrame {
         JMenu fileMenu = new JMenu("文件");
         JMenu toolMenu = new JMenu("工具");
         JMenu view = new JMenu("播放");
+        JMenu help=new JMenu("帮助");
         JMenuItem fromBegin = new JMenuItem("从头开始");
         JMenuItem fromNow = new JMenuItem("从当前页面开始");
         JMenuItem jMenuItemSave = new JMenuItem("保存");
@@ -64,6 +65,13 @@ public class MyFrame extends JFrame {
                 MyFrame.this.panels.getCurrentPanel().focusChanged();
                 MyFrame.this.panels.getCurrentPanel().requestFocus(true);
                 MyFrame.this.panels.getCurrentPanel().updateLeftImage();
+            }
+        });
+        help.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                new HelpPanel();
             }
         });
         this.addWindowListener(new WindowAdapter() {
@@ -157,6 +165,7 @@ public class MyFrame extends JFrame {
         jMenuBar.add(fileMenu);
         jMenuBar.add(toolMenu);
         jMenuBar.add(view);
+        jMenuBar.add(help);
         this.setJMenuBar(jMenuBar);
 
         //设置工具栏

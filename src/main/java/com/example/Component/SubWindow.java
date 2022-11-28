@@ -48,12 +48,6 @@ public class SubWindow extends JFrame{
         int f4=0;
         int f5=0;
         int f6=0;
-//        rootNode.add(T);
-//        rootNode.add(R);
-//        rootNode.add(L);
-//        rootNode.add(RO);
-//        rootNode.add(A);
-//        rootNode.add(C);
         JTree tree=new JTree(rootNode);
         tree.setShowsRootHandles(true);
         tree.setEditable(false);
