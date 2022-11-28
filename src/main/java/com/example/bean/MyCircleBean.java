@@ -1,6 +1,5 @@
 package com.example.bean;
 
-import java.awt.*;
 
 public class MyCircleBean {
     public int minX;

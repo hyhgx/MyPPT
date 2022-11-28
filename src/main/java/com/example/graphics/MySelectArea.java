@@ -45,6 +45,7 @@ public class MySelectArea extends MyComponent2D {
                 if (parent != null) {
                     parent.remove(MySelectArea.this);
                     parent.repaint();
+                    parent.updateLeftImage();
                 }
             }
         });
@@ -96,6 +97,7 @@ public class MySelectArea extends MyComponent2D {
         }
         parent.remove(MySelectArea.this);
         parent.repaint();
+        parent.updateLeftImage();
     }
 
     @Override
@@ -119,7 +121,9 @@ public class MySelectArea extends MyComponent2D {
         CanvasPanel parent = (CanvasPanel) MySelectArea.this.getParent();
         parent.requestFocus();
         handleDelete();
+        parent.updateLeftImage();
     }
+
 
     @Override
     protected void updateMinMax() {

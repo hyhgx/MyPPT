@@ -1,7 +1,5 @@
 package com.example.bean;
 
-import java.awt.*;
-
 public class MyRoundRectBean {
     public int minX;
     public int minY;

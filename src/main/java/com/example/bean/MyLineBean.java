@@ -1,7 +1,5 @@
 package com.example.bean;
 
-import java.awt.*;
-
 public class MyLineBean {
     public int x1;
     public int x2;

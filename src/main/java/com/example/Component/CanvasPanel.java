@@ -131,11 +131,7 @@ public class CanvasPanel extends JPanel {
             public void mouseReleased(MouseEvent e) {
 
                 //鼠标松开时更新缩略图
-                BufferedImage image = new BufferedImage(CanvasPanel.this.getWidth(), CanvasPanel.this.getHeight(), BufferedImage.SCALE_SMOOTH);
-                Graphics2D g2 = (Graphics2D) image.getGraphics();
-                CanvasPanel.this.paint(g2);
-                MyJList jlist = CanvasPanel.this.frame.getJlist();
-                jlist.updateImage(image);
+                updateLeftImage();
                 //如果是矩形选区,松手时自动聚焦
                 if(CanvasPanel.this.frame.type.equals("矩形选区")){
                     Component component = CanvasPanel.this.getComponent(0);
@@ -147,7 +143,7 @@ public class CanvasPanel extends JPanel {
                 //松开时删除无效图形
                 if(CanvasPanel.this.isAdd){
                     MyComponent component=(MyComponent) CanvasPanel.this.getComponent(CanvasPanel.this.getComponentCount() - 1);
-                    if(component.isUseful==false){
+                    if(!component.isUseful){
                         CanvasPanel.this.remove(CanvasPanel.this.getComponentCount() - 1);
                         CanvasPanel.this.isAdd=false;
                     }
@@ -316,6 +312,15 @@ public class CanvasPanel extends JPanel {
         }
         area.setComponentsSelected(list);
         area.getFocus();
-        CanvasPanel.this.repaint();
+        this.repaint();
+        updateLeftImage();
+    }
+
+    public void updateLeftImage(){
+        BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.SCALE_SMOOTH);
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        this.paint(g2);
+        MyJList jlist = this.frame.getJlist();
+        jlist.updateImage(image);
     }
 }

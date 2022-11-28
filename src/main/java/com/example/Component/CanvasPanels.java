@@ -6,14 +6,14 @@ import java.util.List;
 
 public class CanvasPanels extends Panel {
 
-    private MyFrame frame=null;
-    private final List<CanvasPanel> panels=new LinkedList<CanvasPanel>();
+    private final MyFrame frame;
+    private final List<CanvasPanel> panels = new LinkedList<CanvasPanel>();
 
     private CanvasPanel currentPanel;
 
-    public CanvasPanels(MyFrame frame){
+    public CanvasPanels(MyFrame frame) {
         this.setLayout(null);
-        this.frame=frame;
+        this.frame = frame;
     }
     public CanvasPanel getCurrentPanel(){return currentPanel;}
     public void addPanel(){
@@ -55,11 +55,8 @@ public class CanvasPanels extends Panel {
     }
 
     public void clear(){
+        super.removeAll();
         panels.clear();
     }
 
-    public void addAll(List<CanvasPanel> list){
-        panels.addAll(list);
-    }
 
-}
