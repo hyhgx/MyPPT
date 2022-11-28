@@ -8,21 +8,32 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyFrame extends JFrame {
     public RightPanel rightPanel = new RightPanel();
     private Boolean toolBarVisible = false;
     public String type="正常";
+    public File oldFile;
+    public boolean isNew=true;
     public final CanvasPanels panels=new CanvasPanels(this);
     private final MyJList jlist=new MyJList(panels,this);
     public  final  MyOuter out=new MyOuter();
+    private String module;
+    private String sort;
+    public  List<List<MyComponent>> searchComponent=new ArrayList<>();
+    public static List<MyComponent>  sortComponent=new ArrayList<>();
+    private int num;
+    private int page;
     public MyFrame() {
         init();
     }
@@ -32,8 +43,8 @@ public class MyFrame extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.setLocation(0, 0);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("MyPPT");
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //设置菜单栏
         JPanel panel = new JPanel(new BorderLayout());
@@ -48,7 +59,39 @@ public class MyFrame extends JFrame {
         JMenuItem jMenuItemNew = new JMenuItem("新建");
         JMenuItem jMenuItemOpen = new JMenuItem("打开");
         JMenuItem jMenuItemSaveE = new JMenuItem("另存为");
-        JMenuItem jMenuItemBack = new JMenuItem("退出");
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                int op = JOptionPane.showConfirmDialog(MyFrame.this, "是否保存");
+                if(op==JOptionPane.YES_OPTION){
+                    if(doFile()==JFileChooser.APPROVE_OPTION){
+                        System.exit(0);
+                    }
+                }else if(op==JOptionPane.NO_OPTION){
+                    System.exit(0);
+                }
+            }
+        });
+        jMenuItemNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int op = JOptionPane.showConfirmDialog(MyFrame.this, "是否保存");
+                if(op==JOptionPane.YES_OPTION){
+                    if(doFile()==JFileChooser.APPROVE_OPTION){
+                        MyFrame.this.jlist.deleteAll();
+                        MyFrame.this.repaint();
+                        MyFrame.this.isNew=true;
+                        MyFrame.this.oldFile=null;
+                    }
+                }else if(op==JOptionPane.NO_OPTION){
+                    MyFrame.this.jlist.deleteAll();
+                    MyFrame.this.repaint();
+                    MyFrame.this.isNew=true;
+                    MyFrame.this.oldFile=null;
+                }
+            }
+        });
         jMenuItemOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,31 +103,38 @@ public class MyFrame extends JFrame {
                         MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(), file);
                         myFile.getPanels();
                         setJlist(myFile.jsonList);
+                        MyFrame.this.isNew=false;
+                        MyFrame.this.oldFile=file;
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
+        jMenuItemSaveE.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                int option=chooser.showSaveDialog(null);
+                if(option==JFileChooser.APPROVE_OPTION){
+                    File file = chooser.getSelectedFile();
+                    String name = chooser.getName(file);
+                    if(name.indexOf(".json")==-1){
+                        file= new File(chooser.getCurrentDirectory(), name + ".json");
+                    }
+                    MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);
+                    try {
+                        myFile.getJsonData();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
         jMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    JFileChooser chooser = new JFileChooser();
-                    int option=chooser.showSaveDialog(null);
-                    if(option==JFileChooser.APPROVE_OPTION){
-                        File file = chooser.getSelectedFile();
-                        String name = chooser.getName(file);
-                        if(!name.contains(".json")){
-                            file= new File(chooser.getCurrentDirectory(), name + ".json");
-                        }
-                        MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);
-                        myFile.getJsonData();
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+               doFile();
             }
         });
         fileMenu.add(jMenuItemNew);
@@ -95,7 +145,6 @@ public class MyFrame extends JFrame {
         fileMenu.addSeparator();
         fileMenu.add(jMenuItemSaveE);
         fileMenu.addSeparator();
-        fileMenu.add(jMenuItemBack);
         view.add(fromBegin);
         view.add(fromNow);
         jMenuBar.add(fileMenu);
@@ -116,6 +165,22 @@ public class MyFrame extends JFrame {
         JButton button8=new JButton();//图片 !!!!新增
         JButton button9=new JButton("矩形选取");
 
+        JButton search1=new JButton();
+        search1.setBounds(600,0,20,20);
+        String searchs="src/main/resources/images/search.png";
+        ImageIcon icons =new ImageIcon(searchs);
+        Image temps=icons.getImage().getScaledInstance(search1.getWidth(),search1.getHeight(), Image.SCALE_AREA_AVERAGING);
+        icons=new ImageIcon(temps);
+        search1.setIcon(icons);
+
+        JButton search2=new JButton();
+        search2.setBounds(600,20,20,20);
+        search2.setVisible(true);
+        search2.setIcon(icons);
+
+        search1.setToolTipText("精确搜索");
+        search2.setToolTipText("模糊搜索");
+
         button.setBounds(0,0,40,40);
         button3.setBounds(40,0,20,20);
         button2.setBounds(40,20,20,20);
@@ -124,8 +189,24 @@ public class MyFrame extends JFrame {
         button5.setBounds(80,0,20,20);
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
-        button8.setBounds(150,0,40,40);
+        button8.setBounds(400,0,40,40);
         button9.setBounds(350,0,40,40);
+
+        JButton sb=new JButton();
+        sb.setBounds(150,0,40,40);
+        sb.setVisible(true);
+        String pathsb="src/main/resources/images/sb.png";
+        ImageIcon iconsb =new ImageIcon(pathsb);
+        Image tempsb=iconsb.getImage().getScaledInstance(sb.getWidth(),sb.getHeight(), Image.SCALE_AREA_AVERAGING);
+        iconsb=new ImageIcon(tempsb);
+        sb.setIcon(iconsb);
+        sb.setToolTipText("鼠标");
+        sb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                type="普通";
+            }
+        });
 
         String path8="src/main/resources/images/tupian.png";
         ImageIcon icon8 =new ImageIcon(path8);
@@ -266,11 +347,260 @@ public class MyFrame extends JFrame {
         });
         color9.setBounds(290,30,15,15);
 
+        JButton last=new JButton("上");
+        JButton next=new JButton("下");
+        JButton cancel=new JButton("退");
+        cancel.setBounds(640,12,30,20);
+        cancel.setVisible(false);
+        last.setBounds(600,0,30,20);
+        last.setVisible(false);
+        next.setBounds(600,25,30,20);
+        next.setVisible(false);
+        JButton sorting=new JButton();
+        sorting.setBounds(680,0,40,40);
+        sorting.setVisible(true);
+        String sorting1="src/main/resources/images/sort.png";
+        ImageIcon iconso =new ImageIcon(sorting1);
+        Image tempso=iconso.getImage().getScaledInstance(sorting.getWidth(),sorting.getHeight(),Image.SCALE_AREA_AVERAGING);
+        iconso=new ImageIcon(tempso);
+        sorting.setIcon(iconso);
+
+        JTextField text=new JTextField();
+        text.setBounds(450,8,150,30);
+        text.setColumns(10);
+        text.setFont(new Font("黑体",Font.PLAIN,20));//设置字体格式
+        search1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<CanvasPanel> searchPanels = new ArrayList<CanvasPanel>();
+                searchPanels = panels.returnPanels();
+                if (searchPanels.size() >= 1) {
+                    module = text.getText();
+                    last.setVisible(true);
+                    next.setVisible(true);
+                    cancel.setVisible(true);
+                    search1.setVisible(false);
+                    search2.setVisible(false);
+                    searchComponent.clear();
+                    num = 0;
+                    page = 0;
+                    for (int i = 0; i < searchPanels.size(); i++) {
+                        List<MyComponent> second = new ArrayList<MyComponent>();
+                        second.clear();
+                        CanvasPanel searchpanel = new CanvasPanel();
+                        searchpanel = searchPanels.get(i);
+                        Component[] searchcomponent = searchpanel.getComponents();
+                        for (Component x : searchcomponent) {
+                            if (x instanceof MyComponent && x.getName().equals(module)) {
+                                second.add((MyComponent) x);
+                            }
+                        }
+                        searchComponent.add(second);
+                    }
+                    for (int i = 0; i < searchComponent.size(); i++) {
+                        if (searchComponent.get(i).size() == 0) {
+                            page++;
+                            if ((page == searchComponent.size() - 1) && searchComponent.get(page).size() == 0) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            } else if (page > searchComponent.size() - 1) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            }
+                        } else {
+                            jlist.setCurrentPanel(page);
+                            searchComponent.get(page).get(num).getFocus();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        search2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<CanvasPanel> searchPanels1 = new ArrayList<CanvasPanel>();
+                searchPanels1 = panels.returnPanels();
+                module = text.getText();
+                if(module.equals("")){
+
+                }
+                else if (searchPanels1.size() >= 1) {
+                    last.setVisible(true);
+                    next.setVisible(true);
+                    cancel.setVisible(true);
+                    search1.setVisible(false);
+                    search2.setVisible(false);
+                    searchComponent.clear();
+                    num = 0;
+                    page = 0;
+                    for (int i = 0; i < searchPanels1.size(); i++) {
+                        List<MyComponent> second1 = new ArrayList<MyComponent>();
+                        second1.clear();
+                        CanvasPanel searchpanel1 = new CanvasPanel();
+                        searchpanel1 = searchPanels1.get(i);
+                        Component[] searchcomponent = searchpanel1.getComponents();
+                        for (Component x : searchcomponent) {
+                            if (x instanceof MyComponent && x.getName().contains(module)) {
+                                second1.add((MyComponent) x);
+                            }
+                        }
+                        searchComponent.add(second1);
+                    }
+                    for (int i = 0; i < searchComponent.size(); i++) {
+                        if (searchComponent.get(i).size() == 0) {
+                            page++;
+                            if ((page == searchComponent.size() - 1) && searchComponent.get(page).size() == 0) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            } else if (page > searchComponent.size() - 1) {
+                                search1.setVisible(true);
+                                search2.setVisible(true);
+                                last.setVisible(false);
+                                next.setVisible(false);
+                                cancel.setVisible(false);
+                                searchComponent.clear();
+                            }
+                        } else {
+                            jlist.setCurrentPanel(page);
+                            searchComponent.get(page).get(num).getFocus();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        last.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (searchComponent.get(page).size() >= 0) {
+                    if (num >= 1) {
+                        num--;
+                        searchComponent.get(page).get(num).getFocus();
+                    }
+                    else if (num == 0 && page >= 1) {
+                        page--;
+                        while (searchComponent.get(page).size()==0&&page>=1)
+                        {
+                            page--;
+                        }
+                        if(page==0&&searchComponent.get(0).size()==0)
+                        {
+
+                        }
+                        else {
+                            jlist.setCurrentPanel(page);
+                            num = searchComponent.get(page).size() - 1;
+                            searchComponent.get(page).get(num).getFocus();
+                        }
+                    }
+
+                }
+            }
+        });
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(searchComponent.get(page).size()>=0){
+
+                if((num==searchComponent.get(page).size()-1)&&(page<searchComponent.size()-1))
+                {
+                    page++;
+                    while (searchComponent.get(page).size()==0&&(page<searchComponent.size()-1))
+                    {
+                        page++;
+                    }
+                    if((page==searchComponent.size()-1)&&searchComponent.get(page).size()==0)
+                    {
+
+                    }
+                    else {
+                        num = 0;
+                        jlist.setCurrentPanel(page);
+                        searchComponent.get(page).get(num).getFocus();
+                    }
+                }
+//                if((num==searchComponent.get(page).size()-1)&&(page==searchComponent.size()-1))
+//                    {
+//                        num++;
+//                        searchComponent.get(page).get(num).getFocus();
+//                    }
+               else if(num<searchComponent.get(page).size()-1)
+                {
+                    num++;
+                    searchComponent.get(page).get(num).getFocus();
+                }
+            }
+            }
+        });
+
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                search1.setVisible(true);
+                search2.setVisible(true);
+                last.setVisible(false);
+                next.setVisible(false);
+                cancel.setVisible(false);
+                searchComponent.clear();
+            }
+        });
+        sorting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                sorting.setVisible(false);
+//                closeSort.setVisible(true);
+                sort=text.getText();
+                sortComponent.clear();
+                List<CanvasPanel> searchPanels=new ArrayList<CanvasPanel>();
+                searchPanels=panels.returnPanels();
+                for(int i=0;i<searchPanels.size();i++)
+                {
+                    CanvasPanel searchpanel=new CanvasPanel();
+                    searchpanel=searchPanels.get(i);
+                    Component[] searchcomponent = searchpanel.getComponents();
+                    for (Component x : searchcomponent) {
+                        if (x instanceof MyText||x instanceof MyRect||x instanceof MyLine||x instanceof MyRoundRect||x instanceof MyArrowHead||x instanceof MyCircle) {
+                            sortComponent.add((MyComponent) x);
+                        }
+                    }
+                }
+                new SubWindow(MyFrame.this.jlist,MyFrame.this.panels);
+            }
+        });
+//        closeSort.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                sorting.setVisible(true);
+//                closeSort.setVisible(false);
+//                sortComponent.clear();
+//            }
+//        });
+
 
         final JToolBar jToolBar = new JToolBar();
         jToolBar.setLayout(null);
         jToolBar.setPreferredSize(new Dimension(700,45));
         jToolBar.setFloatable(false);
+        jToolBar.add(last);
+        jToolBar.add(next);
+        jToolBar.add(sorting);
+        jToolBar.add(sb);
+//        jToolBar.add(closeSort);
+        jToolBar.add(cancel);
         jToolBar.add(button);
         jToolBar.add(button1);
         jToolBar.add(button2);
@@ -291,6 +621,9 @@ public class MyFrame extends JFrame {
         jToolBar.add(color7);
         jToolBar.add(color8);
         jToolBar.add(color9);
+        jToolBar.add(search1);
+        jToolBar.add(text);
+        jToolBar.add(search2);
         jToolBar.setBackground(new Color(255,255,255));
         jToolBar.setVisible(false);
 
@@ -303,6 +636,7 @@ public class MyFrame extends JFrame {
         button6.setToolTipText("圆角矩形");
         button7.setToolTipText("箭头");
         button8.setToolTipText("图片");
+        sorting.setToolTipText("分类查找");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -442,7 +776,7 @@ public class MyFrame extends JFrame {
 
         JScrollPane jScrollPane = new JScrollPane(jlist, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
+        rightPanel.add(jScrollPane);
         //设置右侧
 
         //设置布局
@@ -456,6 +790,33 @@ public class MyFrame extends JFrame {
     }
     public MyJList getJlist(){
         return jlist;
+    }
+
+    public int doFile(){
+        int option=JFileChooser.APPROVE_OPTION;
+        try {
+            if(!isNew){
+                MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),MyFrame.this.oldFile);
+                myFile.getJsonData();
+            }else{
+                JFileChooser chooser = new JFileChooser();
+                option=chooser.showSaveDialog(null);
+                if(option==JFileChooser.APPROVE_OPTION){
+                    File file = chooser.getSelectedFile();
+                    String name = chooser.getName(file);
+                    if(name.indexOf(".json")==-1){
+                        file= new File(chooser.getCurrentDirectory(), name + ".json");
+                    }
+                    MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(),file);
+                    myFile.getJsonData();
+                    MyFrame.this.oldFile=file;
+                    MyFrame.this.isNew=false;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return option;
     }
     public void setJlist(JsonList jsonList) throws Exception {
         ArrayList<CanvasPanel> list=new ArrayList<>();
