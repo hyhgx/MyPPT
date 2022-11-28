@@ -142,6 +142,7 @@ public class MyFile {
                 myLineBean.y2=myLine.getY2();
                 myLineBean.componentName=myLine.getName();
                 myLineBean.lineT=myLine.lineT;
+                myLineBean.lineWidth=myLine.lineWidth;
                 myLineBean.lineRed=myLine.lineColor.getRed();
                 myLineBean.lineGreen=myLine.lineColor.getGreen();
                 myLineBean.lineBlue=myLine.lineColor.getBlue();

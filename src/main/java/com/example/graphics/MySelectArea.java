@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySelectArea extends MyComponent2D {
-
     private boolean isCloned=false;//是否是被克隆生成的,如果是,则在聚焦时不需要绑定在区域内的组件
     public MySelectArea(int x, int y) {
         super(x, y, null);
@@ -79,7 +78,7 @@ public class MySelectArea extends MyComponent2D {
 
         super.paintComponent(g);
         float[] dash = new float[]{5, 10};
-        BasicStroke basicStroke = new BasicStroke(this.lineWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER
+        BasicStroke basicStroke = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER
                 , 10.0f, dash, 0.0f);//设置画笔
         Graphics2D g1 = (Graphics2D) g;
         g1.setStroke(basicStroke);

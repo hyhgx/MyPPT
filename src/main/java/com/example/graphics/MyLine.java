@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyLine extends MyComponent1D {
+    public float lineWidth=1.0f;
     public Color lineColor=new Color(200,200,200);
     public boolean lineT=false;
     public MyLine(int x,int y){
@@ -21,20 +22,22 @@ public class MyLine extends MyComponent1D {
         this.setName("直线");
     }
 
-    public MyLine(int x1,int x2,int y1,int y2,String name,Color lineColor){
+    public MyLine(int x1,int x2,int y1,int y2,String name,Color lineColor,Boolean lineT,Float lineWidth){
         super();
         this.x1=x1;
         this.x2=x2;
         this.y1=y1;
         this.y2=y2;
         this.lineColor=lineColor;
+        this.lineT=lineT;
+        this.lineWidth=lineWidth;
         this.setName(name);
         updateBounds();
     }
 
     @Override
     public MyComponent cloneMySelf() {
-        return new MyLine(x1,x2,y1,y2,getName(),lineColor);
+        return new MyLine(x1,x2,y1,y2,getName(),lineColor,lineT,lineWidth);
     }
 
     @Override

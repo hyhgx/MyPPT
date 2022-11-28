@@ -10,6 +10,7 @@ public class MyLineBean {
     public int lineBlue;
     public int lineAlpha;
     public Boolean lineT;
+    public Float lineWidth;
     public String componentName;
     public MyLineBean(){}
 }

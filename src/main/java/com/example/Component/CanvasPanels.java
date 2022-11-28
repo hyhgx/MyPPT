@@ -15,12 +15,16 @@ public class CanvasPanels extends Panel {
         this.setLayout(null);
         this.frame = frame;
     }
-    public CanvasPanel getCurrentPanel(){return currentPanel;}
-    public void addPanel(){
+
+    public CanvasPanel getCurrentPanel() {
+        return currentPanel;
+    }
+
+    public void addPanel() {
         panels.add(new CanvasPanel(frame));
     }
 
-    public void addPanel(CanvasPanel p){
+    public void addPanel(CanvasPanel p) {
         panels.add(p);
     }
 
@@ -54,9 +58,8 @@ public class CanvasPanels extends Panel {
         return panels.size();
     }
 
-    public void clear(){
+    public void clear() {
         super.removeAll();
         panels.clear();
     }
-
-
+}

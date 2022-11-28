@@ -1,6 +1,7 @@
 package com.example.Component;
 
 import com.example.graphics.*;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.imageio.ImageIO;
 
@@ -918,7 +919,9 @@ public class MyFrame extends JFrame {
                         new Color(jsonList.jsonDataList.get(i).myLines.get(j).lineRed,
                                 jsonList.jsonDataList.get(i).myLines.get(j).lineGreen,
                                 jsonList.jsonDataList.get(i).myLines.get(j).lineBlue,
-                                jsonList.jsonDataList.get(i).myLines.get(j).lineAlpha)
+                                jsonList.jsonDataList.get(i).myLines.get(j).lineAlpha),
+                        jsonList.jsonDataList.get(i).myLines.get(j).lineT,
+                        jsonList.jsonDataList.get(i).myLines.get(j).lineWidth
                 );
                 p1.addListener(m);
                 p1.add(m);

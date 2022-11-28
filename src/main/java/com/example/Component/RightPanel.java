@@ -133,7 +133,7 @@ public class RightPanel extends JPanel{
             i=1;
         }
         final JComboBox<String> line= new JComboBox<>(listLine);
-        line.setEditable(true);
+        line.setEditable(false);
         line.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -168,7 +168,7 @@ public class RightPanel extends JPanel{
             i=1;
         }
         final JComboBox<String> line= new JComboBox<>(listLine);
-        line.setEditable(true);
+        line.setEditable(false);
         line.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -193,44 +193,6 @@ public class RightPanel extends JPanel{
         this.add(lineType);
         this.add(line);
     }
-    public  void fontBold(final Component component){
-        JLabel lineType = new JLabel("线条粗细");
-        final MyText myText=(MyText) component;
-        lineType.setBounds(100,200,50,20);
-        String[] listLine = new String[]{"普通","加粗","变斜"};
-        int i;
-        if(myText.font.getStyle()==Font.PLAIN){
-            i=0;
-        }else if(myText.font.getStyle()==Font.BOLD){
-            i=1;
-        }else{
-            i=2;
-        }
-        final JComboBox<String> line= new JComboBox<>(listLine);
-        line.setSelectedIndex(i);
-        line.setEditable(true);
-        line.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange()==ItemEvent.SELECTED){
-                    int index=line.getSelectedIndex();
-                    Object selectedItem = line.getSelectedItem();
-                    String t1=(String) selectedItem;
-                    if(t1.equals("变斜")){
-                        myText.font=new Font(myText.text.getFont().getFontName(), Font.ITALIC, myText.text.getFont().getSize());
-                    }else if(t1.equals("加粗")){
-                        myText.font=new Font(myText.text.getFont().getFontName(), Font.BOLD, myText.text.getFont().getSize());
-                    }else{
-                        myText.font=new Font(myText.text.getFont().getFontName(), Font.PLAIN, myText.text.getFont().getSize());
-                    }
-                    myText.repaint();
-                }
-            }
-        });
-        line.setBounds(180,200,50,20);
-        this.add(lineType);
-        this.add(line);
-    }
     public  void getFontType( final Component component){
         JLabel fontType = new JLabel("字体类型");
         final MyText myText=(MyText) component;
@@ -244,7 +206,7 @@ public class RightPanel extends JPanel{
             }
         }
         final JComboBox<String> myFont= new JComboBox<>(listType);
-        myFont.setEditable(true);
+        myFont.setEditable(false);
         myFont.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -253,12 +215,16 @@ public class RightPanel extends JPanel{
                     String selectedItem = (String)myFont.getSelectedItem();
                     if(selectedItem.equals("普通")){
                         selectedItem="Dialog.plain";
+                        myText.font=new Font(selectedItem, Font.PLAIN, myText.font.getSize());
                     }else if(selectedItem.equals("粗体")){
                         selectedItem="Dialog.bold";
+                        myText.font=new Font(selectedItem, Font.BOLD, myText.font.getSize());
                     }else if(selectedItem.equals("斜体")){
                         selectedItem="Dialog.italic";
+                        myText.font=new Font(selectedItem, Font.ITALIC, myText.font.getSize());
+                    }else{
+                        myText.font=new Font(selectedItem,  myText.font.getStyle(), myText.font.getSize());
                     }
-                    myText.font=new Font(selectedItem, myText.font.getStyle(), myText.font.getSize());
                     myText.repaint();
                 }
             }
@@ -275,7 +241,7 @@ public class RightPanel extends JPanel{
         Integer [] listFont = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13
         ,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
         final JComboBox<Integer> myfont= new JComboBox<>(listFont);
-        myfont.setEditable(true);
+        myfont.setEditable(false);
         myfont.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -299,7 +265,6 @@ public class RightPanel extends JPanel{
         this.setLayout(null);
         if (type.equals("文本框")) {
             MyText myText=(MyText) component;
-            fontBold(myText);
             getFontSize(myText);
             getFontType(myText);
             getComponentName(myText);

@@ -12,8 +12,6 @@ public class MyComponent extends JComponent {
     public boolean isUseful=false;
     public Color fillColor=new Color(255,255,255,0);
     public Color lineColor=new Color(0,0,0);
-    public float lineWidth=1.0f;
-
     public int getX1() {
         return x1;
     }
