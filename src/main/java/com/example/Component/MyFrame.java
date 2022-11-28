@@ -164,7 +164,14 @@ public class MyFrame extends JFrame {
         JButton button7 = new JButton();//箭头
 
         JButton button8=new JButton();//图片 !!!!新增
-        JButton button9=new JButton("矩形选取");
+        JButton button9=new JButton();
+        button9.setBounds(350,0,40,40);
+        String path9="src/main/resources/images/piliang.png";
+        ImageIcon icon9 =new ImageIcon(path9);
+        Image temp9=icon9.getImage().getScaledInstance(button9.getWidth(),button9.getHeight(),Image.SCALE_AREA_AVERAGING);
+        icon9=new ImageIcon(temp9);
+        button9.setIcon(icon9);
+        button9.setToolTipText("批量操作");
 
         JButton search1=new JButton();
         search1.setBounds(600,0,20,20);
@@ -191,7 +198,6 @@ public class MyFrame extends JFrame {
         button6.setBounds(80,20,20,20);
         button7.setBounds(100,0,40,40);
         button8.setBounds(400,0,40,40);
-        button9.setBounds(350,0,40,40);
 
         JButton sb=new JButton();
         sb.setBounds(150,0,40,40);
