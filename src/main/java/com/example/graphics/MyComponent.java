@@ -5,10 +5,7 @@ import com.example.Component.MyClipBoard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class MyComponent extends JComponent {
@@ -68,21 +65,31 @@ public class MyComponent extends JComponent {
         this.eventListener=eventListener;
     }
     public MyComponent(){
+
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+                CanvasPanel parent =(CanvasPanel) MyComponent.this.getParent();
                 if(e.getKeyCode()==127&&eventListener!=null){//按下delete键时
                     eventListener.remove(MyComponent.this);
+                    parent.updateLeftImage();
                 } else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'C') {// 按下CTRL+C
                     handleCopy();
                 } else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'V') { //按下Ctrl+v,转发给外层
-                    CanvasPanel parent = (CanvasPanel) MyComponent.this.getParent();
                     parent.handlePaste();
                 }else if(e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == 'X'){//按下Ctrl+x
                     handleCut();
+                    parent.updateLeftImage();
                 }
 
+            }
+        });
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                CanvasPanel parent =(CanvasPanel) MyComponent.this.getParent();
+                parent.updateLeftImage();
             }
         });
     }
