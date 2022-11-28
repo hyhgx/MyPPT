@@ -786,7 +786,7 @@ public class MyFrame extends JFrame {
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File file = chooser.getSelectedFile();
                     String name = chooser.getName(file);
-                    if (!name.contains(".json")) {
+                    if (!name.contains(".myppt")) {
                         file = new File(chooser.getCurrentDirectory(), name + ".json");
                     }
                     MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(), file);
