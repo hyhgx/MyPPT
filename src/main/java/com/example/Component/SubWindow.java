@@ -20,6 +20,7 @@ public class SubWindow extends JFrame{
     public SubWindow(MyJList jlist, CanvasPanels panels){
         list1=jlist;
         panelxx=panels;
+        this.setAlwaysOnTop(true);
         this.setResizable ( false );
         this.setTitle("按类型输出");
         this.setVisible(true);//从获取屏幕大小
@@ -41,15 +42,21 @@ public class SubWindow extends JFrame{
         DefaultMutableTreeNode RO=new DefaultMutableTreeNode("圆角矩形");
         DefaultMutableTreeNode A=new DefaultMutableTreeNode("箭头");
         DefaultMutableTreeNode C=new DefaultMutableTreeNode("圆");
-        rootNode.add(T);
-        rootNode.add(R);
-        rootNode.add(L);
-        rootNode.add(RO);
-        rootNode.add(A);
-        rootNode.add(C);
+        int f1=0;
+        int f2=0;
+        int f3=0;
+        int f4=0;
+        int f5=0;
+        int f6=0;
+//        rootNode.add(T);
+//        rootNode.add(R);
+//        rootNode.add(L);
+//        rootNode.add(RO);
+//        rootNode.add(A);
+//        rootNode.add(C);
         JTree tree=new JTree(rootNode);
         tree.setShowsRootHandles(true);
-        tree.setEditable(true);
+        tree.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(tree);
         panelx.add(scrollPane, BorderLayout.CENTER);
         this.setContentPane(panelx);
@@ -58,33 +65,87 @@ public class SubWindow extends JFrame{
         {
             if(x instanceof MyText)
             {
-                DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
-                T.add(Node);
+                if(f1==0)
+                {
+                    rootNode.add(T);
+                    f1=1;
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    T.add(Node);
+                }
+                else {
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    T.add(Node);
+                }
             }
             if(x instanceof MyRect)
             {
-                DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
-                R.add(Node);
+                if(f2==0)
+                {
+                    rootNode.add(R);
+                    f2=1;
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    R.add(Node);
+                }
+                else {
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    R.add(Node);
+                }
             }
             if(x instanceof MyLine)
             {
-                DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
-                L.add(Node);
+                if(f3==0)
+                {
+                    rootNode.add(L);
+                    f3=1;
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    L.add(Node);
+                }
+                else {
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    L.add(Node);
+                }
             }
             if(x instanceof MyRoundRect)
             {
-                DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
-                RO.add(Node);
+                if(f4==0)
+                {
+                    rootNode.add(RO);
+                    f4=1;
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    RO.add(Node);
+                }
+                else {
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    RO.add(Node);
+                }
             }
             if(x instanceof MyArrowHead)
             {
+                if(f5==0)
+                {
+                    rootNode.add(A);
+                    f5=1;
+                    DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
+                    A.add(Node);
+                }
+                else {
                 DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
                 A.add(Node);
+                }
             }
             if(x instanceof MyCircle)
             {
-                DefaultMutableTreeNode Node=new DefaultMutableTreeNode(x.getName());
-                C.add(Node);
+                if(f6==0)
+                {
+                    rootNode.add(C);
+                    f6=1;
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    C.add(Node);
+                }
+                else {
+                    DefaultMutableTreeNode Node = new DefaultMutableTreeNode(x.getName());
+                    C.add(Node);
+                }
             }
         }
         tree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -185,6 +246,7 @@ public class SubWindow extends JFrame{
 
             }
         });
+
     }
 
 }
