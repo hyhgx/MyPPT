@@ -33,7 +33,6 @@ public class MyFile {
         jsonList = JSON.parseObject(s, JsonList.class);
     }
     public void saveFile() throws Exception {
-        //String s = JSON.toJSONString(jsonList.jsonDataList);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("jsonDataList",jsonList.jsonDataList);
         String s = jsonObject.toString();
