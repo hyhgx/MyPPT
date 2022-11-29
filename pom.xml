@@ -30,6 +30,11 @@
       <artifactId>fastjson2</artifactId>
       <version>2.0.13</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <version>3.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -71,9 +76,20 @@
           <version>3.7.1</version>
         </plugin>
         <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <!--这部分可有可无,加上的话则直接生成可运行jar包-->
+            <!--<archive>-->
+            <!--<manifest>-->
+            <!--<mainClass>${exec.mainClass}</mainClass>-->
+            <!--</manifest>-->
+            <!--</archive>-->
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
         </plugin>
+
       </plugins>
     </pluginManagement>
       <plugins>
