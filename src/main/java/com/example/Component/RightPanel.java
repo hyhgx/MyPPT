@@ -5,10 +5,12 @@ import com.example.graphics.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 
 public class RightPanel extends JPanel{
     private static final long serialVersionUID = -6352788025440244338L;
-    private Image image = new ImageIcon("src/main/resources/images/img.png").getImage();
+    private URL resourcex =this.getClass().getClassLoader().getResource("images/img.png");
+    private Image image = new ImageIcon(resourcex.getPath()).getImage();
     public RightPanel(){
         this.setPreferredSize(new Dimension(300, 800));
     }
