@@ -8,6 +8,7 @@ import java.awt.event.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -104,13 +105,15 @@ public class CanvasPanel extends JPanel {
                         break;
                     case "画笔":
                         Toolkit tk = Toolkit.getDefaultToolkit();
-                        Image image = new ImageIcon("src/main/resources/images/huabi.png").getImage();
+                        URL resourcex =this.getClass().getClassLoader().getResource("images/huabi.png");
+                        Image image = new ImageIcon(resourcex).getImage();
                         Cursor cursor = tk.createCustomCursor(image, new Point(10, 10), "norm");
                         CanvasPanel.this.setCursor(cursor);
                         break;
                     case"橡皮擦":
                         Toolkit tk1 = Toolkit.getDefaultToolkit();
-                        Image image1 = new ImageIcon("src/main/resources/images/xiangpica.png").getImage();
+                        URL resource2 =this.getClass().getClassLoader().getResource("images/xiangpica.png");
+                        Image image1 = new ImageIcon(resource2).getImage();
                         Cursor cursor1 = tk1.createCustomCursor(image1, new Point(10, 10), "norm");
                         CanvasPanel.this.setCursor(cursor1);
                         break;
