@@ -9,8 +9,8 @@ import java.net.URL;
 
 public class RightPanel extends JPanel{
     private static final long serialVersionUID = -6352788025440244338L;
-    private URL resourcex =this.getClass().getClassLoader().getResource("images/img.png");
-    private Image image = new ImageIcon(resourcex.getPath()).getImage();
+    private final URL resourcex =this.getClass().getClassLoader().getResource("images/img.png");
+    private final Image image = new ImageIcon(resourcex).getImage();
     public RightPanel(){
         this.setPreferredSize(new Dimension(300, 800));
     }
