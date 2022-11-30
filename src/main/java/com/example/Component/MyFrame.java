@@ -136,7 +136,7 @@ public class MyFrame extends JFrame {
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File file = chooser.getSelectedFile();
                     String name = chooser.getName(file);
-                    if (name.indexOf(".myppt") == -1) {
+                    if (!name.contains(".myppt")) {
                         file = new File(chooser.getCurrentDirectory(), name + ".myppt");
                     }
                     MyFile myFile = new MyFile(MyFrame.this.panels.returnPanels(), file);
@@ -185,7 +185,7 @@ public class MyFrame extends JFrame {
         button9.setBounds(350, 0, 40, 40);
         URL resource9 =this.getClass().getClassLoader().getResource("images/piliang.png");
         String path9 = "src/main/resources/images/piliang.png";
-        ImageIcon icon9 = new ImageIcon(resource9.getPath());
+        ImageIcon icon9 = new ImageIcon(resource9);
         Image temp9 = icon9.getImage().getScaledInstance(button9.getWidth(), button9.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon9 = new ImageIcon(temp9);
         button9.setIcon(icon9);
@@ -195,7 +195,7 @@ public class MyFrame extends JFrame {
         search1.setBounds(600, 0, 20, 20);
         URL resourcese =this.getClass().getClassLoader().getResource("images/search.png");
         String searchs = "src/main/resources/images/search.png";
-        ImageIcon icons = new ImageIcon(resourcese.getPath());
+        ImageIcon icons = new ImageIcon(resourcese);
         Image temps = icons.getImage().getScaledInstance(search1.getWidth(), search1.getHeight(), Image.SCALE_AREA_AVERAGING);
         icons = new ImageIcon(temps);
         search1.setIcon(icons);
@@ -222,7 +222,7 @@ public class MyFrame extends JFrame {
         sb.setBounds(150, 0, 40, 40);
         sb.setVisible(true);
         URL resourcesb =this.getClass().getClassLoader().getResource("images/sb.png");
-        ImageIcon iconsb = new ImageIcon(resourcesb.getPath());
+        ImageIcon iconsb = new ImageIcon(resourcesb);
         Image tempsb = iconsb.getImage().getScaledInstance(sb.getWidth(), sb.getHeight(), Image.SCALE_AREA_AVERAGING);
         iconsb = new ImageIcon(tempsb);
         sb.setIcon(iconsb);
@@ -235,65 +235,64 @@ public class MyFrame extends JFrame {
             }
         });
         URL resource8 =this.getClass().getClassLoader().getResource("images/tupian.png");
-        ImageIcon icon8 = new ImageIcon(resource8.getPath());
+        ImageIcon icon8 = new ImageIcon(resource8);
 
         Image temp8 = icon8.getImage().getScaledInstance(button8.getWidth(), button8.getHeight(), Image.SCALE_AREA_AVERAGING);
-        System.out.println(temp8);
         icon8 = new ImageIcon(temp8);
         button8.setIcon(icon8);
 
         String path = "src/main/resources/images/huabi.png";
         URL resource =this.getClass().getClassLoader().getResource("images/huabi.png");
-        ImageIcon icon = new ImageIcon(resource.getPath());
+        ImageIcon icon = new ImageIcon(resource);
         Image temp = icon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon = new ImageIcon(temp);
         button.setIcon(icon);
 
         String path1 = "src/main/resources/images/changfangxing.png";
         URL resource1 =this.getClass().getClassLoader().getResource("images/changfangxing.png");
-        ImageIcon icon1 = new ImageIcon(resource1.getPath());
+        ImageIcon icon1 = new ImageIcon(resource1);
         Image temp1 = icon1.getImage().getScaledInstance(button1.getWidth(), button1.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon1 = new ImageIcon(temp1);
         button1.setIcon(icon1);
 
         String path2 = "src/main/resources/images/wenzi.png";
         URL resource2 =this.getClass().getClassLoader().getResource("images/wenzi.png");
-        ImageIcon icon2 = new ImageIcon(resource2.getPath());
+        ImageIcon icon2 = new ImageIcon(resource2);
         Image temp2 = icon2.getImage().getScaledInstance(button2.getWidth(), button2.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon2 = new ImageIcon(temp2);
         button2.setIcon(icon2);
 
         String path3 = "src/main/resources/images/xiangpica.png";
         URL resource3 =this.getClass().getClassLoader().getResource("images/xiangpica.png");
-        ImageIcon icon3 = new ImageIcon(resource3.getPath());
+        ImageIcon icon3 = new ImageIcon(resource3);
         Image temp3 = icon3.getImage().getScaledInstance(button3.getWidth(), button3.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon3 = new ImageIcon(temp3);
         button3.setIcon(icon3);
 
         String path4 = "src/main/resources/images/tuoyuan.png";
         URL resource4 =this.getClass().getClassLoader().getResource("images/tuoyuan.png");
-        ImageIcon icon4 = new ImageIcon(resource4.getPath());
+        ImageIcon icon4 = new ImageIcon(resource4);
         Image temp4 = icon4.getImage().getScaledInstance(button4.getWidth(), button4.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon4 = new ImageIcon(temp4);
         button4.setIcon(icon4);
 
         String path5 = "src/main/resources/images/zhixian.png";
         URL resource5 =this.getClass().getClassLoader().getResource("images/zhixian.png");
-        ImageIcon icon5 = new ImageIcon(resource5.getPath());
+        ImageIcon icon5 = new ImageIcon(resource5);
         Image temp5 = icon5.getImage().getScaledInstance(button5.getWidth(), button5.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon5 = new ImageIcon(temp5);
         button5.setIcon(icon5);
 
         String path6 = "src/main/resources/images/yuanjiaojuxing.png";
         URL resource6 =this.getClass().getClassLoader().getResource("images/yuanjiaojuxing.png");
-        ImageIcon icon6 = new ImageIcon(resource6.getPath());
+        ImageIcon icon6 = new ImageIcon(resource6);
         Image temp6 = icon6.getImage().getScaledInstance(button6.getWidth(), button6.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon6 = new ImageIcon(temp6);
         button6.setIcon(icon6);
 
         String path7 = "src/main/resources/images/jiantou.png";
         URL resource7 =this.getClass().getClassLoader().getResource("images/jiantou.png");
-        ImageIcon icon7 = new ImageIcon(resource7.getPath());
+        ImageIcon icon7 = new ImageIcon(resource7);
         Image temp7 = icon7.getImage().getScaledInstance(button7.getWidth(), button7.getHeight(), Image.SCALE_AREA_AVERAGING);
         icon7 = new ImageIcon(temp7);
         button7.setIcon(icon7);
@@ -397,7 +396,7 @@ public class MyFrame extends JFrame {
         sorting.setVisible(true);
         String sorting1 = "src/main/resources/images/sort.png";
         URL resources1 =this.getClass().getClassLoader().getResource("images/sort.png");
-        ImageIcon iconso = new ImageIcon(resources1.getPath());
+        ImageIcon iconso = new ImageIcon(resources1);
         Image tempso = iconso.getImage().getScaledInstance(sorting.getWidth(), sorting.getHeight(), Image.SCALE_AREA_AVERAGING);
         iconso = new ImageIcon(tempso);
         sorting.setIcon(iconso);
@@ -423,9 +422,7 @@ public class MyFrame extends JFrame {
                     page = 0;
                     for (int i = 0; i < searchPanels.size(); i++) {
                         List<MyComponent> second = new ArrayList<MyComponent>();
-                        second.clear();
-                        CanvasPanel searchpanel = new CanvasPanel();
-                        searchpanel = searchPanels.get(i);
+                        CanvasPanel searchpanel = searchPanels.get(i);
                         Component[] searchcomponent = searchpanel.getComponents();
                         for (Component x : searchcomponent) {
                             if (x instanceof MyComponent && x.getName().equals(module)) {
@@ -467,50 +464,50 @@ public class MyFrame extends JFrame {
                 List<CanvasPanel> searchPanels1 = new ArrayList<CanvasPanel>();
                 searchPanels1 = panels.returnPanels();
                 module = text.getText();
-                if (module.equals("")) {
-
-                } else if (searchPanels1.size() >= 1) {
-                    last.setVisible(true);
-                    next.setVisible(true);
-                    cancel.setVisible(true);
-                    search1.setVisible(false);
-                    search2.setVisible(false);
-                    searchComponent.clear();
-                    num = 0;
-                    page = 0;
-                    for (int i = 0; i < searchPanels1.size(); i++) {
-                        List<MyComponent> second1 = new ArrayList<MyComponent>();
-                        CanvasPanel searchpanel1 = searchPanels1.get(i);
-                        Component[] searchcomponent = searchpanel1.getComponents();
-                        for (Component x : searchcomponent) {
-                            if (x instanceof MyComponent && x.getName().contains(module)) {
-                                second1.add((MyComponent) x);
+                if (!module.equals("")) {
+                    if (searchPanels1.size() >= 1) {
+                        last.setVisible(true);
+                        next.setVisible(true);
+                        cancel.setVisible(true);
+                        search1.setVisible(false);
+                        search2.setVisible(false);
+                        searchComponent.clear();
+                        num = 0;
+                        page = 0;
+                        for (int i = 0; i < searchPanels1.size(); i++) {
+                            List<MyComponent> second1 = new ArrayList<MyComponent>();
+                            CanvasPanel searchpanel1 = searchPanels1.get(i);
+                            Component[] searchcomponent = searchpanel1.getComponents();
+                            for (Component x : searchcomponent) {
+                                if (x instanceof MyComponent && x.getName().contains(module)) {
+                                    second1.add((MyComponent) x);
+                                }
                             }
+                            searchComponent.add(second1);
                         }
-                        searchComponent.add(second1);
-                    }
-                    for (int i = 0; i < searchComponent.size(); i++) {
-                        if (searchComponent.get(i).size() == 0) {
-                            page++;
-                            if ((page == searchComponent.size() - 1) && searchComponent.get(page).size() == 0) {
-                                search1.setVisible(true);
-                                search2.setVisible(true);
-                                last.setVisible(false);
-                                next.setVisible(false);
-                                cancel.setVisible(false);
-                                searchComponent.clear();
-                            } else if (page > searchComponent.size() - 1) {
-                                search1.setVisible(true);
-                                search2.setVisible(true);
-                                last.setVisible(false);
-                                next.setVisible(false);
-                                cancel.setVisible(false);
-                                searchComponent.clear();
+                        for (int i = 0; i < searchComponent.size(); i++) {
+                            if (searchComponent.get(i).size() == 0) {
+                                page++;
+                                if ((page == searchComponent.size() - 1) && searchComponent.get(page).size() == 0) {
+                                    search1.setVisible(true);
+                                    search2.setVisible(true);
+                                    last.setVisible(false);
+                                    next.setVisible(false);
+                                    cancel.setVisible(false);
+                                    searchComponent.clear();
+                                } else if (page > searchComponent.size() - 1) {
+                                    search1.setVisible(true);
+                                    search2.setVisible(true);
+                                    last.setVisible(false);
+                                    next.setVisible(false);
+                                    cancel.setVisible(false);
+                                    searchComponent.clear();
+                                }
+                            } else {
+                                jlist.setCurrentPanel(page);
+                                searchComponent.get(page).get(num).getFocus();
+                                break;
                             }
-                        } else {
-                            jlist.setCurrentPanel(page);
-                            searchComponent.get(page).get(num).getFocus();
-                            break;
                         }
                     }
                 }
