@@ -425,8 +425,14 @@ public class MyFrame extends JFrame {
                         CanvasPanel searchpanel = searchPanels.get(i);
                         Component[] searchcomponent = searchpanel.getComponents();
                         for (Component x : searchcomponent) {
-                            if (x instanceof MyComponent && x.getName().equals(module)) {
-                                second.add((MyComponent) x);
+                            if (x instanceof MyComponent ) {
+                                if(x instanceof MyImage || x instanceof MySelectArea){
+                                    continue;
+                                }
+                                if(x.getName().equals(module)){
+                                    second.add((MyComponent) x);
+                                }
+
                             }
                         }
                         searchComponent.add(second);
@@ -479,8 +485,14 @@ public class MyFrame extends JFrame {
                             CanvasPanel searchpanel1 = searchPanels1.get(i);
                             Component[] searchcomponent = searchpanel1.getComponents();
                             for (Component x : searchcomponent) {
-                                if (x instanceof MyComponent && x.getName().contains(module)) {
-                                    second1.add((MyComponent) x);
+                                if (x instanceof MyComponent ) {
+                                    if(x instanceof MyImage || x instanceof MySelectArea){
+                                        continue;
+                                    }
+                                    if(x.getName().contains(module)){
+                                        second1.add((MyComponent) x);
+                                    }
+
                                 }
                             }
                             searchComponent.add(second1);
